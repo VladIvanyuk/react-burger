@@ -14,3 +14,7 @@
     color: inherit;
     cursor: pointer;
 }
+
+.navItem:last-child {
+    margin-left: 100%;
+}

@@ -19,7 +19,7 @@ export const AppHeader = (props) => {
           <p className="text text_type_main-default text_color_inactive pl-2">Лента заказов</p>
         </button>
         <Logo />
-        <button type="button" className={`${styles.navItem} pt-5 pb-5 pl-4 pr-4`} style={{marginLeft: 'auto'}}>
+        <button type="button" className={`${styles.navItem} pt-5 pb-5 pl-4 pr-4`}>
           <ProfileIcon type="secondary" />
           <p className="text text_type_main-default text_color_inactive pl-2">Личный кабинет</p>
         </button>
