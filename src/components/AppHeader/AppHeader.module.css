@@ -1,0 +1,16 @@
+.nav {
+    max-width: 1240px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.navItem {
+    display: flex;
+    padding: 0;
+    background-color: inherit;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+}
