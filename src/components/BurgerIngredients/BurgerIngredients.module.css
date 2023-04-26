@@ -1,0 +1,8 @@
+.ingredientsBlock {
+    max-width: 600px;
+    width: 100%;
+}
+
+.tabs {
+    display: flex;
+}
