@@ -1,7 +1,7 @@
-import styles from "./BurgerIngredients.module.css";
+import styles from "./burger-ingredients.module.css";
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IngredientList } from "../IngredientList/IngredientList";
+import { IngredientList } from "../ingredients-list/ingredients-list";
 
 export const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = React.useState("one");

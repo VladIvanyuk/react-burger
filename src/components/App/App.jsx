@@ -1,7 +1,7 @@
-import { AppHeader } from "../AppHeader/AppHeader";
-import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor";
-import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients";
-import styles from "./App.module.css";
+import { AppHeader } from "../app-header/app-header";
+import { BurgerConstructor } from "../burger-constructor/burger-constructor";
+import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
+import styles from "./app.module.css";
 import { data } from "../../utils/data";
 
 export const App = (props) => {
