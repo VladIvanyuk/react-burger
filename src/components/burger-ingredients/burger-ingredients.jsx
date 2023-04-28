@@ -35,23 +35,10 @@ export const BurgerIngredients = ({ data }) => {
       <div className={`${styles.tabs} mb-10`}>
         {tabsList}
       </div>
-      <div className='pt-6 pl-4 pb-10 pr-4'>
-        <h2 className="text text_type_main-medium">Булки</h2>
-        <div style={{display: 'flex'}}>
-          <IngredientList ingredientInfo={bunFilter}/>
-        </div>
-      </div>
-      <div className='pt-6 pl-4 pb-10 pr-4'>
-        <h2 className="text text_type_main-medium">Соусы</h2>
-        <div style={{display: 'flex'}}>
-          <IngredientList ingredientInfo={sauceFilter}/>
-        </div>
-      </div>
-      <div className='pt-6 pl-4 pb-10 pr-4'>
-        <h2 className="text text_type_main-medium">Начинки</h2>
-        <div style={{display: 'flex'}}>
-          <IngredientList ingredientInfo={mainFilter}/>
-        </div>
+      <div className={styles.listBlock}>
+        <IngredientList ingredientsInfo={bunFilter} name='Булки'/>
+        <IngredientList ingredientsInfo={sauceFilter} name='Соусы'/>
+        <IngredientList ingredientsInfo={mainFilter} name='Начинки'/>
       </div>
     </section>
   );
