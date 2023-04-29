@@ -14,7 +14,7 @@ export const App = (props) => {
         <h2 className="text text_type_main-large mb-5">Соберите бургер</h2>
         <section className={styles.burgerBlock}>
           <BurgerIngredients data={data} />
-          <BurgerConstructor />
+          <BurgerConstructor data={data}/>
         </section>
       </main>
     </div>

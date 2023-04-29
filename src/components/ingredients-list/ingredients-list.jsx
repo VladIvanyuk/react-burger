@@ -1,9 +1,7 @@
-import { BurgerConstructor } from '../burger-constructor/burger-constructor';
 import styles from './ingredients-list.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
 export const IngredientList = ({ ingredientsInfo, name }) => {
-  console.log(ingredientsInfo)
   const ingredientsList = ingredientsInfo.map((item) => (
     <li key={item._id} className={styles.item}>
       <Counter count={1} size='default' extraClass="m-1"/>
@@ -22,9 +20,8 @@ export const IngredientList = ({ ingredientsInfo, name }) => {
   return (
     <div>
       <h2 className="text text_type_main-medium">{name}</h2>
-      <ul className={`${styles.list} pt-6 pr-4 pl-4`}>
+      <ul className={`${styles.list} pt-6 pr-1 pl-4`}>
         {ingredientsList}
-        {BurgerConstructor}
       </ul>
     </div>
   );

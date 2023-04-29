@@ -19,7 +19,7 @@
 }
 
 .listBlock::-webkit-scrollbar {
-    width: 12px;
+    width: 8px;
 }
 
 .listBlock::-webkit-scrollbar-track {
