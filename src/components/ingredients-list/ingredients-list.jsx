@@ -1,5 +1,7 @@
 import styles from './ingredients-list.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ingredientTypes } from '../../utils/prop-types';
+import PropTypes from 'prop-types';
 
 export const IngredientList = ({ ingredientsInfo, name }) => {
   const ingredientsList = ingredientsInfo.map((item) => (
@@ -25,4 +27,9 @@ export const IngredientList = ({ ingredientsInfo, name }) => {
       </ul>
     </div>
   );
+};
+
+IngredientList.propTypes = {
+  ingredientsInfo: ingredientTypes.data,
+  name: PropTypes.string
 };
