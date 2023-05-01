@@ -1,0 +1,14 @@
+.app {
+    max-width: 1920px;
+    padding: 40px;
+}
+
+.main {
+    max-width: 1272px;
+    margin: 0 auto;
+}
+
+.burgerBlock {
+    display: flex;
+    justify-content: space-between;
+}

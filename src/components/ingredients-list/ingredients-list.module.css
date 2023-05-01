@@ -1,0 +1,31 @@
+.list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+}
+
+.item {
+    width: 272px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+}
+
+.itemText {
+    min-height: 48px;
+    text-align: center;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.counter {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

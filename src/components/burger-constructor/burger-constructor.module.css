@@ -1,0 +1,63 @@
+.constructorBlock {
+    max-width: 600px;
+    width: 100%;
+    gap: 10px;
+}
+
+.constructor {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.scrollBlock {
+    width: 100%;
+    height: 480px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.scrollBlock::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+
+}
+
+.scrollBlock::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollBlock::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.scrollBlock div:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.price svg {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    margin-left: 8px;
+    margin-right: 40px;
+}
+
+.priceBlock {
+    display: flex;
+    justify-content: end;
+}
+
+.element {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.locked {
+    margin-right: 16px;
+}

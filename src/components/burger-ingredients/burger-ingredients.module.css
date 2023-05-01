@@ -1,0 +1,27 @@
+.ingredientsBlock {
+    max-width: 600px;
+    width: 100%;
+}
+
+.tabs {
+    display: flex;
+}
+
+.listBlock {
+    height: 686px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.listBlock::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+
+}
+
+.listBlock::-webkit-scrollbar {
+    width: 8px;
+}
+
+.listBlock::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
