@@ -3,8 +3,29 @@ import { BurgerConstructor } from "../burger-constructor/burger-constructor";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
 import styles from "./app.module.css";
 import { data } from "../../utils/data";
+import { useEffect, useState } from 'react';
 
 export const App = (props) => {
+
+  const [data, setData] = useState([]);
+  const DATA_URL = 'https://norma.nomoreparties.space/api/ingredients';
+
+  // получаем список ингридиентов
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetch (DATA_URL);
+        const { data } = await response.json();
+        console.log(data)
+        setData(data);
+      } catch {
+        console.log('Ошибка загрузки данных');
+      }
+    }
+
+    getData();
+  }, []);
+
   return (
     <div className={styles.app}>
       <header className="pt-4 pb-4 mb-10">
