@@ -1,8 +1,10 @@
 import { AppHeader } from "../app-header/app-header";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
+import { OrderDetails } from "../order-details/order-details";
+import { Modal } from "../modal/modal";
 import styles from "./app.module.css";
-import { data } from "../../utils/data";
+// import { data } from "../../utils/data";fwe
 import { useEffect, useState } from 'react';
 
 export const App = (props) => {
@@ -22,12 +24,14 @@ export const App = (props) => {
         console.log('Ошибка загрузки данных');
       }
     }
-
     getData();
   }, []);
 
   return (
     <div className={styles.app}>
+      <Modal>
+        <OrderDetails />
+      </Modal>
       <header className="pt-4 pb-4 mb-10">
         <AppHeader />
       </header>
