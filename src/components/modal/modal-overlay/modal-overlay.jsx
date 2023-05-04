@@ -1,11 +1,11 @@
 import styles from "./modal-overlay.module.css";
 import { createPortal } from "react-dom";
 
-export const ModalOverlay = ({ onCloseModal }) => {
+export const ModalOverlay = ({ onShowModal }) => {
   return createPortal(
     (
       <>
-        <div onClick={onCloseModal} className={styles.backdrop}></div>
+        <div onClick={() => onShowModal(false)} className={styles.backdrop}></div>
       </>
     ),
     document.getElementById("overlay")
