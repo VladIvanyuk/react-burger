@@ -3,13 +3,14 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import { ingredientTypes } from '../../utils/prop-types';
 import PropTypes from 'prop-types';
 
-export const IngredientList = ({ getIngredient, onShowModal, ingredientsInfo, name }) => {
+export const IngredientList = ({ getModalType, getIngredient, onShowModal, ingredientsInfo, name }) => {
 
   // по клику на ингредиент находим его в общем списке и сохраняем
   const findCurrentIngredient = (id) => {
     const clickedIngredient = ingredientsInfo.find((el) => el._id === id);
     onShowModal(true);
     getIngredient(clickedIngredient);
+    getModalType('ingredient');
   }
 
   const ingredientsList = ingredientsInfo.map((item) => (
