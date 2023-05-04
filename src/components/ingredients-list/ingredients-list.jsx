@@ -4,8 +4,15 @@ import { ingredientTypes } from '../../utils/prop-types';
 import PropTypes from 'prop-types';
 
 export const IngredientList = ({ ingredientsInfo, name }) => {
+
+  // по клику на ингредиент находим его в общем списке и сохраняем
+  const findCurrentIngredient = (id) => {
+    const clickedIngredient = ingredientsInfo.find((el) => el._id === id);
+    
+  }
+
   const ingredientsList = ingredientsInfo.map((item) => (
-    <li key={item._id} className={styles.item}>
+    <li onClick={() => findCurrentIngredient(item._id)} key={item._id} className={styles.item}>
       <Counter count={1} size='default' extraClass="m-1"/>
       <img className='mb-1' src={item.image} alt="Ингридиент"/>
       <div className={`${styles.price} mb-1`}>

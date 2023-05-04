@@ -2,6 +2,7 @@ import { AppHeader } from "../app-header/app-header";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
 import { OrderDetails } from "../order-details/order-details";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { Modal } from "../modal/modal";
 import styles from "./app.module.css";
 // import { data } from "../../utils/data";fwe
@@ -36,7 +37,7 @@ export const App = (props) => {
     <div className={styles.app}>
       {!isModal && (
         <Modal onCloseModal={onCloseModalHandler}>
-          <OrderDetails />
+          <IngredientDetails />
         </Modal>
       )}
       <header className="pt-4 pb-4 mb-10">

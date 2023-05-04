@@ -1,0 +1,16 @@
+.ingredientBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.list {
+    display: flex;
+    list-style-type: none;
+    margin-top: 0;
+    padding: 0;
+}
+
+.item {
+    text-align: center;
+}
