@@ -2,7 +2,8 @@ import styles from "./burger-ingredients.module.css";
 import React, { useMemo } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientList } from "../ingredients-list/ingredients-list";
-import { ingredientTypes } from "../../utils/prop-types";
+import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
+import PropTypes from 'prop-types';
 
 export const BurgerIngredients = ({ data, onShowModal, getIngredient, getModalType }) => {
   const [current, setCurrent] = React.useState("one");
@@ -45,4 +46,8 @@ export const BurgerIngredients = ({ data, onShowModal, getIngredient, getModalTy
   );
 };
 
-BurgerIngredients.propTypes = ingredientTypes;
+BurgerIngredients.propTypes = {
+  ...ingredientsListTypes,
+  ...modalTypes,
+  getIngredient: PropTypes.func,
+}

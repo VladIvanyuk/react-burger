@@ -1,6 +1,6 @@
 import styles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientTypes } from "../../utils/prop-types";
+import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
 
 export const BurgerConstructor = ({ data, getModalType, onShowModal }) => {
 
@@ -55,4 +55,7 @@ export const BurgerConstructor = ({ data, getModalType, onShowModal }) => {
   );
 };
 
-BurgerConstructor.propTypes = ingredientTypes;
+BurgerConstructor.propTypes = { 
+  ...ingredientsListTypes,
+  ...modalTypes
+}

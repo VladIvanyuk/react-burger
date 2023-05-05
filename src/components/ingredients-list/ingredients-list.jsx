@@ -1,6 +1,6 @@
 import styles from './ingredients-list.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientTypes } from '../../utils/prop-types';
+import { ingredientsListTypes, modalTypes } from '../../utils/prop-types';
 import PropTypes from 'prop-types';
 
 export const IngredientList = ({ getModalType, getIngredient, onShowModal, ingredientsInfo, name }) => {
@@ -39,6 +39,8 @@ export const IngredientList = ({ getModalType, getIngredient, onShowModal, ingre
 };
 
 IngredientList.propTypes = {
-  ingredientsInfo: ingredientTypes.data,
-  name: PropTypes.string
+  ...modalTypes,
+  ingredientsInfo: ingredientsListTypes.data,
+  name: PropTypes.string,
+  getIngredient: PropTypes.func,
 };

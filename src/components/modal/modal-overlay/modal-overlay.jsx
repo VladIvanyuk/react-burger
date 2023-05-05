@@ -1,5 +1,6 @@
 import styles from "./modal-overlay.module.css";
 import { createPortal } from "react-dom";
+import { modalTypes } from "../../../utils/prop-types.js";
 
 export const ModalOverlay = ({ onShowModal }) => {
   return createPortal(
@@ -11,3 +12,7 @@ export const ModalOverlay = ({ onShowModal }) => {
     document.getElementById("overlay")
   );
 };
+
+ModalOverlay.propTypes = {
+  onShowModal: modalTypes.onShowModal
+}

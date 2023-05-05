@@ -3,8 +3,11 @@ import { ModalOverlay } from "./modal-overlay/modal-overlay";
 import { createPortal } from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect } from "react";
+import { modalTypes } from "../../utils/prop-types";
+import PropTypes from 'prop-types'
 
 export const Modal = ({ onShowModal, ...props }) => {
+  console.log(props)
   useEffect(() => {
     // по нажатию на ESC закрываем модалку
     const closeModalWithESC = (e) => {
@@ -33,3 +36,8 @@ export const Modal = ({ onShowModal, ...props }) => {
     document.getElementById("modal")
   );
 };
+
+Modal.propTypes = {
+  onShowModal: modalTypes.onShowModal,
+  props: PropTypes.object
+}

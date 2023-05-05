@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
-const ingredientTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
+const ingredientType = {
+    ingredient: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
@@ -14,7 +14,16 @@ const ingredientTypes = {
         image_mobile: PropTypes.string.isRequired,
         image_large: PropTypes.string.isRequired,
         __v: PropTypes.number.isRequired
-    })).isRequired
+    })
 }
 
-export { ingredientTypes }
+const ingredientsListTypes = {
+    data: PropTypes.arrayOf(ingredientType.ingredient).isRequired
+}
+
+const modalTypes = {
+    onShowModal: PropTypes.func,
+    getModalType: PropTypes.func
+}
+
+export { ingredientsListTypes, modalTypes, ingredientType }
