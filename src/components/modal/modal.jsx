@@ -39,5 +39,5 @@ export const Modal = ({ onShowModal, ...props }) => {
 
 Modal.propTypes = {
   onShowModal: modalTypes.onShowModal,
-  props: PropTypes.object
+  children: PropTypes.object
 }
