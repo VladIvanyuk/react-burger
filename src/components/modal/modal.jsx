@@ -7,7 +7,6 @@ import { modalTypes } from "../../utils/prop-types";
 import PropTypes from 'prop-types'
 
 export const Modal = ({ onShowModal, ...props }) => {
-  console.log(props)
   useEffect(() => {
     // по нажатию на ESC закрываем модалку
     const closeModalWithESC = (e) => {
