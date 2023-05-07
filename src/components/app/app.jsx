@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { getData } from "../../utils/burger-api";
 
 export const App = (props) => {
-  const DATA_URL = "https://norma.nomoreparties.space/api/ingredients1";
+  const DATA_URL = "https://norma.nomoreparties.space/api/ingredients";
 
   const [data, setData] = useState([]);
   const [isModal, setIsModal] = useState(false);
