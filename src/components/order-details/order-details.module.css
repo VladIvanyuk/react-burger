@@ -1,0 +1,16 @@
+.orderBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.check {
+    padding: 35px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.check svg {
+    height: 48px;
+    width: 48px;
+}

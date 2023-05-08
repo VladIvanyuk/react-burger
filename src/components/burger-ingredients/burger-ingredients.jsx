@@ -2,9 +2,10 @@ import styles from "./burger-ingredients.module.css";
 import React, { useMemo } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientList } from "../ingredients-list/ingredients-list";
-import { ingredientTypes } from "../../utils/prop-types";
+import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
+import PropTypes from 'prop-types';
 
-export const BurgerIngredients = ({ data }) => {
+export const BurgerIngredients = ({ data, onShowModal, getIngredient, getModalType }) => {
   const [current, setCurrent] = React.useState("one");
   const bunFilter = useMemo(() => data.filter((item) => item.type === 'bun'), [data]);
   const sauceFilter = useMemo(() => data.filter((item) => item.type === 'sauce'), [data]);
@@ -37,12 +38,16 @@ export const BurgerIngredients = ({ data }) => {
         {tabsList}
       </div>
       <div className={styles.listBlock}>
-        <IngredientList ingredientsInfo={bunFilter} name='Булки'/>
-        <IngredientList ingredientsInfo={sauceFilter} name='Соусы'/>
-        <IngredientList ingredientsInfo={mainFilter} name='Начинки'/>
+        <IngredientList ingredientsInfo={bunFilter} name='Булки' onShowModal={onShowModal} getIngredient={getIngredient} getModalType={getModalType}/>
+        <IngredientList ingredientsInfo={sauceFilter} name='Соусы' onShowModal={onShowModal} getIngredient={getIngredient} getModalType={getModalType}/>
+        <IngredientList ingredientsInfo={mainFilter} name='Начинки' onShowModal={onShowModal} getIngredient={getIngredient} getModalType={getModalType}/>
       </div>
     </section>
   );
 };
 
-BurgerIngredients.propTypes = ingredientTypes;
+BurgerIngredients.propTypes = {
+  ...ingredientsListTypes,
+  ...modalTypes,
+  getIngredient: PropTypes.func,
+}

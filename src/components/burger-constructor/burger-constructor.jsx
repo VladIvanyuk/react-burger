@@ -1,8 +1,14 @@
 import styles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientTypes } from "../../utils/prop-types";
+import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
 
-export const BurgerConstructor = ({ data }) => {
+export const BurgerConstructor = ({ data, getModalType, onShowModal }) => {
+
+  const showModal = () => {
+    onShowModal(true);
+    getModalType('order');
+  };
+
   const mainsList = data.filter((el) => el.type === 'main').map((el) => (
     <div key={el._id} className={styles.element}>
       <DragIcon />
@@ -12,7 +18,7 @@ export const BurgerConstructor = ({ data }) => {
         thumbnail={el.image}
       />
     </div>
-  ))
+  ));
   return (
     <section className={`${styles.constructorBlock} pr-1 pl-2`}>
       <div className={`${styles.constructor} mb-10`}>
@@ -41,7 +47,7 @@ export const BurgerConstructor = ({ data }) => {
       </div>
       <div className={styles.priceBlock}>
         <p className={`${styles.price} text text_type_digits-medium`}>610 <CurrencyIcon /></p>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large" onClick={showModal}>
           Нажми на меня
         </Button>
       </div>
@@ -49,4 +55,7 @@ export const BurgerConstructor = ({ data }) => {
   );
 };
 
-BurgerConstructor.propTypes = ingredientTypes;
+BurgerConstructor.propTypes = { 
+  ...ingredientsListTypes,
+  ...modalTypes
+}
