@@ -2,8 +2,6 @@ import styles from "./burger-ingredients.module.css";
 import React, { useMemo, useContext } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientList } from "../ingredients-list/ingredients-list";
-// import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
-// import PropTypes from 'prop-types';
 import { AppContext } from "../../services/appContext";
 
 export const BurgerIngredients = () => {
@@ -47,9 +45,3 @@ export const BurgerIngredients = () => {
     </section>
   );
 };
-
-// BurgerIngredients.propTypes = {
-//   ...ingredientsListTypes,
-//   ...modalTypes,
-//   getIngredient: PropTypes.func,
-// }

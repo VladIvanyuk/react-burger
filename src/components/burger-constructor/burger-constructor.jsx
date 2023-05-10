@@ -1,5 +1,5 @@
 import styles from './burger-constructor.module.css';
-import { useContext, useEffect, useReducer } from 'react';
+import { useContext, useEffect, useReducer, useMemo } from 'react';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 // import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
 import { AppContext } from '../../services/appContext';
@@ -16,22 +16,24 @@ function reducer(state, action) {
   }
 }
 
-
 export const BurgerConstructor = () => {
 
   const ORDERS_URL = 'https://norma.nomoreparties.space/api/orders';
 
   const { constructorList, getModalTypeHandler, onShowModalHandler, setOrderNumber } = useContext(AppContext);
   const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
-  const indgredientsIdList = constructorList.map((el) => el._id);
+
+  const indgredientsIdList = useMemo(() => constructorList.map((el) => el._id), [constructorList]);
 
   const sendData = () => {
+    // делаем запрос к АПИ и сохраняем номер заказа для модалки
     postData(ORDERS_URL, { ingredients: indgredientsIdList }).then((data) => setOrderNumber(data.order.number));
     onShowModalHandler(true);
     getModalTypeHandler('order');
   };
 
   useEffect(() => {
+    // считаем общую стоимость ингридиентов
     let result = constructorList.reduce((acc, cur) => acc + cur.price, 0);
     orderSumDispatcher({type: 'calculate', sum: result})
   }, [constructorList]);
@@ -86,8 +88,3 @@ export const BurgerConstructor = () => {
     </section>
   );
 };
-
-// BurgerConstructor.propTypes = { 
-//   ...ingredientsListTypes,
-//   ...modalTypes
-// }

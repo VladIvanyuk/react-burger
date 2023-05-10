@@ -5,7 +5,6 @@ import { OrderDetails } from "../order-details/order-details";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { Modal } from "../modal/modal";
 import styles from "./app.module.css";
-// import { data } from "../../utils/data";fwe
 import { useEffect, useState } from "react";
 import { getData } from "../../utils/burger-api";
 import { AppContext } from "../../services/appContext";
@@ -20,7 +19,7 @@ export const App = (props) => {
   const [isError, setIsError] = useState(true);
   const [isLoading, setIsLodaing] = useState(false);
   const [constructorList, setConstructorList] = useState([]);
-  const [orderNumber, setOrderNumber] = useState('');
+  const [orderNumber, setOrderNumber] = useState(null);
 
   const onShowModalHandler = (value) => {
     setIsModal(value);
