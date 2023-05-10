@@ -8,6 +8,7 @@ import { AppContext } from '../../services/appContext';
 export const IngredientList = ({ name, ingredientsInfo }) => {
 
   const { getModalTypeHandler, getIngredientHandler, onShowModalHandler } = useContext(AppContext);
+  console.log(ingredientsInfo)
 
   // по клику на ингредиент находим его в общем списке и сохраняем
   const findCurrentIngredient = (id) => {

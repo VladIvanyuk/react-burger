@@ -20,6 +20,7 @@ export const App = (props) => {
   const [isError, setIsError] = useState(true);
   const [isLoading, setIsLodaing] = useState(false);
   const [constructorList, setConstructorList] = useState([]);
+  const [orderNumber, setOrderNumber] = useState('');
 
   const onShowModalHandler = (value) => {
     setIsModal(value);
@@ -36,7 +37,7 @@ export const App = (props) => {
   const findModalType = (type) => {
     switch (type) {
       case "order":
-        return <OrderDetails />;
+        return <OrderDetails orderNumber={orderNumber} />;
       case "ingredient":
         return <IngredientDetails ingredient={ingredientForModal} />;
       default:
@@ -60,7 +61,7 @@ export const App = (props) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{data, constructorList, onShowModalHandler, getIngredientHandler, getModalTypeHandler}}>
+    <AppContext.Provider value={{data, constructorList, onShowModalHandler, getIngredientHandler, getModalTypeHandler, setOrderNumber}}>
       <div className={styles.app}>
         {isModal && (
           <Modal onShowModal={onShowModalHandler}>

@@ -3,6 +3,7 @@ import { useContext, useEffect, useReducer } from 'react';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 // import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
 import { AppContext } from '../../services/appContext';
+import { postData } from '../../utils/burger-api';
 
 const initialOrderSum = { sum: 0 };
 
@@ -15,12 +16,17 @@ function reducer(state, action) {
   }
 }
 
+
 export const BurgerConstructor = () => {
 
-  const { constructorList, getModalTypeHandler, onShowModalHandler } = useContext(AppContext);
-  const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
+  const ORDERS_URL = 'https://norma.nomoreparties.space/api/orders';
 
-  const showModal = () => {
+  const { constructorList, getModalTypeHandler, onShowModalHandler, setOrderNumber } = useContext(AppContext);
+  const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
+  const indgredientsIdList = constructorList.map((el) => el._id);
+
+  const sendData = () => {
+    postData(ORDERS_URL, { ingredients: indgredientsIdList }).then((data) => setOrderNumber(data.order.number));
     onShowModalHandler(true);
     getModalTypeHandler('order');
   };
@@ -73,7 +79,7 @@ export const BurgerConstructor = () => {
       </div>
       <div className={styles.priceBlock}>
         <p className={`${styles.price} text text_type_digits-medium`}>{orderSum.sum}<CurrencyIcon /></p>
-        <Button htmlType="button" type="primary" size="large" onClick={showModal}>
+        <Button htmlType="button" type="primary" size="large" onClick={sendData}>
           Нажми на меня
         </Button>
       </div>
