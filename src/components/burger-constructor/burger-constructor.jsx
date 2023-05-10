@@ -1,17 +1,34 @@
 import styles from './burger-constructor.module.css';
-import { useContext } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 // import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
 import { AppContext } from '../../services/appContext';
 
+const initialOrderSum = {sum: 0};
+
+function reducer(state, action) {
+  switch(action.type) {
+    case 'calculate':
+      return {sum: state.sum + action.sum}
+    default:
+      throw new Error(`Wrong type of action: ${action.type}`);
+  }
+}
+
 export const BurgerConstructor = () => {
 
   const { constructorList, getModalTypeHandler, onShowModalHandler } = useContext(AppContext);
+  const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
 
   const showModal = () => {
     onShowModalHandler(true);
     getModalTypeHandler('order');
   };
+
+  useEffect(() => {
+    let result = constructorList.reduce((acc, cur) => acc + cur.price, 0);
+    orderSumDispatcher({type: 'calculate', sum: result})
+  }, [constructorList]);
 
   // фильтруем и сохраняем все ингридиенты кроме булок
   const ingredientsList = constructorList.filter((el) => el.type !== 'bun').map((el) => (
@@ -55,7 +72,7 @@ export const BurgerConstructor = () => {
         </div>
       </div>
       <div className={styles.priceBlock}>
-        <p className={`${styles.price} text text_type_digits-medium`}>610 <CurrencyIcon /></p>
+        <p className={`${styles.price} text text_type_digits-medium`}>{orderSum.sum}<CurrencyIcon /></p>
         <Button htmlType="button" type="primary" size="large" onClick={showModal}>
           Нажми на меня
         </Button>

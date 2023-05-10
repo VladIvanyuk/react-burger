@@ -30,7 +30,7 @@ export const Modal = ({ onShowModal, ...props }) => {
         </div>
         {props.children}
       </div>
-      <ModalOverlay onShowModal={() => onShowModal(false)} />
+      <ModalOverlay onShowModal={onShowModal} />
     </>,
     document.getElementById("modal")
   );

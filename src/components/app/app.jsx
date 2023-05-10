@@ -51,7 +51,7 @@ export const App = (props) => {
         setData(data.data);
         setIsLodaing(true);
         // как будто мы уже добавили ингридиенты в конструктор
-        setConstructorList([data.data[0], data.data[2], data.data[4], data.data[5], data.data[8], data.data[10], data.data[11], data.data[12]])
+        setConstructorList([data.data[0], data.data[2], data.data[4], data.data[5], data.data[8], data.data[10], data.data[11], data.data[12], data.data[13]])
       })
       .catch(() => {
         setIsError(false);
@@ -77,8 +77,8 @@ export const App = (props) => {
                 Соберите бургер
               </h2>
               <section className={styles.burgerBlock}>
-                <BurgerIngredients/>
-                <BurgerConstructor/>
+                <BurgerIngredients />
+                <BurgerConstructor />
               </section>
             </main>
           </>
