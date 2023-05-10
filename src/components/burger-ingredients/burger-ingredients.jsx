@@ -1,11 +1,13 @@
 import styles from "./burger-ingredients.module.css";
-import React, { useMemo } from "react";
+import React, { useMemo, useContext } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientList } from "../ingredients-list/ingredients-list";
-import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
-import PropTypes from 'prop-types';
+// import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
+// import PropTypes from 'prop-types';
+import { AppContext } from "../../services/appContext";
 
-export const BurgerIngredients = ({ data, onShowModal, getIngredient, getModalType }) => {
+export const BurgerIngredients = () => {
+  const { data } = useContext(AppContext);
   const [current, setCurrent] = React.useState("one");
   const bunFilter = useMemo(() => data.filter((item) => item.type === 'bun'), [data]);
   const sauceFilter = useMemo(() => data.filter((item) => item.type === 'sauce'), [data]);
@@ -38,16 +40,16 @@ export const BurgerIngredients = ({ data, onShowModal, getIngredient, getModalTy
         {tabsList}
       </div>
       <div className={styles.listBlock}>
-        <IngredientList ingredientsInfo={bunFilter} name='Булки' onShowModal={onShowModal} getIngredient={getIngredient} getModalType={getModalType}/>
-        <IngredientList ingredientsInfo={sauceFilter} name='Соусы' onShowModal={onShowModal} getIngredient={getIngredient} getModalType={getModalType}/>
-        <IngredientList ingredientsInfo={mainFilter} name='Начинки' onShowModal={onShowModal} getIngredient={getIngredient} getModalType={getModalType}/>
+        <IngredientList ingredientsInfo={bunFilter} name='Булки'/>
+        <IngredientList ingredientsInfo={sauceFilter} name='Соусы'/>
+        <IngredientList ingredientsInfo={mainFilter} name='Начинки'/>
       </div>
     </section>
   );
 };
 
-BurgerIngredients.propTypes = {
-  ...ingredientsListTypes,
-  ...modalTypes,
-  getIngredient: PropTypes.func,
-}
+// BurgerIngredients.propTypes = {
+//   ...ingredientsListTypes,
+//   ...modalTypes,
+//   getIngredient: PropTypes.func,
+// }

@@ -1,15 +1,20 @@
 import styles from './burger-constructor.module.css';
+import { useContext } from 'react';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
+// import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
+import { AppContext } from '../../services/appContext';
 
-export const BurgerConstructor = ({ data, getModalType, onShowModal }) => {
+export const BurgerConstructor = () => {
+
+  const { constructorList, getModalTypeHandler, onShowModalHandler } = useContext(AppContext);
 
   const showModal = () => {
-    onShowModal(true);
-    getModalType('order');
+    onShowModalHandler(true);
+    getModalTypeHandler('order');
   };
 
-  const mainsList = data.filter((el) => el.type === 'main').map((el) => (
+  // фильтруем и сохраняем все ингридиенты кроме булок
+  const ingredientsList = constructorList.filter((el) => el.type !== 'bun').map((el) => (
     <div key={el._id} className={styles.element}>
       <DragIcon />
       <ConstructorElement
@@ -19,6 +24,10 @@ export const BurgerConstructor = ({ data, getModalType, onShowModal }) => {
       />
     </div>
   ));
+
+  // отдельно сохраняем булки
+  const bun = constructorList.find((el) => el.type === 'bun');
+
   return (
     <section className={`${styles.constructorBlock} pr-1 pl-2`}>
       <div className={`${styles.constructor} mb-10`}>
@@ -27,21 +36,21 @@ export const BurgerConstructor = ({ data, getModalType, onShowModal }) => {
             className='mb-4'
             type="top"
             isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={200}
-            thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
           />
         </div>
         <div className={`${styles.scrollBlock} mb-4 pt-4 pr-2`}>
-          {mainsList}
+          {ingredientsList}
         </div>
         <div className='mr-4'>
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image}
           />
         </div>
       </div>
@@ -55,7 +64,7 @@ export const BurgerConstructor = ({ data, getModalType, onShowModal }) => {
   );
 };
 
-BurgerConstructor.propTypes = { 
-  ...ingredientsListTypes,
-  ...modalTypes
-}
+// BurgerConstructor.propTypes = { 
+//   ...ingredientsListTypes,
+//   ...modalTypes
+// }
