@@ -4,12 +4,12 @@ import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktiku
 // import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
 import { AppContext } from '../../services/appContext';
 
-const initialOrderSum = {sum: 0};
+const initialOrderSum = { sum: 0 };
 
 function reducer(state, action) {
   switch(action.type) {
     case 'calculate':
-      return {sum: state.sum + action.sum}
+      return {sum: action.sum}
     default:
       throw new Error(`Wrong type of action: ${action.type}`);
   }
