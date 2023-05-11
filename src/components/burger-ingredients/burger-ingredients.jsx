@@ -1,33 +1,40 @@
 import styles from "./burger-ingredients.module.css";
-import React, { useMemo } from "react";
+import React, { useMemo, useContext } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientList } from "../ingredients-list/ingredients-list";
-import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
-import PropTypes from 'prop-types';
+import { AppContext } from "../../services/appContext";
 
-export const BurgerIngredients = ({ data, onShowModal, getIngredient, getModalType }) => {
-  const [current, setCurrent] = React.useState("one");
+export const BurgerIngredients = () => {
+  const { data } = useContext(AppContext);
+  const [current, setCurrent] = React.useState("bun");
   const bunFilter = useMemo(() => data.filter((item) => item.type === 'bun'), [data]);
   const sauceFilter = useMemo(() => data.filter((item) => item.type === 'sauce'), [data]);
   const mainFilter = useMemo(() => data.filter((item) => item.type === 'main'), [data]);
 
+  // скролл по клику на таб (в будущем можно переделать на ref'ы)
+  const onTabClick = (tab) => {
+    setCurrent(tab);
+    const elem = document.getElementById(tab);
+    if (elem) elem.scrollIntoView({ behavior: 'smooth'  });
+  }
+
   const tabs = [
     {
       text: 'Булки',
-      code: 'one'
+      code: 'bun'
     },
     {
       text: 'Cоусы',
-      code: 'two'
+      code: 'sauce'
     },
     {
       text: 'Начинки',
-      code: 'three'
+      code: 'main'
     },
   ];
 
   const tabsList = tabs.map((el, index) => (
-    <Tab key={index} value={el.code} active={current === el.code} onClick={setCurrent}>
+    <Tab key={index} value={el.code} active={current === el.code} onClick={onTabClick}>
       {el.text}
     </Tab>
   ));
@@ -38,16 +45,10 @@ export const BurgerIngredients = ({ data, onShowModal, getIngredient, getModalTy
         {tabsList}
       </div>
       <div className={styles.listBlock}>
-        <IngredientList ingredientsInfo={bunFilter} name='Булки' onShowModal={onShowModal} getIngredient={getIngredient} getModalType={getModalType}/>
-        <IngredientList ingredientsInfo={sauceFilter} name='Соусы' onShowModal={onShowModal} getIngredient={getIngredient} getModalType={getModalType}/>
-        <IngredientList ingredientsInfo={mainFilter} name='Начинки' onShowModal={onShowModal} getIngredient={getIngredient} getModalType={getModalType}/>
+        <IngredientList ingredientsInfo={bunFilter} name='Булки' id={`bun`}/>
+        <IngredientList ingredientsInfo={sauceFilter} name='Соусы' id={`sauce`}/>
+        <IngredientList ingredientsInfo={mainFilter} name='Начинки' id={`main`}/>
       </div>
     </section>
   );
 };
-
-BurgerIngredients.propTypes = {
-  ...ingredientsListTypes,
-  ...modalTypes,
-  getIngredient: PropTypes.func,
-}

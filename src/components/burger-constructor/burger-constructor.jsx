@@ -1,15 +1,48 @@
 import styles from './burger-constructor.module.css';
+import { useContext, useEffect, useReducer } from 'react';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
+// import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
+import { AppContext } from '../../services/appContext';
+import { postData } from '../../utils/burger-api';
 
-export const BurgerConstructor = ({ data, getModalType, onShowModal }) => {
+const initialOrderSum = { sum: 0 };
 
-  const showModal = () => {
-    onShowModal(true);
-    getModalType('order');
+function reducer(state, action) {
+  switch(action.type) {
+    case 'calculate':
+      return {sum: action.sum}
+    default:
+      throw new Error(`Wrong type of action: ${action.type}`);
+  }
+}
+
+export const BurgerConstructor = () => {
+
+  const { constructorList, getModalTypeHandler, onShowModalHandler, setOrderNumber } = useContext(AppContext);
+  const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
+  // разбиваем ингредиенты на булки и остальное
+  const ingredientsWithoutBuns = constructorList.filter((el) => el.type !== 'bun');
+  // отдельно сохраняем булки
+  const bun = constructorList.find((el) => el.type === 'bun');
+  const indgredientsIdList = constructorList.map((el) => el._id);
+
+  const sendData = () => {
+    // делаем запрос к АПИ и сохраняем номер заказа для модалки
+    postData({ ingredients: indgredientsIdList }).then((data) => {
+      setOrderNumber(data.order.number)
+      onShowModalHandler(true);
+      getModalTypeHandler('order');
+    });
+
   };
 
-  const mainsList = data.filter((el) => el.type === 'main').map((el) => (
+  useEffect(() => {
+    // считаем общую стоимость ингридиентов с двумя булками
+    let result = constructorList.reduce((acc, cur) => acc + cur.price, 0) + bun.price;
+    orderSumDispatcher({type: 'calculate', sum: result})
+  }, [constructorList, bun]);
+
+  const ingredientsList = ingredientsWithoutBuns.map((el) => (
     <div key={el._id} className={styles.element}>
       <DragIcon />
       <ConstructorElement
@@ -19,6 +52,7 @@ export const BurgerConstructor = ({ data, getModalType, onShowModal }) => {
       />
     </div>
   ));
+
   return (
     <section className={`${styles.constructorBlock} pr-1 pl-2`}>
       <div className={`${styles.constructor} mb-10`}>
@@ -27,35 +61,30 @@ export const BurgerConstructor = ({ data, getModalType, onShowModal }) => {
             className='mb-4'
             type="top"
             isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={200}
-            thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
           />
         </div>
         <div className={`${styles.scrollBlock} mb-4 pt-4 pr-2`}>
-          {mainsList}
+          {ingredientsList}
         </div>
         <div className='mr-4'>
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image}
           />
         </div>
       </div>
       <div className={styles.priceBlock}>
-        <p className={`${styles.price} text text_type_digits-medium`}>610 <CurrencyIcon /></p>
-        <Button htmlType="button" type="primary" size="large" onClick={showModal}>
+        <p className={`${styles.price} text text_type_digits-medium`}>{orderSum.sum}<CurrencyIcon /></p>
+        <Button htmlType="button" type="primary" size="large" onClick={sendData}>
           Нажми на меня
         </Button>
       </div>
     </section>
   );
 };
-
-BurgerConstructor.propTypes = { 
-  ...ingredientsListTypes,
-  ...modalTypes
-}

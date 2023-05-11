@@ -1,22 +1,26 @@
 import styles from './ingredients-list.module.css';
+import { useContext } from 'react';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientsListTypes, modalTypes } from '../../utils/prop-types';
+import { ingredientsListTypes } from '../../utils/prop-types';
 import PropTypes from 'prop-types';
+import { AppContext } from '../../services/appContext';
 
-export const IngredientList = ({ getModalType, getIngredient, onShowModal, ingredientsInfo, name }) => {
+export const IngredientList = ({ name, id, ingredientsInfo }) => {
+
+  const { getModalTypeHandler, getIngredientHandler, onShowModalHandler } = useContext(AppContext);
 
   // по клику на ингредиент находим его в общем списке и сохраняем
   const findCurrentIngredient = (id) => {
     const clickedIngredient = ingredientsInfo.find((el) => el._id === id);
-    onShowModal(true);
-    getIngredient(clickedIngredient);
-    getModalType('ingredient');
+    onShowModalHandler(true);
+    getIngredientHandler(clickedIngredient);
+    getModalTypeHandler('ingredient');
   }
 
   const ingredientsList = ingredientsInfo.map((item) => (
     <li onClick={() => findCurrentIngredient(item._id)} key={item._id} className={styles.item}>
       <Counter count={1} size='default' extraClass="m-1"/>
-      <img className='mb-1' src={item.image} alt="Ингридиент"/>
+      <img className='mb-1' src={item.image} alt="Ингредиент"/>
       <div className={`${styles.price} mb-1`}>
         <span className='text text_type_digits-default mr-2'>
           {item.price}
@@ -30,7 +34,7 @@ export const IngredientList = ({ getModalType, getIngredient, onShowModal, ingre
   ))
   return (
     <div>
-      <h2 className="text text_type_main-medium">{name}</h2>
+      <h2 id={id} className="text text_type_main-medium">{name}</h2>
       <ul className={`${styles.list} pt-6 pr-1 pl-4`}>
         {ingredientsList}
       </ul>
@@ -39,8 +43,7 @@ export const IngredientList = ({ getModalType, getIngredient, onShowModal, ingre
 };
 
 IngredientList.propTypes = {
-  ...modalTypes,
   ingredientsInfo: ingredientsListTypes.data,
   name: PropTypes.string,
-  getIngredient: PropTypes.func,
+  id: PropTypes.string
 };
