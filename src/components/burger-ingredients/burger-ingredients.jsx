@@ -11,6 +11,7 @@ export const BurgerIngredients = () => {
   const sauceFilter = useMemo(() => data.filter((item) => item.type === 'sauce'), [data]);
   const mainFilter = useMemo(() => data.filter((item) => item.type === 'main'), [data]);
 
+  // скролл по клику на таб (в будущем можно переделать на ref'ы)
   const onTabClick = (tab) => {
     setCurrent(tab);
     const elem = document.getElementById(tab);
