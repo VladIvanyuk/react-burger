@@ -1,5 +1,5 @@
 import styles from './burger-constructor.module.css';
-import { useContext, useEffect, useReducer, useMemo } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 // import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
 import { AppContext } from '../../services/appContext';
@@ -22,8 +22,11 @@ export const BurgerConstructor = () => {
 
   const { constructorList, getModalTypeHandler, onShowModalHandler, setOrderNumber } = useContext(AppContext);
   const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
-
-  const indgredientsIdList = useMemo(() => constructorList.map((el) => el._id), [constructorList]);
+  // разбиваем ингредиенты на булки и остальное
+  const ingredientsWithoutBuns = constructorList.filter((el) => el.type !== 'bun');
+  // отдельно сохраняем булки
+  const bun = constructorList.find((el) => el.type === 'bun');
+  const indgredientsIdList = constructorList.map((el) => el._id);
 
   const sendData = () => {
     // делаем запрос к АПИ и сохраняем номер заказа для модалки
@@ -33,13 +36,12 @@ export const BurgerConstructor = () => {
   };
 
   useEffect(() => {
-    // считаем общую стоимость ингридиентов
-    let result = constructorList.reduce((acc, cur) => acc + cur.price, 0);
+    // считаем общую стоимость ингридиентов с двумя булками
+    let result = constructorList.reduce((acc, cur) => acc + cur.price, 0) + bun.price;
     orderSumDispatcher({type: 'calculate', sum: result})
-  }, [constructorList]);
+  }, [constructorList, bun]);
 
-  // фильтруем и сохраняем все ингридиенты кроме булок
-  const ingredientsList = constructorList.filter((el) => el.type !== 'bun').map((el) => (
+  const ingredientsList = ingredientsWithoutBuns.map((el) => (
     <div key={el._id} className={styles.element}>
       <DragIcon />
       <ConstructorElement
@@ -50,8 +52,6 @@ export const BurgerConstructor = () => {
     </div>
   ));
 
-  // отдельно сохраняем булки
-  const bun = constructorList.find((el) => el.type === 'bun');
 
   return (
     <section className={`${styles.constructorBlock} pr-1 pl-2`}>
