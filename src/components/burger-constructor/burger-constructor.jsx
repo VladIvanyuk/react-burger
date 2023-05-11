@@ -18,8 +18,6 @@ function reducer(state, action) {
 
 export const BurgerConstructor = () => {
 
-  const ORDERS_URL = 'https://norma.nomoreparties.space/api/orders';
-
   const { constructorList, getModalTypeHandler, onShowModalHandler, setOrderNumber } = useContext(AppContext);
   const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
   // разбиваем ингредиенты на булки и остальное
@@ -30,7 +28,7 @@ export const BurgerConstructor = () => {
 
   const sendData = () => {
     // делаем запрос к АПИ и сохраняем номер заказа для модалки
-    postData(ORDERS_URL, { ingredients: indgredientsIdList }).then((data) => setOrderNumber(data.order.number));
+    postData({ ingredients: indgredientsIdList }).then((data) => setOrderNumber(data.order.number));
     onShowModalHandler(true);
     getModalTypeHandler('order');
   };
@@ -51,7 +49,6 @@ export const BurgerConstructor = () => {
       />
     </div>
   ));
-
 
   return (
     <section className={`${styles.constructorBlock} pr-1 pl-2`}>

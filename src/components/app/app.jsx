@@ -10,7 +10,6 @@ import { getData } from "../../utils/burger-api";
 import { AppContext } from "../../services/appContext";
 
 export const App = (props) => {
-  const DATA_URL = "https://norma.nomoreparties.space/api/ingredients";
 
   const [data, setData] = useState([]);
   const [isModal, setIsModal] = useState(false);
@@ -46,7 +45,7 @@ export const App = (props) => {
 
   // получаем список ингредиентов
   useEffect(() => {
-    getData(DATA_URL)
+    getData()
       .then((data) => {
         setData(data.data);
         setIsLodaing(true);
