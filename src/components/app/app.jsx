@@ -5,7 +5,7 @@ import { OrderDetails } from "../order-details/order-details";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { Modal } from "../modal/modal";
 import styles from "./app.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { getData } from "../../utils/burger-api";
 import { AppContext } from "../../services/appContext";
 
@@ -20,17 +20,17 @@ export const App = (props) => {
   const [constructorList, setConstructorList] = useState([]);
   const [orderNumber, setOrderNumber] = useState(null);
 
-  const onShowModalHandler = (value) => {
+  const onShowModalHandler = useCallback((value) => {
     setIsModal(value);
-  };
+  }, []);
 
-  const getIngredientHandler = (ingredient) => {
+  const getIngredientHandler = useCallback((ingredient) => {
     setIngredientForModal(ingredient);
-  };
+  }, []);
 
-  const getModalTypeHandler = (type) => {
+  const getModalTypeHandler = useCallback((type) => {
     setModalType(type);
-  };
+  }, []);
 
   const findModalType = (type) => {
     switch (type) {
@@ -58,8 +58,11 @@ export const App = (props) => {
       });
   }, []);
 
+  const appContextValues = useMemo(() => {
+    return {data, constructorList, onShowModalHandler, getIngredientHandler, getModalTypeHandler, setOrderNumber};
+  }, [data, constructorList, onShowModalHandler, getIngredientHandler, getModalTypeHandler, setOrderNumber])
   return (
-    <AppContext.Provider value={{data, constructorList, onShowModalHandler, getIngredientHandler, getModalTypeHandler, setOrderNumber}}>
+    <AppContext.Provider value={appContextValues}>
       <div className={styles.app}>
         {isModal && (
           <Modal onShowModal={onShowModalHandler}>

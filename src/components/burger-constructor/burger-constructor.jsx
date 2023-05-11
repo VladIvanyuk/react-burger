@@ -28,9 +28,12 @@ export const BurgerConstructor = () => {
 
   const sendData = () => {
     // делаем запрос к АПИ и сохраняем номер заказа для модалки
-    postData({ ingredients: indgredientsIdList }).then((data) => setOrderNumber(data.order.number));
-    onShowModalHandler(true);
-    getModalTypeHandler('order');
+    postData({ ingredients: indgredientsIdList }).then((data) => {
+      setOrderNumber(data.order.number)
+      onShowModalHandler(true);
+      getModalTypeHandler('order');
+    });
+
   };
 
   useEffect(() => {
