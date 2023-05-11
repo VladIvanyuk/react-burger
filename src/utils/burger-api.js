@@ -1,6 +1,5 @@
 const DATA_URL = "https://norma.nomoreparties.space/api";
 
-
 const getData = () => {
     return fetch(`${DATA_URL}/ingredients`).then(checkResponse);
 }
