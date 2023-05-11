@@ -5,7 +5,7 @@ import { ingredientsListTypes } from '../../utils/prop-types';
 import PropTypes from 'prop-types';
 import { AppContext } from '../../services/appContext';
 
-export const IngredientList = ({ name, ingredientsInfo }) => {
+export const IngredientList = ({ name, id, ingredientsInfo }) => {
 
   const { getModalTypeHandler, getIngredientHandler, onShowModalHandler } = useContext(AppContext);
 
@@ -34,7 +34,7 @@ export const IngredientList = ({ name, ingredientsInfo }) => {
   ))
   return (
     <div>
-      <h2 className="text text_type_main-medium">{name}</h2>
+      <h2 id={id} className="text text_type_main-medium">{name}</h2>
       <ul className={`${styles.list} pt-6 pr-1 pl-4`}>
         {ingredientsList}
       </ul>
@@ -45,4 +45,5 @@ export const IngredientList = ({ name, ingredientsInfo }) => {
 IngredientList.propTypes = {
   ingredientsInfo: ingredientsListTypes.data,
   name: PropTypes.string,
+  id: PropTypes.string
 };

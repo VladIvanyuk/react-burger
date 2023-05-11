@@ -6,28 +6,34 @@ import { AppContext } from "../../services/appContext";
 
 export const BurgerIngredients = () => {
   const { data } = useContext(AppContext);
-  const [current, setCurrent] = React.useState("one");
+  const [current, setCurrent] = React.useState("bun");
   const bunFilter = useMemo(() => data.filter((item) => item.type === 'bun'), [data]);
   const sauceFilter = useMemo(() => data.filter((item) => item.type === 'sauce'), [data]);
   const mainFilter = useMemo(() => data.filter((item) => item.type === 'main'), [data]);
 
+  const onTabClick = (tab) => {
+    setCurrent(tab);
+    const elem = document.getElementById(tab);
+    if (elem) elem.scrollIntoView({ behavior: 'smooth'  });
+  }
+
   const tabs = [
     {
       text: 'Булки',
-      code: 'one'
+      code: 'bun'
     },
     {
       text: 'Cоусы',
-      code: 'two'
+      code: 'sauce'
     },
     {
       text: 'Начинки',
-      code: 'three'
+      code: 'main'
     },
   ];
 
   const tabsList = tabs.map((el, index) => (
-    <Tab key={index} value={el.code} active={current === el.code} onClick={setCurrent}>
+    <Tab key={index} value={el.code} active={current === el.code} onClick={onTabClick}>
       {el.text}
     </Tab>
   ));
@@ -38,9 +44,9 @@ export const BurgerIngredients = () => {
         {tabsList}
       </div>
       <div className={styles.listBlock}>
-        <IngredientList ingredientsInfo={bunFilter} name='Булки'/>
-        <IngredientList ingredientsInfo={sauceFilter} name='Соусы'/>
-        <IngredientList ingredientsInfo={mainFilter} name='Начинки'/>
+        <IngredientList ingredientsInfo={bunFilter} name='Булки' id={`bun`}/>
+        <IngredientList ingredientsInfo={sauceFilter} name='Соусы' id={`sauce`}/>
+        <IngredientList ingredientsInfo={mainFilter} name='Начинки' id={`main`}/>
       </div>
     </section>
   );
