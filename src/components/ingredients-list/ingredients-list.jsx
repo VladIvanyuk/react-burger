@@ -4,16 +4,22 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import { ingredientsListTypes } from '../../utils/prop-types';
 import PropTypes from 'prop-types';
 import { AppContext } from '../../services/appContext';
+import { useDispatch } from 'react-redux';
 
 export const IngredientList = ({ name, id, ingredientsInfo }) => {
 
-  const { getModalTypeHandler, getIngredientHandler, onShowModalHandler } = useContext(AppContext);
+  const { getModalTypeHandler, onShowModalHandler } = useContext(AppContext);
+  const dispatch = useDispatch();
 
   // по клику на ингредиент находим его в общем списке и сохраняем
   const findCurrentIngredient = (id) => {
     const clickedIngredient = ingredientsInfo.find((el) => el._id === id);
+    dispatch({
+      type: 'ON_CLICK_INGREDIENT',
+      ingredient: clickedIngredient
+    })
     onShowModalHandler(true);
-    getIngredientHandler(clickedIngredient);
+    // getIngredientHandler(clickedIngredient);
     getModalTypeHandler('ingredient');
   }
 

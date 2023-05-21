@@ -25,4 +25,4 @@ const postData = async (data) => {
   }
 
 
-export { getData, checkResponse, postData };
+export { getData, checkResponse, postData, DATA_URL };

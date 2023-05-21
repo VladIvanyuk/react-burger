@@ -1,8 +1,10 @@
 import styles from './ingredient-details.module.css';
 import { ingredientType } from '../../utils/prop-types';
+import { useSelector } from 'react-redux';
 
-export const IngredientDetails = ({ ingredient }) => {
+export const IngredientDetails = () => {
 
+  const ingredient = useSelector((store) => store.ingredientDetails)
   const { name, image_large, calories, fat, carbohydrates, proteins } = ingredient;
 
   return (

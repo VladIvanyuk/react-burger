@@ -4,6 +4,8 @@ import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktiku
 // import { ingredientsListTypes, modalTypes } from "../../utils/prop-types";
 import { AppContext } from '../../services/appContext';
 import { postData } from '../../utils/burger-api';
+import { useSelector, useDispatch } from 'react-redux';
+import { getOrderDetails } from '../../services/actions/orderDetails';
 
 const initialOrderSum = { sum: 0 };
 
@@ -18,7 +20,9 @@ function reducer(state, action) {
 
 export const BurgerConstructor = () => {
 
-  const { constructorList, getModalTypeHandler, onShowModalHandler, setOrderNumber } = useContext(AppContext);
+  const { getModalTypeHandler, onShowModalHandler } = useContext(AppContext);
+  const constructorList = useSelector((store) => store.burgerConstructor)
+  const dispatch = useDispatch();
   const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
   // разбиваем ингредиенты на булки и остальное
   const ingredientsWithoutBuns = constructorList.filter((el) => el.type !== 'bun');
@@ -27,15 +31,15 @@ export const BurgerConstructor = () => {
   const indgredientsIdList = constructorList.map((el) => el._id);
 
   const sendData = () => {
+    dispatch(getOrderDetails({ingredients: indgredientsIdList}))
     // делаем запрос к АПИ и сохраняем номер заказа для модалки
     postData({ ingredients: indgredientsIdList }).then((data) => {
-      setOrderNumber(data.order.number)
       onShowModalHandler(true);
       getModalTypeHandler('order');
     });
 
   };
-
+console.log(13123123)
   useEffect(() => {
     // считаем общую стоимость ингридиентов с двумя булками
     let result = constructorList.reduce((acc, cur) => acc + cur.price, 0) + bun.price;

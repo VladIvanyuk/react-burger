@@ -6,19 +6,18 @@ import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { Modal } from "../modal/modal";
 import styles from "./app.module.css";
 import { useEffect, useState, useMemo, useCallback } from "react";
-import { getData } from "../../utils/burger-api";
 import { AppContext } from "../../services/appContext";
+import { useSelector, useDispatch } from "react-redux";
+import { getBurgerIngredients } from "../../services/actions/burgerIngredients";
 
 export const App = (props) => {
 
-  const [data, setData] = useState([]);
+  const { isLoaded, isError } = useSelector((store) => store.burgerIngredients);
   const [isModal, setIsModal] = useState(false);
   const [ingredientForModal, setIngredientForModal] = useState();
   const [modalType, setModalType] = useState("");
-  const [isError, setIsError] = useState(true);
-  const [isLoading, setIsLodaing] = useState(false);
-  const [constructorList, setConstructorList] = useState([]);
-  const [orderNumber, setOrderNumber] = useState(null);
+  const orderNumber = useSelector((store) => store.orderDetails.order.number);
+  const dispatch = useDispatch();
 
   const onShowModalHandler = useCallback((value) => {
     setIsModal(value);
@@ -45,22 +44,12 @@ export const App = (props) => {
 
   // получаем список ингредиентов
   useEffect(() => {
-    getData()
-      .then((data) => {
-        setData(data.data);
-        setIsLodaing(true);
-        // как будто мы уже добавили ингридиенты в конструктор
-        setConstructorList([data.data[0], data.data[2], data.data[4], data.data[5], data.data[8], data.data[10], data.data[11], data.data[12], data.data[13]])
-      })
-      .catch(() => {
-        setIsError(false);
-        setIsLodaing(false);
-      });
-  }, []);
+    dispatch(getBurgerIngredients());
+  }, [dispatch]);
 
   const appContextValues = useMemo(() => {
-    return {data, constructorList, onShowModalHandler, getIngredientHandler, getModalTypeHandler, setOrderNumber};
-  }, [data, constructorList, onShowModalHandler, getIngredientHandler, getModalTypeHandler, setOrderNumber])
+    return { onShowModalHandler, getIngredientHandler, getModalTypeHandler};
+  }, [ onShowModalHandler, getIngredientHandler, getModalTypeHandler])
   return (
     <AppContext.Provider value={appContextValues}>
       <div className={styles.app}>
@@ -69,7 +58,7 @@ export const App = (props) => {
             {findModalType(modalType)}
           </Modal>
         )}
-        {isLoading && (
+        {isLoaded && (
           <>
             <header className="pt-4 pb-4 mb-10">
               <AppHeader />
@@ -85,7 +74,7 @@ export const App = (props) => {
             </main>
           </>
         )}
-        {!isError && (
+        {isError && (
           <p
             data
             className={`${styles.error} ${styles.glitch} text text_type_main-medium`}

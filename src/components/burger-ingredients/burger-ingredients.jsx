@@ -1,11 +1,11 @@
 import styles from "./burger-ingredients.module.css";
-import React, { useMemo, useContext } from "react";
+import React, { useMemo } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientList } from "../ingredients-list/ingredients-list";
-import { AppContext } from "../../services/appContext";
+import { useSelector } from "react-redux";
 
 export const BurgerIngredients = () => {
-  const { data } = useContext(AppContext);
+  const { data } = useSelector((store) => store.burgerIngredients);
   const [current, setCurrent] = React.useState("bun");
   const bunFilter = useMemo(() => data.filter((item) => item.type === 'bun'), [data]);
   const sauceFilter = useMemo(() => data.filter((item) => item.type === 'sauce'), [data]);
