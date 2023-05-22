@@ -1,5 +1,5 @@
 import styles from "./burger-ingredients.module.css";
-import React, { useMemo, useEffect, useRef } from "react";
+import React, { useMemo } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientList } from "../ingredients-list/ingredients-list";
 import { useSelector } from "react-redux";

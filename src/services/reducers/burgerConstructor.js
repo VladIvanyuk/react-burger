@@ -9,6 +9,12 @@ export const burgerConstructor = (state = initialState, action) => {
                 ...state,
                 action.payload
             ]
+        case 'ADD_BUN':
+            console.log(action.payload)
+            return [
+                ...state.filter((el) => el.type !== 'bun'),
+                action.payload
+            ]
         default:
             return state;
     }

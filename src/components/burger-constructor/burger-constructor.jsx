@@ -26,14 +26,20 @@ function reducer(state, action) {
 export const BurgerConstructor = () => {
   const [isModal, setIsModal] = useState(false);
   const { burgerIngredients } = useSelector((store) => store);
-  console.log(burgerIngredients)
   const [, dropTarget] = useDrop({
-    accept: ['main', 'sauce'],
+    accept: ['main', 'sauce', 'bun'],
     drop(item) {
-      dispatch({
-        type: 'ADD_INGREDIENT',
-        payload: burgerIngredients.data.find((el) => el._id === item.id)
-      })
+      if(item.type !== 'bun') {
+        dispatch({
+          type: 'ADD_INGREDIENT',
+          payload: burgerIngredients.data.find((el) => el._id === item.id)
+        })
+      } else {
+        dispatch({
+          type: 'ADD_BUN',
+          payload: burgerIngredients.data.find((el) => el._id === item.id)
+        })
+      }
     }
 
   })

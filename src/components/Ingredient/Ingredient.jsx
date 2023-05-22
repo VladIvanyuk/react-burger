@@ -8,7 +8,7 @@ import { useDrag } from "react-dnd";
 export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, type }) => {
   const [{isDrag}, dragRef] = useDrag({
     type: type,
-    item: {id},
+    item: {id, type},
     collect: monitor => ({
       isDrag: monitor.isDragging()
   })

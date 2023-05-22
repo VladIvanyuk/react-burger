@@ -1,15 +1,10 @@
 import styles from "./ingredients-list.module.css";
 import { useState, useCallback } from "react";
-import {
-  CurrencyIcon,
-  Counter,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import { ingredientsListTypes } from "../../utils/prop-types";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { useDrag } from "react-dnd";
 import { Ingredient } from "../Ingredient/Ingredient";
 
 export const IngredientList = ({ name, id, ingredientsInfo }) => {
