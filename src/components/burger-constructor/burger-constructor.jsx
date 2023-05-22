@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getOrderDetails } from "../../services/actions/orderDetails";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
+import { useDrop } from "react-dnd";
 
 const initialOrderSum = { sum: 0 };
 
@@ -24,6 +25,18 @@ function reducer(state, action) {
 
 export const BurgerConstructor = () => {
   const [isModal, setIsModal] = useState(false);
+  const { burgerIngredients } = useSelector((store) => store);
+  console.log(burgerIngredients)
+  const [, dropTarget] = useDrop({
+    accept: ['main', 'sauce'],
+    drop(item) {
+      dispatch({
+        type: 'ADD_INGREDIENT',
+        payload: burgerIngredients.data.find((el) => el._id === item.id)
+      })
+    }
+
+  })
 
   const dispatch = useDispatch();
   const orderNumber = useSelector((store) => store.orderDetails.order.number);
@@ -66,7 +79,7 @@ export const BurgerConstructor = () => {
   ));
 
   return (
-    <section className={`${styles.constructorBlock} pr-1 pl-2`}>
+    <section ref={dropTarget} className={`${styles.constructorBlock} pr-1 pl-2`}>
       {isModal && (
         <Modal onShowModal={onShowModalHandler}>
           <OrderDetails orderNumber={orderNumber}/>

@@ -5,12 +5,13 @@ import styles from "./app.module.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/burgerIngredients";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const App = (props) => {
 
   const { isLoaded, isError } = useSelector((store) => store.burgerIngredients);
   const dispatch = useDispatch();
-
   // получаем список ингредиентов
   useEffect(() => {
     dispatch(getBurgerIngredients());
@@ -28,8 +29,10 @@ export const App = (props) => {
                 Соберите бургер
               </h2>
               <section className={styles.burgerBlock}>
-                <BurgerIngredients />
-                <BurgerConstructor />
+                <DndProvider backend={HTML5Backend}>
+                  <BurgerIngredients />
+                  <BurgerConstructor />
+                </DndProvider>
               </section>
             </main>
           </>

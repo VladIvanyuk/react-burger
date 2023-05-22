@@ -1,5 +1,5 @@
 import styles from "./ingredients-list.module.css";
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback } from "react";
 import {
   CurrencyIcon,
   Counter,
@@ -9,51 +9,49 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { useDrag } from "react-dnd";
+import { Ingredient } from "../Ingredient/Ingredient";
 
 export const IngredientList = ({ name, id, ingredientsInfo }) => {
-  const ingredientForModal = useSelector((store) => store.ingredientDetails)
+  const ingredientForModal = useSelector((store) => store.ingredientDetails);
   const [isModal, setIsModal] = useState(false);
   const dispatch = useDispatch();
 
   const onShowModalHandler = useCallback((value) => {
     setIsModal(value);
   }, []);
-
-  useEffect(() => {
-  })
-
+  console.log(123);
   // по клику на ингредиент находим его в общем списке и сохраняем
-  const findCurrentIngredient = (id) => {
-    const clickedIngredient = ingredientsInfo.find((el) => el._id === id);
-    dispatch({
-      type: "ON_CLICK_INGREDIENT",
-      ingredient: clickedIngredient,
-    });
-    onShowModalHandler(true);
-  };
+  const findCurrentIngredient = useCallback(
+    (id) => {
+      const clickedIngredient = ingredientsInfo.find((el) => el._id === id);
+      dispatch({
+        type: "ON_CLICK_INGREDIENT",
+        ingredient: clickedIngredient,
+      });
+      onShowModalHandler(true);
+    },
+    [dispatch, ingredientsInfo, onShowModalHandler]
+  );
 
   const ingredientsList = ingredientsInfo.map((item) => (
-    <li
-      onClick={() => findCurrentIngredient(item._id)}
+    <Ingredient
+      onFindCurrentIngredient={findCurrentIngredient}
+      type={item.type}
       key={item._id}
-      className={styles.item}
-    >
-      <Counter count={1} size="default" extraClass="m-1" />
-      <img className="mb-1" src={item.image} alt="Ингредиент" />
-      <div className={`${styles.price} mb-1`}>
-        <span className="text text_type_digits-default mr-2">{item.price}</span>
-        <CurrencyIcon />
-      </div>
-      <p className={`${styles.itemText} text text_type_main-default mb-8`}>
-        {item.name}
-      </p>
-    </li>
+      id={item._id}
+      image={item.image}
+      price={item.price}
+      name={item.name}
+    />
   ));
   return (
     <div>
       {isModal && (
         <Modal onShowModal={onShowModalHandler}>
-          <IngredientDetails ingredient={ingredientForModal}></IngredientDetails>
+          <IngredientDetails
+            ingredient={ingredientForModal}
+          ></IngredientDetails>
         </Modal>
       )}
       <h2 id={id} className="text text_type_main-medium">
