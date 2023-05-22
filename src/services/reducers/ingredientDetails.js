@@ -6,6 +6,8 @@ export const ingredientDetails = (state = initialState, action) => {
             return {
                 ...action.ingredient
             }
+        case 'DELETE_DETAILS':
+            return {}
         default:
             return state;
     }

@@ -4,9 +4,12 @@ import { createPortal } from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect } from "react";
 import { modalTypes } from "../../utils/prop-types";
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { useDispatch } from "react-redux";
 
 export const Modal = ({ onShowModal, ...props }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     // по нажатию на ESC закрываем модалку
     const closeModalWithESC = (e) => {
@@ -17,9 +20,12 @@ export const Modal = ({ onShowModal, ...props }) => {
     window.addEventListener("keydown", closeModalWithESC);
     // при закрытии модалки удаляем обработчик
     return () => {
+      dispatch({
+        type: 'DELETE_DETAILS'
+      })
       window.removeEventListener("keydown", closeModalWithESC);
     };
-  }, [onShowModal]);
+  }, [dispatch, onShowModal]);
 
   return createPortal(
     <>

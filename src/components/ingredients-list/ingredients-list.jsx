@@ -1,5 +1,5 @@
 import styles from "./ingredients-list.module.css";
-import { useContext, useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import {
   CurrencyIcon,
   Counter,
@@ -18,6 +18,9 @@ export const IngredientList = ({ name, id, ingredientsInfo }) => {
   const onShowModalHandler = useCallback((value) => {
     setIsModal(value);
   }, []);
+
+  useEffect(() => {
+  })
 
   // по клику на ингредиент находим его в общем списке и сохраняем
   const findCurrentIngredient = (id) => {
