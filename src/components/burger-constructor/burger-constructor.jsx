@@ -30,18 +30,19 @@ export const BurgerConstructor = () => {
     accept: ['main', 'sauce', 'bun'],
     drop(item) {
       if(item.type !== 'bun') {
+        item.setIngredientCounter((prev) => prev + 1);
         dispatch({
           type: 'ADD_INGREDIENT',
           payload: burgerIngredients.data.find((el) => el._id === item.id)
         })
       } else {
+        item.setIngredientCounter((prev) => prev + 1);
         dispatch({
           type: 'ADD_BUN',
           payload: burgerIngredients.data.find((el) => el._id === item.id)
         })
       }
     }
-
   })
 
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ export const BurgerConstructor = () => {
   // отдельно сохраняем булки
   const bun = constructorList.find((el) => el.type === "bun");
   const indgredientsIdList = constructorList.map((el) => el._id);
+  console.log(constructorList)
 
   const onShowModalHandler = useCallback((value) => {
     setIsModal(value);
@@ -74,7 +76,7 @@ export const BurgerConstructor = () => {
   }, [constructorList, bun]);
 
   const ingredientsList = ingredientsWithoutBuns.map((el) => (
-    <div key={el._id} className={styles.element}>
+    <div key={Math.random()} className={styles.element}>
       <DragIcon />
       <ConstructorElement
         text={el.name}
