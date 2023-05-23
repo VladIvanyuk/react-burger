@@ -31,9 +31,14 @@ export const BurgerConstructor = () => {
     drop(item) {
       if(item.type !== 'bun') {
         item.setIngredientCounter((prev) => prev + 1);
+        const ingredient = burgerIngredients.data.find((el) => el._id === item.id);
         dispatch({
           type: 'ADD_INGREDIENT',
-          payload: burgerIngredients.data.find((el) => el._id === item.id)
+          payload: {
+            ...ingredient,
+        // добавляем ингредиенту ID для удаления
+            _delete_id: Math.random()
+          }
         })
       } else {
         item.setIngredientCounter((prev) => prev + 1);
@@ -45,11 +50,12 @@ export const BurgerConstructor = () => {
     }
   })
 
+  console.log('construct')
+
   const dispatch = useDispatch();
   const orderNumber = useSelector((store) => store.orderDetails.order.number);
   const constructorList = useSelector((store) => store.burgerConstructor);
   const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
-
   // разбиваем ингредиенты на булки и остальное
   const ingredientsWithoutBuns = constructorList.filter(
     (el) => el.type !== "bun"
@@ -76,8 +82,7 @@ export const BurgerConstructor = () => {
 
   useEffect(() => {
     // считаем общую стоимость ингридиентов с двумя булками
-    let result =
-      constructorList.reduce((acc, cur) => acc + cur.price, 0) + bun.price;
+    let result = constructorList.reduce((acc, cur) => acc + cur.price, 0) + bun.price;
     orderSumDispatcher({ type: "calculate", sum: result });
   }, [constructorList, bun]);
 

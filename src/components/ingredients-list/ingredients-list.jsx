@@ -15,7 +15,6 @@ export const IngredientList = ({ name, id, ingredientsInfo }) => {
   const onShowModalHandler = useCallback((value) => {
     setIsModal(value);
   }, []);
-  console.log(123);
   // по клику на ингредиент находим его в общем списке и сохраняем
   const findCurrentIngredient = useCallback(
     (id) => {

@@ -11,10 +11,15 @@ export const burgerConstructor = (state = initialState, action) => {
             ]
         case 'DELETE_INGREDIENT':
             return [
-                ...state.filter((el) => el._id !== action.payload._id)
+                ...state.filter((el) => {
+                    if(el._delete_id) {
+                        return el._delete_id !== action.payload._delete_id
+                    } else {
+                        return true
+                    }
+                })
             ]
         case 'ADD_BUN':
-            console.log(action.payload)
             return [
                 ...state.filter((el) => el.type !== 'bun'),
                 action.payload
