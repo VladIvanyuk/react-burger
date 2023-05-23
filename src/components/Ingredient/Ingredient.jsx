@@ -11,16 +11,17 @@ export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, ty
   const [ingredientCounter, setIngredientCounter] = useState(0);
   const { burgerConstructor } = useSelector((store) => store);
 
-  let count = burgerConstructor.reduce((acc, el) => {
-    if (el._id === id && el.type === 'bun') {
-      acc += 2;
+  let count = 0;
+
+  burgerConstructor.forEach((el) => {
+    if (el._id === id) {
+      count += (el.type === 'bun') ? 2 : 1;
     }
-    return acc;
-  }, 0);
+  }); 
 
   useEffect(() => {
     setIngredientCounter(count)
-  }, [count])
+  }, [burgerConstructor, count])
 
   const [{opacity}, dragRef] = useDrag({
     type: type,

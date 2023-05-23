@@ -57,7 +57,13 @@ export const BurgerConstructor = () => {
   // отдельно сохраняем булки
   const bun = constructorList.find((el) => el.type === "bun");
   const indgredientsIdList = constructorList.map((el) => el._id);
-  console.log(constructorList)
+
+  const deleteIngredient = (el) => {
+    dispatch(({
+      type: 'DELETE_INGREDIENT',
+      payload: el
+    }))
+  }
 
   const onShowModalHandler = useCallback((value) => {
     setIsModal(value);
@@ -82,6 +88,7 @@ export const BurgerConstructor = () => {
         text={el.name}
         price={el.price}
         thumbnail={el.image}
+        handleClose={() => deleteIngredient(el)}
       />
     </div>
   ));
