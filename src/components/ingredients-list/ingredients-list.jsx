@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { Ingredient } from "../Ingredient/Ingredient";
+import { Ingredient } from "../ingredient/ingredient";
 
 export const IngredientList = ({ name, id, ingredientsInfo }) => {
   const ingredientForModal = useSelector((store) => store.ingredientDetails);

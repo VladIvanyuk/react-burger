@@ -1,4 +1,4 @@
-import styles from "./Ingredient.module.css";
+import styles from "./ingredient.module.css";
 import {
   CurrencyIcon,
   Counter,
