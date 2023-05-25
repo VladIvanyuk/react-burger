@@ -73,7 +73,6 @@ export const BurgerConstructor = () => {
   const constructorList = useSelector((store) => store.burgerConstructor);
   const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
   // разбиваем ингредиенты на булки и остальное
-  console.log(constructorList)
   const ingredientsWithoutBuns = constructorList.ingredients;
   // отдельно сохраняем булки
   const bun = constructorList.buns;
@@ -82,7 +81,6 @@ export const BurgerConstructor = () => {
   const onShowModalHandler = useCallback((value) => {
     setIsModal(value);
   }, []);
-  console.log(constructorList)
 
   const moveCard = useCallback((dragIndex, hoverIndex) => {
     console.log(dragIndex, hoverIndex)
@@ -123,6 +121,7 @@ export const BurgerConstructor = () => {
       delete-id={el._delete_id}
       index={index}
       moveCard={moveCard}
+      delete_id={el._delete_id}
     />
   ));
 
