@@ -4,13 +4,13 @@ import {
   ConstructorElement,
   CurrencyIcon,
   Button,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
 import { getOrderDetails } from "../../services/actions/orderDetails";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { useDrop } from "react-dnd";
+import { ConstructorIngredient } from "../constructor-ingredient/constructor-ingredient";
 
 const initialOrderSum = { sum: 0 };
 
@@ -27,30 +27,45 @@ export const BurgerConstructor = () => {
   const [isModal, setIsModal] = useState(false);
   const { burgerIngredients } = useSelector((store) => store);
   const [, dropTarget] = useDrop({
-    accept: ['main', 'sauce', 'bun'],
+    accept: ["main", "sauce", "bun"],
     drop(item) {
-      if(item.type !== 'bun') {
-        item.setIngredientCounter((prev) => prev + 1);
-        const ingredient = burgerIngredients.data.find((el) => el._id === item.id);
-        dispatch({
-          type: 'ADD_INGREDIENT',
-          payload: {
-            ...ingredient,
-        // добавляем ингредиенту ID для удаления
-            _delete_id: Math.random()
+      // проверка на добавление в конструктор или его сортировку
+      switch (item.action) {
+        case "add":
+          // проверка на тип ингредиента
+          if (item.type !== "bun") {
+            item.setIngredientCounter((prev) => prev + 1);
+            const ingredient = burgerIngredients.data.find(
+              (el) => el._id === item.id
+            );
+            dispatch({
+              type: "ADD_INGREDIENT",
+              payload: {
+                ...ingredient,
+                // добавляем ингредиенту ID для удаления
+                _delete_id: Math.random(),
+              },
+            });
+          } else {
+            item.setIngredientCounter((prev) => prev + 1);
+            dispatch({
+              type: "ADD_BUN",
+              payload: burgerIngredients.data.find((el) => el._id === item.id),
+            });
           }
-        })
-      } else {
-        item.setIngredientCounter((prev) => prev + 1);
-        dispatch({
-          type: 'ADD_BUN',
-          payload: burgerIngredients.data.find((el) => el._id === item.id)
-        })
-      }
-    }
-  })
+          break;
 
-  console.log('construct')
+        case "sort":
+          console.log("sort");
+          break;
+
+        default:
+          break;
+      }
+    },
+  });
+
+  console.log("construct");
 
   const dispatch = useDispatch();
   const orderNumber = useSelector((store) => store.orderDetails.order.number);
@@ -64,45 +79,41 @@ export const BurgerConstructor = () => {
   const bun = constructorList.find((el) => el.type === "bun");
   const indgredientsIdList = constructorList.map((el) => el._id);
 
-  const deleteIngredient = (el) => {
-    dispatch(({
-      type: 'DELETE_INGREDIENT',
-      payload: el
-    }))
-  }
-
   const onShowModalHandler = useCallback((value) => {
     setIsModal(value);
   }, []);
 
   const sendData = () => {
     dispatch(getOrderDetails({ ingredients: indgredientsIdList }));
-    setIsModal(true)
+    setIsModal(true);
   };
 
   useEffect(() => {
     // считаем общую стоимость ингридиентов с двумя булками
-    let result = constructorList.reduce((acc, cur) => acc + cur.price, 0) + bun.price;
+    let result =
+      constructorList.reduce((acc, cur) => acc + cur.price, 0) + bun.price;
     orderSumDispatcher({ type: "calculate", sum: result });
   }, [constructorList, bun]);
 
   const ingredientsList = ingredientsWithoutBuns.map((el) => (
-    <div key={Math.random()} className={styles.element}>
-      <DragIcon />
-      <ConstructorElement
-        text={el.name}
-        price={el.price}
-        thumbnail={el.image}
-        handleClose={() => deleteIngredient(el)}
-      />
-    </div>
+    <ConstructorIngredient
+      key={Math.random()}
+      type={el.type}
+      name={el.name}
+      price={el.price}
+      image={el.image}
+      delete-id={el._delete_id}
+    />
   ));
 
   return (
-    <section ref={dropTarget} className={`${styles.constructorBlock} pr-1 pl-2`}>
+    <section
+      ref={dropTarget}
+      className={`${styles.constructorBlock} pr-1 pl-2`}
+    >
       {isModal && (
         <Modal onShowModal={onShowModalHandler}>
-          <OrderDetails orderNumber={orderNumber}/>
+          <OrderDetails orderNumber={orderNumber} />
         </Modal>
       )}
       <div className={`${styles.constructor} mb-10`}>

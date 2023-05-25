@@ -25,7 +25,12 @@ export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, ty
 
   const [{opacity}, dragRef] = useDrag({
     type: type,
-    item: {id, type, setIngredientCounter},
+    item: {
+      id,
+      type, 
+      setIngredientCounter,
+      action: 'add',
+    },
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0.5 : 1
   })

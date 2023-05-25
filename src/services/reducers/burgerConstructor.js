@@ -13,7 +13,7 @@ export const burgerConstructor = (state = initialState, action) => {
             return [
                 ...state.filter((el) => {
                     if(el._delete_id) {
-                        return el._delete_id !== action.payload._delete_id
+                        return el._delete_id !== action.payload
                     } else {
                         return true
                     }
