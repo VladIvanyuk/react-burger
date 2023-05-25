@@ -14,8 +14,8 @@ declare global {
 
 const initialState: any = {
   burgerIngredients: {},
-  burgerConstructor: [
-    {
+  burgerConstructor: {
+    buns: {
       "_id": "643d69a5c3f7b9001cfa093c",
       "name": "Краторная булка N-200i",
       "type": "bun",
@@ -29,7 +29,10 @@ const initialState: any = {
       "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
       "__v": 0
     },
-  ],
+    ingredients: [],
+  }
+    
+  ,
   ingredientDetails: {},
   orderDetails: {
     order: {

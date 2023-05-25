@@ -13,11 +13,18 @@ export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, ty
 
   let count = 0;
 
-  burgerConstructor.forEach((el) => {
-    if (el._id === id) {
-      count += (el.type === 'bun') ? 2 : 1;
+  // считаем количество ингридиентов в конструкторе
+  if(type !== 'bun') {
+    burgerConstructor.ingredients.forEach((el) => {
+      if (el._id === id) {
+        count += 1;
+      }
+    });
+  } else {
+    if(burgerConstructor.buns._id === id) {
+      count += 2;
     }
-  }); 
+  }
 
   useEffect(() => {
     setIngredientCounter(count)

@@ -11,6 +11,8 @@ import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { useDrop } from "react-dnd";
 import { ConstructorIngredient } from "../constructor-ingredient/constructor-ingredient";
+import update from 'immutability-helper';
+
 
 const initialOrderSum = { sum: 0 };
 
@@ -65,23 +67,39 @@ export const BurgerConstructor = () => {
     },
   });
 
-  console.log("construct");
-
+  
   const dispatch = useDispatch();
   const orderNumber = useSelector((store) => store.orderDetails.order.number);
   const constructorList = useSelector((store) => store.burgerConstructor);
   const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
   // разбиваем ингредиенты на булки и остальное
-  const ingredientsWithoutBuns = constructorList.filter(
-    (el) => el.type !== "bun"
-  );
+  console.log(constructorList)
+  const ingredientsWithoutBuns = constructorList.ingredients;
   // отдельно сохраняем булки
-  const bun = constructorList.find((el) => el.type === "bun");
-  const indgredientsIdList = constructorList.map((el) => el._id);
+  const bun = constructorList.buns;
+  const indgredientsIdList = constructorList.ingredients.map((el) => el._id);
 
   const onShowModalHandler = useCallback((value) => {
     setIsModal(value);
   }, []);
+  console.log(constructorList)
+
+  const moveCard = useCallback((dragIndex, hoverIndex) => {
+    console.log(dragIndex, hoverIndex)
+    const sorted = update(constructorList.ingredients, {
+      $splice: [
+        [dragIndex, 1],
+        [hoverIndex, 0, constructorList[dragIndex]],
+      ],
+    })
+
+    console.log(sorted)
+
+    dispatch({
+      type: 'SORT_INGREDIENT',
+      payload: sorted
+    })
+  }, [constructorList, dispatch])
 
   const sendData = () => {
     dispatch(getOrderDetails({ ingredients: indgredientsIdList }));
@@ -91,11 +109,11 @@ export const BurgerConstructor = () => {
   useEffect(() => {
     // считаем общую стоимость ингридиентов с двумя булками
     let result =
-      constructorList.reduce((acc, cur) => acc + cur.price, 0) + bun.price;
+      constructorList.ingredients.reduce((acc, cur) => acc + cur.price, 0) + bun.price;
     orderSumDispatcher({ type: "calculate", sum: result });
   }, [constructorList, bun]);
 
-  const ingredientsList = ingredientsWithoutBuns.map((el) => (
+  const ingredientsList = ingredientsWithoutBuns.map((el, index) => (
     <ConstructorIngredient
       key={Math.random()}
       type={el.type}
@@ -103,6 +121,8 @@ export const BurgerConstructor = () => {
       price={el.price}
       image={el.image}
       delete-id={el._delete_id}
+      index={index}
+      moveCard={moveCard}
     />
   ));
 

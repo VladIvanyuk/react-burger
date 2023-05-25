@@ -5,10 +5,14 @@ const initialState = [
 export const burgerConstructor = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_INGREDIENT':
-            return [
+            return {
                 ...state,
-                action.payload
-            ]
+                ingredients: [ 
+                    ...state.ingredients,
+                    action.payload
+                ]
+                }
+            
         case 'DELETE_INGREDIENT':
             return [
                 ...state.filter((el) => {
@@ -19,11 +23,17 @@ export const burgerConstructor = (state = initialState, action) => {
                     }
                 })
             ]
+        case 'SORT_INGREDIENT':
+           return [
+            ...action.payload
+        ]
         case 'ADD_BUN':
-            return [
-                ...state.filter((el) => el.type !== 'bun'),
-                action.payload
-            ]
+            return {
+                ...state,
+                buns: action.payload
+            }
+                
+            
         default:
             return state;
     }
