@@ -29,9 +29,12 @@ export const burgerConstructor = (state = initialState, action) => {
                 ]
     }
         case 'SORT_INGREDIENT':
-           return [
-            ...action.payload
-        ]
+           return {
+            ...state,
+            ingredients: [
+                ...action.payload
+            ]
+           }
         case 'ADD_BUN':
             return {
                 ...state,

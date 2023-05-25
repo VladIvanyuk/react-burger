@@ -12,7 +12,7 @@ export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, ty
   const { burgerConstructor } = useSelector((store) => store);
 
   let count = 0;
-
+  console.log('burgerConstructore', burgerConstructor)
   // считаем количество ингридиентов в конструкторе
   if(type !== 'bun') {
     burgerConstructor.ingredients.forEach((el) => {

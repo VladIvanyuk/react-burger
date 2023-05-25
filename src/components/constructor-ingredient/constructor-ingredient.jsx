@@ -21,6 +21,10 @@ export const ConstructorIngredient = ({ name, price, image, id, delete_id, type,
       if (!dragRef.current) {
         return
       }
+
+      // убиваем если перетаскиваемый ингридиент летит из общего списка
+      if (item.action === 'add') return;
+
       const dragIndex = item.index
       const hoverIndex = index
       // Don't replace items with themselves

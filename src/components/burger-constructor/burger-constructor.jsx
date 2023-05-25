@@ -28,6 +28,16 @@ function reducer(state, action) {
 export const BurgerConstructor = () => {
   const [isModal, setIsModal] = useState(false);
   const { burgerIngredients } = useSelector((store) => store);
+  const dispatch = useDispatch();
+  const orderNumber = useSelector((store) => store.orderDetails.order.number);
+  const constructorList = useSelector((store) => store.burgerConstructor);
+  const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
+  // разбиваем ингредиенты на булки и остальное
+  const ingredientsWithoutBuns = constructorList.ingredients;
+  // отдельно сохраняем булки
+  const bun = constructorList.buns;
+
+  const indgredientsIdList = constructorList.ingredients.map((el) => el._id);
   const [, dropTarget] = useDrop({
     accept: ["main", "sauce", "bun"],
     drop(item) {
@@ -67,17 +77,6 @@ export const BurgerConstructor = () => {
     },
   });
 
-  
-  const dispatch = useDispatch();
-  const orderNumber = useSelector((store) => store.orderDetails.order.number);
-  const constructorList = useSelector((store) => store.burgerConstructor);
-  const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
-  // разбиваем ингредиенты на булки и остальное
-  const ingredientsWithoutBuns = constructorList.ingredients;
-  // отдельно сохраняем булки
-  const bun = constructorList.buns;
-  const indgredientsIdList = constructorList.ingredients.map((el) => el._id);
-
   const onShowModalHandler = useCallback((value) => {
     setIsModal(value);
   }, []);
@@ -87,7 +86,7 @@ export const BurgerConstructor = () => {
     const sorted = update(constructorList.ingredients, {
       $splice: [
         [dragIndex, 1],
-        [hoverIndex, 0, constructorList[dragIndex]],
+        [hoverIndex, 0, constructorList.ingredients[dragIndex]],
       ],
     })
 
