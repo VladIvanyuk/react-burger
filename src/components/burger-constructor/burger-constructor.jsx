@@ -44,7 +44,7 @@ export const BurgerConstructor = () => {
               type: "ADD_INGREDIENT",
               payload: {
                 ...ingredient,
-                // добавляем ингредиенту ID для удаления
+                // при добавлении новых одинаковых ингридиентов генерим для них новые ИД для удаления
                 _delete_id: Math.random(),
               },
             });
