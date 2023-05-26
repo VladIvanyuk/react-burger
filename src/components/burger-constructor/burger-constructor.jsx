@@ -74,7 +74,6 @@ export const BurgerConstructor = () => {
   }, []);
 
   const moveCard = useCallback((dragIndex, hoverIndex) => {
-    console.log(dragIndex, hoverIndex)
     const sorted = update(constructorList.ingredients, {
       $splice: [
         [dragIndex, 1],
@@ -96,7 +95,7 @@ export const BurgerConstructor = () => {
   useEffect(() => {
     // считаем общую стоимость ингридиентов с двумя булками
     let result =
-      constructorList.ingredients.reduce((acc, cur) => acc + cur.price, 0) + bun.price;
+      constructorList.ingredients.reduce((acc, cur) => acc + cur.price, 0) + (bun.price * 2);
     orderSumDispatcher({ type: "calculate", sum: result });
   }, [constructorList, bun]);
 
