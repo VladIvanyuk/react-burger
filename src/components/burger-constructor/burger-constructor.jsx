@@ -90,8 +90,6 @@ export const BurgerConstructor = () => {
       ],
     })
 
-    console.log(sorted)
-
     dispatch({
       type: 'SORT_INGREDIENT',
       payload: sorted

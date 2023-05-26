@@ -6,13 +6,13 @@ import {
 import { useState, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
+import { ingredientType } from "../../utils/prop-types";
 
 export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, type }) => {
   const [ingredientCounter, setIngredientCounter] = useState(0);
   const { burgerConstructor } = useSelector((store) => store);
 
   let count = 0;
-  console.log('burgerConstructore', burgerConstructor)
   // считаем количество ингридиентов в конструкторе
   if(type !== 'bun') {
     burgerConstructor.ingredients.forEach((el) => {
@@ -68,3 +68,5 @@ export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, ty
     </div>
   );
 };
+
+Ingredient.propTypes = ingredientType;
