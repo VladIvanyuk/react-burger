@@ -9,6 +9,12 @@ export const burgerIngredients = (state = initialState, action) => {
         case 'GET_INGREDIENTS':
             return {
                 ...state,
+                isLoaded: false,
+                isError: false,
+            }
+        case 'GET_INGREDIENTS_REQUEST_SUCCESS':
+            return {
+                ...state,
                 data: action.data,
                 isLoaded: true,
             }

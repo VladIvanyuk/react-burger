@@ -2,9 +2,13 @@ import { getData } from "../../utils/burger-api";
 
 export const getBurgerIngredients = () => {
     return function(dispatch) {
+        dispatch({
+            type: 'GET_INGREDIENTS'
+        })
+
         getData().then((res) => {
             dispatch({
-                type: 'GET_INGREDIENTS',
+                type: 'GET_INGREDIENTS_REQUEST_SUCCESS',
                 data: res.data
             })
         }).catch((err) => {

@@ -7,12 +7,13 @@ import { useRef } from 'react';
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { constructorIngredientType } from "../../utils/prop-types";
+import { DELETE_INGREDIENT } from "../../services/actions/burgerConstructor";
 
 export const ConstructorIngredient = ({ name, price, image, delete_id, type, moveCard, index }) => {
   const dispatch = useDispatch();
   const dragRef = useRef(null)
   const [{ handlerId }, drop] = useDrop({
-    accept: type,
+    accept: ['sauce', 'main'],
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -62,7 +63,7 @@ export const ConstructorIngredient = ({ name, price, image, delete_id, type, mov
 
   const deleteIngredient = (delete_id) => {
     dispatch({
-      type: "DELETE_INGREDIENT",
+      type: DELETE_INGREDIENT,
       payload: delete_id,
     });
   };

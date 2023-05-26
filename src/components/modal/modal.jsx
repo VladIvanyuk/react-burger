@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { modalTypes } from "../../utils/prop-types";
 import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
+import { DELETE_DETAILS } from "../../services/actions/ingredientDetails";
 
 export const Modal = ({ onShowModal, ...props }) => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export const Modal = ({ onShowModal, ...props }) => {
     // при закрытии модалки удаляем обработчик
     return () => {
       dispatch({
-        type: 'DELETE_DETAILS'
+        type: DELETE_DETAILS
       })
       window.removeEventListener("keydown", closeModalWithESC);
     };

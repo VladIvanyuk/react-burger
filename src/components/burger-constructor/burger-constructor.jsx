@@ -12,6 +12,7 @@ import { OrderDetails } from "../order-details/order-details";
 import { useDrop } from "react-dnd";
 import { ConstructorIngredient } from "../constructor-ingredient/constructor-ingredient";
 import update from 'immutability-helper';
+import { ADD_BUN, ADD_INGREDIENT, SORT_INGREDIENT } from "../../services/actions/burgerConstructor";
 
 
 const initialOrderSum = { sum: 0 };
@@ -42,8 +43,7 @@ export const BurgerConstructor = () => {
     accept: ["main", "sauce", "bun"],
     drop(item) {
       // проверка на добавление в конструктор или его сортировку
-      switch (item.action) {
-        case "add":
+      if (item.action === 'add') {
           // проверка на тип ингредиента
           if (item.type !== "bun") {
             item.setIngredientCounter((prev) => prev + 1);
@@ -51,7 +51,7 @@ export const BurgerConstructor = () => {
               (el) => el._id === item.id
             );
             dispatch({
-              type: "ADD_INGREDIENT",
+              type: ADD_INGREDIENT,
               payload: {
                 ...ingredient,
                 // при добавлении новых одинаковых ингридиентов генерим для них новые ИД для удаления
@@ -61,18 +61,10 @@ export const BurgerConstructor = () => {
           } else {
             item.setIngredientCounter((prev) => prev + 1);
             dispatch({
-              type: "ADD_BUN",
+              type: ADD_BUN,
               payload: burgerIngredients.data.find((el) => el._id === item.id),
             });
           }
-          break;
-
-        case "sort":
-          console.log("sort");
-          break;
-
-        default:
-          break;
       }
     },
   });
@@ -91,7 +83,7 @@ export const BurgerConstructor = () => {
     })
 
     dispatch({
-      type: 'SORT_INGREDIENT',
+      type: SORT_INGREDIENT,
       payload: sorted
     })
   }, [constructorList, dispatch])

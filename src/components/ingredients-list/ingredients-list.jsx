@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { Ingredient } from "../ingredient/ingredient";
+import { ON_CLICK_INGREDIENT } from "../../services/actions/ingredientDetails";
 
 export const IngredientList = ({ name, id, ingredientsInfo }) => {
   const ingredientForModal = useSelector((store) => store.ingredientDetails);
@@ -20,7 +21,7 @@ export const IngredientList = ({ name, id, ingredientsInfo }) => {
     (id) => {
       const clickedIngredient = ingredientsInfo.find((el) => el._id === id);
       dispatch({
-        type: "ON_CLICK_INGREDIENT",
+        type: ON_CLICK_INGREDIENT,
         ingredient: clickedIngredient,
       });
       onShowModalHandler(true);
