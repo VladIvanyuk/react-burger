@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { DELETE_DETAILS } from "../../services/actions/ingredientDetails";
 
-export const Modal = ({ onShowModal, ...props }) => {
+export const Modal = ({ onShowModal, modalHeaderText, ...props }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export const Modal = ({ onShowModal, ...props }) => {
     <>
       <div className={`${styles.modal} pt-10 pl-10 pr-10`}>
         <div className={`${styles.modalHeader}`}>
-          <h3 className="text text_type_main-large">Детали ингредиента</h3>
+          <h3 className="text text_type_main-large">{modalHeaderText}</h3>
           <CloseIcon onClick={() => onShowModal(false)} type="secondary" />
         </div>
         {props.children}

@@ -43,7 +43,7 @@ export const IngredientList = ({ name, id, ingredientsInfo }) => {
   return (
     <div>
       {isModal && (
-        <Modal onShowModal={onShowModalHandler}>
+        <Modal onShowModal={onShowModalHandler} modalHeaderText={'Детали ингридиента'}>
           <IngredientDetails
             ingredient={ingredientForModal}
           ></IngredientDetails>

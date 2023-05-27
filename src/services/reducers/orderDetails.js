@@ -1,11 +1,6 @@
 import { GET_ORDER_DETAILS, GET_ORDER_DETAILS_FAILED, GET_ORDER_DETAILS_SUCCESS } from '../actions/orderDetails';
-const initialState = {
-    details: {},
-    isOrderError: false,
-    isOrderLoaded: false
-}
 
-export const orderDetails = (state = initialState, action) => {
+export const orderDetails = (state = {}, action) => {
     switch(action.type) {
         case GET_ORDER_DETAILS:
             return {

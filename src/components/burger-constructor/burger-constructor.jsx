@@ -30,7 +30,7 @@ export const BurgerConstructor = () => {
   const [isModal, setIsModal] = useState(false);
   const { burgerIngredients } = useSelector((store) => store);
   const dispatch = useDispatch();
-  const orderNumber = useSelector((store) => store.orderDetails.order.number);
+  const orderNumber = useSelector((store) => store.orderDetails.details.order.number);
   const constructorList = useSelector((store) => store.burgerConstructor);
   const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
   // разбиваем ингредиенты на булки и остальное
