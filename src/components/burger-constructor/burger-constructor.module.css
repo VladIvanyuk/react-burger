@@ -61,3 +61,8 @@
 .locked {
     margin-right: 16px;
 }
+
+.elementWrapper {
+    height: 80px;
+    align-self: center;
+}

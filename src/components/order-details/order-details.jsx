@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
 import { DELETE_ORDER_DETAILS } from "../../services/actions/orderDetails";
+import { CLEAR_CONSTRUCTOR } from "../../services/actions/burgerConstructor";
 
 export const OrderDetails = ({ orderNumber }) => {
   const isLoaded = useSelector((store) => store.orderDetails.isOrderLoaded);
@@ -15,6 +16,10 @@ export const OrderDetails = ({ orderNumber }) => {
     return () => {
       dispatch({
         type: DELETE_ORDER_DETAILS
+      })
+
+      dispatch({
+        type: CLEAR_CONSTRUCTOR
       })
     }
   }, [dispatch])

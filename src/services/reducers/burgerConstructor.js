@@ -1,4 +1,4 @@
-import { DELETE_INGREDIENT, ADD_INGREDIENT, SORT_INGREDIENT, ADD_BUN } from "../actions/burgerConstructor"
+import { DELETE_INGREDIENT, ADD_INGREDIENT, SORT_INGREDIENT, ADD_BUN, CLEAR_CONSTRUCTOR } from "../actions/burgerConstructor"
 
 export const burgerConstructor = (state = [], action) => {
     switch (action.type) {
@@ -36,7 +36,12 @@ export const burgerConstructor = (state = [], action) => {
                 ...state,
                 buns: action.payload
             }
-            
+        
+        case CLEAR_CONSTRUCTOR:
+            return {
+                ingredients: [],
+                buns: {},
+            }
         default:
             return state;
     }
