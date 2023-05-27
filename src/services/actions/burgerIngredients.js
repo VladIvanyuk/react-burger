@@ -1,19 +1,24 @@
 import { getData } from "../../utils/burger-api";
 
+export const GET_INGREDIENTS = 'GET_INGREDIENTS';
+export const GET_INGREDIENTS_REQUEST_SUCCESS = 'GET_INGREDIENTS_REQUEST_SUCCESS';
+export const GET_INGREDIENTS_REQUEST_FAILED = 'GET_INGREDIENTS_REQUEST_FAILED';
+
+
 export const getBurgerIngredients = () => {
     return function(dispatch) {
         dispatch({
-            type: 'GET_INGREDIENTS'
+            type: GET_INGREDIENTS
         })
 
         getData().then((res) => {
             dispatch({
-                type: 'GET_INGREDIENTS_REQUEST_SUCCESS',
+                type: GET_INGREDIENTS_REQUEST_SUCCESS,
                 data: res.data
             })
         }).catch((err) => {
             dispatch({
-                type: 'GET_INGREDIENTS_REQUEST_FAILED'
+                type: GET_INGREDIENTS_REQUEST_FAILED
             })
         })
     }
