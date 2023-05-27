@@ -21,9 +21,7 @@ export const App = (props) => {
       <div className={styles.app}>
         {isLoaded && (
           <>
-            <header className="pt-4 pb-4 mb-10">
-              <AppHeader />
-            </header>
+            <AppHeader />
             <main className={`${styles.main} pl-5 pr-5`}>
               <h2 className="text text_type_main-large mb-5">
                 Соберите бургер

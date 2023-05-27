@@ -1,5 +1,5 @@
 import styles from "./burger-constructor.module.css";
-import { useEffect, useReducer, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -14,25 +14,13 @@ import { ConstructorIngredient } from "../constructor-ingredient/constructor-ing
 import update from 'immutability-helper';
 import { ADD_BUN, ADD_INGREDIENT, SORT_INGREDIENT } from "../../services/actions/burgerConstructor";
 
-
-const initialOrderSum = { sum: 0 };
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "calculate":
-      return { sum: action.sum };
-    default:
-      throw new Error(`Wrong type of action: ${action.type}`);
-  }
-}
-
 export const BurgerConstructor = () => {
   const [isModal, setIsModal] = useState(false);
+  const [orderSum, setOrderSum] = useState(0);
   const { burgerIngredients } = useSelector((store) => store);
   const dispatch = useDispatch();
   const orderNumber = useSelector((store) => store.orderDetails.details.order.number);
   const constructorList = useSelector((store) => store.burgerConstructor);
-  const [orderSum, orderSumDispatcher] = useReducer(reducer, initialOrderSum);
   // разбиваем ингредиенты на булки и остальное
   const ingredientsWithoutBuns = constructorList.ingredients;
   // отдельно сохраняем булки
@@ -93,10 +81,10 @@ export const BurgerConstructor = () => {
   };
 
   useEffect(() => {
+    console.log(bun)
     // считаем общую стоимость ингридиентов с двумя булками
-    let result =
-      constructorList.ingredients.reduce((acc, cur) => acc + cur.price, 0) + (bun.price * 2);
-    orderSumDispatcher({ type: "calculate", sum: result });
+    let sum = constructorList.ingredients.reduce((acc, cur) => acc + cur.price, 0) + (bun.price * 2);
+    setOrderSum(sum)
   }, [constructorList, bun]);
 
   const ingredientsList = ingredientsWithoutBuns.map((el, index) => (
@@ -149,7 +137,7 @@ export const BurgerConstructor = () => {
       </div>
       <div className={styles.priceBlock}>
         <p className={`${styles.price} text text_type_digits-medium`}>
-          {orderSum.sum}
+          {orderSum}
           <CurrencyIcon />
         </p>
         <Button
