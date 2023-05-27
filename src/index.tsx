@@ -36,12 +36,12 @@ const initialState: any = {
   ingredientDetails: {},
   orderDetails: {
     details: {
-      isOrderError: false,
-      isOrderLoaded: false,
       order: {
-        number: ''
+        number: '',
       }
-    }
+    },
+    isOrderError: false,
+    isOrderLoaded: false,
   }
 }
 

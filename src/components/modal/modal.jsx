@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { modalTypes } from "../../utils/prop-types";
 import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
-import { DELETE_DETAILS } from "../../services/actions/ingredientDetails";
 
 export const Modal = ({ onShowModal, modalHeaderText, ...props }) => {
   const dispatch = useDispatch();
@@ -14,16 +13,14 @@ export const Modal = ({ onShowModal, modalHeaderText, ...props }) => {
   useEffect(() => {
     // по нажатию на ESC закрываем модалку
     const closeModalWithESC = (e) => {
-      if (e.keyCode === 27) {
+      console.log(e.key)
+      if (e.key === 'Escape') {
         onShowModal(false);
       }
     };
     window.addEventListener("keydown", closeModalWithESC);
     // при закрытии модалки удаляем обработчик
     return () => {
-      dispatch({
-        type: DELETE_DETAILS
-      })
       window.removeEventListener("keydown", closeModalWithESC);
     };
   }, [dispatch, onShowModal]);

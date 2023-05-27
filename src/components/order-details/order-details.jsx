@@ -2,11 +2,23 @@ import styles from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import checkBackground from "../../img/check.png";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react';
+import { DELETE_ORDER_DETAILS } from "../../services/actions/orderDetails";
 
 export const OrderDetails = ({ orderNumber }) => {
   const isLoaded = useSelector((store) => store.orderDetails.isOrderLoaded);
   const isError = useSelector((store) => store.orderDetails.isOrderError);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch({
+        type: DELETE_ORDER_DETAILS
+      })
+    }
+  }, [dispatch])
+
   return (
     <>
       {(!isLoaded && !isError) && (
@@ -52,5 +64,5 @@ export const OrderDetails = ({ orderNumber }) => {
 };
 
 OrderDetails.propTypes = {
-  orderNumber: PropTypes.number.isRequired,
+  orderNumber: PropTypes.string.isRequired,
 };

@@ -1,4 +1,4 @@
-import { DELETE_INGREDIENT, ADD_INGREDIENT, SORT_INGREDIENT, ADD_BUN, CALCULATE_ORDER_SUM } from "../actions/burgerConstructor"
+import { DELETE_INGREDIENT, ADD_INGREDIENT, SORT_INGREDIENT, ADD_BUN } from "../actions/burgerConstructor"
 
 export const burgerConstructor = (state = [], action) => {
     switch (action.type) {

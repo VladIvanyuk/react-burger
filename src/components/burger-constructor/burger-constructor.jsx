@@ -12,14 +12,15 @@ import { OrderDetails } from "../order-details/order-details";
 import { useDrop } from "react-dnd";
 import { ConstructorIngredient } from "../constructor-ingredient/constructor-ingredient";
 import update from 'immutability-helper';
-import { ADD_BUN, ADD_INGREDIENT, SORT_INGREDIENT } from "../../services/actions/burgerConstructor";
+import { SORT_INGREDIENT, addBun, addIngridient } from "../../services/actions/burgerConstructor";
+import { v4 as uuidv4 } from 'uuid';
 
 export const BurgerConstructor = () => {
   const [isModal, setIsModal] = useState(false);
   const [orderSum, setOrderSum] = useState(0);
   const { burgerIngredients } = useSelector((store) => store);
   const dispatch = useDispatch();
-  const orderNumber = useSelector((store) => store.orderDetails.details.order.number);
+  const orderNumber = useSelector((store) => store.orderDetails.details.order.number.toString());
   const constructorList = useSelector((store) => store.burgerConstructor);
   // разбиваем ингредиенты на булки и остальное
   const ingredientsWithoutBuns = constructorList.ingredients;
@@ -38,20 +39,11 @@ export const BurgerConstructor = () => {
             const ingredient = burgerIngredients.data.find(
               (el) => el._id === item.id
             );
-            dispatch({
-              type: ADD_INGREDIENT,
-              payload: {
-                ...ingredient,
-                // при добавлении новых одинаковых ингридиентов генерим для них новые ИД для удаления
-                _delete_id: Math.random(),
-              },
-            });
+            dispatch(addIngridient(ingredient));
           } else {
             item.setIngredientCounter((prev) => prev + 1);
-            dispatch({
-              type: ADD_BUN,
-              payload: burgerIngredients.data.find((el) => el._id === item.id),
-            });
+            const bun = burgerIngredients.data.find((el) => el._id === item.id);
+            dispatch(addBun(bun));
           }
       }
     },
@@ -81,7 +73,6 @@ export const BurgerConstructor = () => {
   };
 
   useEffect(() => {
-    console.log(bun)
     // считаем общую стоимость ингридиентов с двумя булками
     let sum = constructorList.ingredients.reduce((acc, cur) => acc + cur.price, 0) + (bun.price * 2);
     setOrderSum(sum)
@@ -89,7 +80,7 @@ export const BurgerConstructor = () => {
 
   const ingredientsList = ingredientsWithoutBuns.map((el, index) => (
     <ConstructorIngredient
-      key={Math.random()}
+      key={uuidv4()}
       type={el.type}
       name={el.name}
       price={el.price}
