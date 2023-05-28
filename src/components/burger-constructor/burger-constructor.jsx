@@ -55,9 +55,6 @@ export const BurgerConstructor = () => {
         }
       }
     },
-    hover() {
-      const border = '1px solid green';
-    }
   });
 
   const onShowModalHandler = useCallback((value) => {
