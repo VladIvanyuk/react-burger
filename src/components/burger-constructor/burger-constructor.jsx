@@ -17,12 +17,10 @@ import {
   addBun,
   addIngridient,
 } from "../../services/actions/burgerConstructor";
-import { v4 as uuidv4 } from "uuid";
 
 export const BurgerConstructor = () => {
   const [isModal, setIsModal] = useState(false);
   const [orderSum, setOrderSum] = useState(0);
-  const [isDisabledButton, setIsDisabledButton] = useState(true);
   const { burgerIngredients } = useSelector((store) => store);
   const dispatch = useDispatch();
   const orderNumber = useSelector((store) =>
@@ -34,8 +32,8 @@ export const BurgerConstructor = () => {
   // отдельно сохраняем булки
   const bun = constructorList.buns;
   const isEmptyBuns = Object.entries(bun).length === 0;
-  const isEmptyIngredients = Object.entries(ingredientsWithoutBuns).length === 0;
-  console.log(isEmptyIngredients, isEmptyBuns)
+  const isEmptyIngredients =
+    Object.entries(ingredientsWithoutBuns).length === 0;
 
   const indgredientsIdList = constructorList.ingredients.map((el) => el._id);
   const [, dropTarget] = useDrop({
@@ -57,14 +55,16 @@ export const BurgerConstructor = () => {
         }
       }
     },
+    hover() {
+      const border = '1px solid green';
+    }
   });
 
   const onShowModalHandler = useCallback((value) => {
     setIsModal(value);
   }, []);
 
-  const check = !isEmptyBuns && !isEmptyIngredients ? false : true;
-  console.log(check)
+  const isActiveButton = !isEmptyBuns && !isEmptyIngredients ? false : true;
 
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
@@ -91,23 +91,25 @@ export const BurgerConstructor = () => {
   useEffect(() => {
     // считаем общую стоимость ингридиентов с двумя булками
     let sum =
-      constructorList.ingredients.reduce((acc, cur) => acc + cur.price, 0) + (bun.price ? bun.price * 2 : 0);
+      constructorList.ingredients.reduce((acc, cur) => acc + cur.price, 0) +
+      (bun.price ? bun.price * 2 : 0);
     setOrderSum(sum);
   }, [constructorList, bun]);
 
-  const ingredientsList = ingredientsWithoutBuns.map((el, index) => (
-    <ConstructorIngredient
-      key={uuidv4()}
-      type={el.type}
-      name={el.name}
-      price={el.price}
-      image={el.image}
-      delete-id={el._delete_id}
-      index={index}
-      moveCard={moveCard}
-      delete_id={el._delete_id}
-    />
-  ));
+  const ingredientsList = ingredientsWithoutBuns.map((el, index) => {
+    return (
+      <ConstructorIngredient
+        key={el.unique_id}
+        type={el.type}
+        name={el.name}
+        price={el.price}
+        image={el.image}
+        unique_id={el.unique_id}
+        index={index}
+        moveCard={moveCard}
+      />
+    );
+  });
 
   return (
     <section
@@ -131,14 +133,12 @@ export const BurgerConstructor = () => {
               thumbnail={bun.image}
             />
           )}
-          {(isEmptyBuns && !isEmptyIngredients) && (
-            <p className="text text_type_digits-default">
-              Добавьте булочку
-            </p>
+          {isEmptyBuns && !isEmptyIngredients && (
+            <p className="text text_type_digits-default">Добавьте булочку</p>
           )}
         </div>
         <div className={`${styles.scrollBlock} mb-4 pt-4 pr-2`}>
-          {(!isEmptyBuns || !isEmptyIngredients) ? (
+          {!isEmptyBuns || !isEmptyIngredients ? (
             ingredientsList
           ) : (
             <p className="text text_type_digits-medium">
@@ -158,10 +158,8 @@ export const BurgerConstructor = () => {
               thumbnail={bun.image}
             />
           )}
-          {(isEmptyBuns && !isEmptyIngredients) && (
-            <p className="text text_type_digits-default">
-              Добавьте булочку
-            </p>
+          {isEmptyBuns && !isEmptyIngredients && (
+            <p className="text text_type_digits-default">Добавьте булочку</p>
           )}
         </div>
       </div>
@@ -171,7 +169,7 @@ export const BurgerConstructor = () => {
           <CurrencyIcon />
         </p>
         <Button
-          disabled={check}
+          disabled={isActiveButton}
           htmlType="button"
           type="primary"
           size="large"

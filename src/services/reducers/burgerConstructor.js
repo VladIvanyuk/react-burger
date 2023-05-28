@@ -16,8 +16,8 @@ export const burgerConstructor = (state = [], action) => {
                 ...state,
                 ingredients: [
                     ...state.ingredients.filter((el) => {
-                        if(el._delete_id) {
-                            return el._delete_id !== action.payload
+                        if(el.unique_id) {
+                            return el.unique_id !== action.payload
                         } else {
                             return true
                         }
