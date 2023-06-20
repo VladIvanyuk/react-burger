@@ -14,7 +14,7 @@ const constructorIngredientType = {
         type: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         image: PropTypes.string.isRequired,
-        unique_id: PropTypes.string.isRequired,
+        uniqueId: PropTypes.string.isRequired,
         moveCard: PropTypes.func.isRequired,
         index: PropTypes.number.isRequired,
 }
