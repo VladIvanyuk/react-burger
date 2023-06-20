@@ -4,13 +4,17 @@ import { createPortal } from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect } from "react";
 import { modalTypes } from "../../utils/prop-types";
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { useDispatch } from "react-redux";
 
-export const Modal = ({ onShowModal, ...props }) => {
+export const Modal = ({ onShowModal, modalHeaderText, ...props }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     // по нажатию на ESC закрываем модалку
     const closeModalWithESC = (e) => {
-      if (e.keyCode === 27) {
+      console.log(e.key)
+      if (e.key === 'Escape') {
         onShowModal(false);
       }
     };
@@ -19,13 +23,13 @@ export const Modal = ({ onShowModal, ...props }) => {
     return () => {
       window.removeEventListener("keydown", closeModalWithESC);
     };
-  }, [onShowModal]);
+  }, [dispatch, onShowModal]);
 
   return createPortal(
     <>
       <div className={`${styles.modal} pt-10 pl-10 pr-10`}>
         <div className={`${styles.modalHeader}`}>
-          <h3 className="text text_type_main-large">Детали ингредиента</h3>
+          <h3 className="text text_type_main-large">{modalHeaderText}</h3>
           <CloseIcon onClick={() => onShowModal(false)} type="secondary" />
         </div>
         {props.children}

@@ -1,9 +1,21 @@
 import styles from './ingredient-details.module.css';
-import { ingredientType } from '../../utils/prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { DELETE_DETAILS } from '../../services/actions/ingredientDetails';
 
-export const IngredientDetails = ({ ingredient }) => {
+export const IngredientDetails = () => {
 
+  const ingredient = useSelector((store) => store.ingredientDetails)
   const { name, image_large, calories, fat, carbohydrates, proteins } = ingredient;
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    return () => {
+      dispatch({
+        type: DELETE_DETAILS
+      })
+    }
+  }, [dispatch])
 
   return (
     <div className={styles.ingredientBlock}>
@@ -30,7 +42,3 @@ export const IngredientDetails = ({ ingredient }) => {
     </div>
   );
 };
-
-IngredientDetails.propTypes = {
-  ingredient: ingredientType.ingredient.isRequired,
-}

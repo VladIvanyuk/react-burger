@@ -1,6 +1,25 @@
 import PropTypes from 'prop-types';
 
 const ingredientType = {
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    onFindCurrentIngredient: PropTypes.func.isRequired
+}
+
+const constructorIngredientType = {
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        uniqueId: PropTypes.string.isRequired,
+        moveCard: PropTypes.func.isRequired,
+        index: PropTypes.number.isRequired,
+}
+
+const ingredientFullTypes = {
     ingredient: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
@@ -18,7 +37,7 @@ const ingredientType = {
 }
 
 const ingredientsListTypes = {
-    data: PropTypes.arrayOf(ingredientType.ingredient).isRequired
+    data: PropTypes.arrayOf(ingredientFullTypes.ingredient).isRequired
 }
 
 const modalTypes = {
@@ -26,4 +45,4 @@ const modalTypes = {
     getModalType: PropTypes.func
 }
 
-export { ingredientsListTypes, modalTypes, ingredientType }
+export { ingredientsListTypes, modalTypes, ingredientType, constructorIngredientType, ingredientFullTypes }

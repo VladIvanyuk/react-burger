@@ -1,43 +1,58 @@
-import styles from './ingredients-list.module.css';
-import { useContext } from 'react';
-import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientsListTypes } from '../../utils/prop-types';
-import PropTypes from 'prop-types';
-import { AppContext } from '../../services/appContext';
+import styles from "./ingredients-list.module.css";
+import { useState, useCallback } from "react";
+import { ingredientsListTypes } from "../../utils/prop-types";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { Modal } from "../modal/modal";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { Ingredient } from "../ingredient/ingredient";
+import { ON_CLICK_INGREDIENT } from "../../services/actions/ingredientDetails";
 
 export const IngredientList = ({ name, id, ingredientsInfo }) => {
+  const ingredientForModal = useSelector((store) => store.ingredientDetails);
+  const [isModal, setIsModal] = useState(false);
+  const dispatch = useDispatch();
 
-  const { getModalTypeHandler, getIngredientHandler, onShowModalHandler } = useContext(AppContext);
-
+  const onShowModalHandler = useCallback((value) => {
+    setIsModal(value);
+  }, []);
   // по клику на ингредиент находим его в общем списке и сохраняем
-  const findCurrentIngredient = (id) => {
-    const clickedIngredient = ingredientsInfo.find((el) => el._id === id);
-    onShowModalHandler(true);
-    getIngredientHandler(clickedIngredient);
-    getModalTypeHandler('ingredient');
-  }
+  const findCurrentIngredient = useCallback(
+    (id) => {
+      const clickedIngredient = ingredientsInfo.find((el) => el._id === id);
+      dispatch({
+        type: ON_CLICK_INGREDIENT,
+        ingredient: clickedIngredient,
+      });
+      onShowModalHandler(true);
+    },
+    [dispatch, ingredientsInfo, onShowModalHandler]
+  );
 
   const ingredientsList = ingredientsInfo.map((item) => (
-    <li onClick={() => findCurrentIngredient(item._id)} key={item._id} className={styles.item}>
-      <Counter count={1} size='default' extraClass="m-1"/>
-      <img className='mb-1' src={item.image} alt="Ингредиент"/>
-      <div className={`${styles.price} mb-1`}>
-        <span className='text text_type_digits-default mr-2'>
-          {item.price}
-        </span>
-          <CurrencyIcon />
-      </div>
-      <p className={`${styles.itemText} text text_type_main-default mb-8`}>
-        {item.name}
-      </p>
-    </li>
-  ))
+    <Ingredient
+      onFindCurrentIngredient={findCurrentIngredient}
+      type={item.type}
+      key={item._id}
+      id={item._id}
+      image={item.image}
+      price={item.price}
+      name={item.name}
+    />
+  ));
   return (
     <div>
-      <h2 id={id} className="text text_type_main-medium">{name}</h2>
-      <ul className={`${styles.list} pt-6 pr-1 pl-4`}>
-        {ingredientsList}
-      </ul>
+      {isModal && (
+        <Modal onShowModal={onShowModalHandler} modalHeaderText={'Детали ингридиента'}>
+          <IngredientDetails
+            ingredient={ingredientForModal}
+          ></IngredientDetails>
+        </Modal>
+      )}
+      <h2 id={id} className="text text_type_main-medium">
+        {name}
+      </h2>
+      <ul className={`${styles.list} pt-6 pr-1 pl-4`}>{ingredientsList}</ul>
     </div>
   );
 };
@@ -45,5 +60,5 @@ export const IngredientList = ({ name, id, ingredientsInfo }) => {
 IngredientList.propTypes = {
   ingredientsInfo: ingredientsListTypes.data,
   name: PropTypes.string,
-  id: PropTypes.string
+  id: PropTypes.string,
 };
