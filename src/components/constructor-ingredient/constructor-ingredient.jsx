@@ -9,7 +9,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { constructorIngredientType } from "../../utils/prop-types";
 import { DELETE_INGREDIENT } from "../../services/actions/burgerConstructor";
 
-export const ConstructorIngredient = ({ name, price, image, unique_id, type, moveCard, index }) => {
+export const ConstructorIngredient = ({ name, price, image, uniqueId, type, moveCard, index }) => {
   const dispatch = useDispatch();
   const dragRef = useRef(null)
   const [{ handlerId }, drop] = useDrop({
@@ -62,10 +62,10 @@ export const ConstructorIngredient = ({ name, price, image, unique_id, type, mov
 
   drag(drop(dragRef))
 
-  const deleteIngredient = (unique_id) => {
+  const deleteIngredient = (uniqueId) => {
     dispatch({
       type: DELETE_INGREDIENT,
-      payload: unique_id,
+      payload: uniqueId,
     });
   };
 
@@ -77,7 +77,7 @@ export const ConstructorIngredient = ({ name, price, image, unique_id, type, mov
           text={name}
           price={price}
           thumbnail={image}
-          handleClose={() => deleteIngredient(unique_id)}
+          handleClose={() => deleteIngredient(uniqueId)}
         />
       </div>
     </div>
