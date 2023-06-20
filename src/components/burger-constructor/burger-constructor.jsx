@@ -96,12 +96,12 @@ export const BurgerConstructor = () => {
   const ingredientsList = ingredientsWithoutBuns.map((el, index) => {
     return (
       <ConstructorIngredient
-        key={el.unique_id}
+        key={el.uniqueId}
         type={el.type}
         name={el.name}
         price={el.price}
         image={el.image}
-        unique_id={el.unique_id}
+        uniqueId={el.uniqueId}
         index={index}
         moveCard={moveCard}
       />
