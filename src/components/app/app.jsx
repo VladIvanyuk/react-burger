@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { MainPage } from '../../pages/main-page/main-page';
 import { ProtectedRouteElement } from '../protected-route/protected-route';
 import { Login } from '../../pages/authorization/login';
@@ -9,7 +9,6 @@ import { ResetPassword } from '../../pages/authorization/reset-password';
 
 export const App = (props) => {
   return (
-    <Router>
       <Routes>
         <Route path='/' element={<ProtectedRouteElement element={<MainPage />} />}/>
         <Route path='/login' element={<ProtectedRouteElement element={<Login />} />}/>
@@ -17,6 +16,5 @@ export const App = (props) => {
         <Route path='/forgot-password' element={<ProtectedRouteElement element={<ForgotPassword />} />}/>
         <Route path='/reset-password' element={<ProtectedRouteElement element={<ResetPassword />} />}/>
       </Routes>
-    </Router>
   );
 };
