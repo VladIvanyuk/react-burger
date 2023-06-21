@@ -64,5 +64,32 @@
 
 .elementWrapper {
     height: 80px;
+    width: 90%;
+    display: flex;
     align-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.borders {
+    border: 4px dashed #f30ec167;
+}
+
+.bordersTopBuns {
+    border-radius: 88px 88px 40px 40px;
+}
+
+.bordersBottomBuns {
+    border-radius:  40px 40px 88px 88px;;
+}
+
+.emptyBuns {
+    text-align: center;
+    color: white;
+    opacity: .1;
+}
+
+.constructorPlaceholder {
+    display: flex;
+    align-items: center;
 }

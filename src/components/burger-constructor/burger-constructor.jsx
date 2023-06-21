@@ -21,6 +21,7 @@ import {
 export const BurgerConstructor = () => {
   const [isModal, setIsModal] = useState(false);
   const [orderSum, setOrderSum] = useState(0);
+  const [isShowBorders, setIsShowBorders] = useState(true);
   const { burgerIngredients } = useSelector((store) => store);
   const dispatch = useDispatch();
   const orderNumber = useSelector((store) =>
@@ -31,12 +32,10 @@ export const BurgerConstructor = () => {
   const ingredientsWithoutBuns = constructorList.ingredients;
   // отдельно сохраняем булки
   const bun = constructorList.buns;
-  console.log(bun)
   const isEmptyBuns = Object.entries(bun).length === 0;
-  const isEmptyIngredients =
-    Object.entries(ingredientsWithoutBuns).length === 0;
-
+  const isEmptyIngredients = Object.entries(ingredientsWithoutBuns).length === 0;
   const indgredientsIdList = constructorList.ingredients.map((el) => el._id);
+  const borders = isShowBorders ? styles.borders : '';
   const [, dropTarget] = useDrop({
     accept: ["main", "sauce", "bun"],
     drop(item) {
@@ -55,6 +54,7 @@ export const BurgerConstructor = () => {
           dispatch(addBun(bun));
         }
       }
+      setIsShowBorders(false);
     },
   });
 
@@ -85,6 +85,7 @@ export const BurgerConstructor = () => {
     dispatch(getOrderDetails({ ingredients: indgredientsIdList }));
     setIsModal(true);
   };
+  
 
   useEffect(() => {
     // считаем общую стоимость ингридиентов с двумя булками
@@ -120,8 +121,8 @@ export const BurgerConstructor = () => {
         </Modal>
       )}
       <div className={`${styles.constructor} mb-10`}>
-        <div className={`${styles.elementWrapper} mr-4`}>
-          {!isEmptyBuns && (
+        <div className={`${styles.elementWrapper} ${borders} ${styles.bordersTopBuns} mr-4`}>
+          {!isEmptyBuns && isShowBorders && (
             <ConstructorElement
               className="mb-4"
               type="top"
@@ -131,21 +132,23 @@ export const BurgerConstructor = () => {
               thumbnail={bun.image}
             />
           )}
-          {isEmptyBuns && !isEmptyIngredients && (
-            <p className="text text_type_digits-default">Добавьте булочку</p>
+          {isEmptyBuns && (
+            <p className={`${styles.emptyBuns} text text_type_digits-default`}>Добавьте булочку</p>
           )}
         </div>
         <div className={`${styles.scrollBlock} mb-4 pt-4 pr-2`}>
           {!isEmptyBuns || !isEmptyIngredients ? (
             ingredientsList
           ) : (
-            <p className="text text_type_digits-medium">
-              Пожалуйста, перенесите сюда булку и ингредиенты для создания
-              заказа.
-            </p>
+            <div className={styles.constructorPlaceholder}>
+                <p className="text text_type_digits-medium">
+                Пожалуйста, перенесите сюда булку и ингредиенты для создания
+                заказа.
+              </p>
+            </div>
           )}
         </div>
-        <div className={`${styles.elementWrapper} mr-4`}>
+        <div className={`${styles.elementWrapper} ${borders} ${styles.bordersBottomBuns} mr-4`}>
           {!isEmptyBuns && (
             <ConstructorElement
               className="mb-4"
@@ -156,8 +159,8 @@ export const BurgerConstructor = () => {
               thumbnail={bun.image}
             />
           )}
-          {isEmptyBuns && !isEmptyIngredients && (
-            <p className="text text_type_digits-default">Добавьте булочку</p>
+          {isEmptyBuns && (
+            <p className={`${styles.emptyBuns} text text_type_digits-default`}>Добавьте булочку</p>
           )}
         </div>
       </div>
