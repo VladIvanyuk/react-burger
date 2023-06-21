@@ -11,10 +11,12 @@
 }
 
 .scrollBlock {
+    position: relative;
     width: 100%;
     height: 480px;
     overflow: hidden;
     overflow-y: scroll;
+    border-radius: 40px;
 }
 
 .scrollBlock::-webkit-scrollbar-thumb {
@@ -71,7 +73,11 @@
     justify-content: center;
 }
 
-.borders {
+.bordersBun {
+    border: 4px dashed #f30ec167;
+}
+
+.bordersMain {
     border: 4px dashed #f30ec167;
 }
 
@@ -90,6 +96,10 @@
 }
 
 .constructorPlaceholder {
-    display: flex;
-    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: .1;
 }
