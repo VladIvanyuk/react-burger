@@ -19,7 +19,8 @@
     display: inline-block;
 }
 
-.registry {
+.link {
     color: #4C4CFF;
     cursor: pointer;
+    text-decoration: none;
 }
