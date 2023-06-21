@@ -31,6 +31,7 @@ export const BurgerConstructor = () => {
   const ingredientsWithoutBuns = constructorList.ingredients;
   // отдельно сохраняем булки
   const bun = constructorList.buns;
+  console.log(bun)
   const isEmptyBuns = Object.entries(bun).length === 0;
   const isEmptyIngredients =
     Object.entries(ingredientsWithoutBuns).length === 0;

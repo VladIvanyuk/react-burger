@@ -11,7 +11,6 @@ import { ingredientType } from "../../utils/prop-types";
 export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, type }) => {
   const [ingredientCounter, setIngredientCounter] = useState(0);
   const { burgerConstructor } = useSelector((store) => store);
-
   let count = 0;
   // считаем количество ингридиентов в конструкторе
   if(type !== 'bun') {
