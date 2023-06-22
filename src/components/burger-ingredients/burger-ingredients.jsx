@@ -17,7 +17,6 @@ export const BurgerIngredients = () => {
     const elem = document.getElementById(tab);
     if (elem) elem.scrollIntoView({ behavior: 'smooth'  });
   }
-console.log('ingred')
   // меняем активный таб при скролле
   const changeActiveTabsOnScroll = (pos) => {
     if (pos <= 130) {
