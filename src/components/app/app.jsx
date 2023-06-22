@@ -13,7 +13,6 @@ export const App = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
-  console.log(location)
 
   const handleModalClose = () => {
     // Возвращаемся к предыдущему пути при закрытии модалки
