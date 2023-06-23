@@ -37,7 +37,6 @@ export const MainPage = (props) => {
         )}
         {isError && (
           <p
-            data
             className={`${styles.error} ${styles.glitch} text text_type_main-medium`}
           >
             <span aria-hidden="true">

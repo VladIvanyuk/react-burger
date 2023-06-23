@@ -1,4 +1,4 @@
-import { request } from "../../utils/burger-api";
+import { requestWithRefresh } from "../../utils/burger-api";
 export const GET_ORDER_DETAILS = "GET_ORDER_DETAILS";
 export const GET_ORDER_DETAILS_SUCCESS = "GET_ORDER_DETAILS_SUCCESS";
 export const GET_ORDER_DETAILS_FAILED = "GET_ORDER_DETAILS_FAILED";
@@ -10,7 +10,7 @@ export const getOrderDetails = (idList) => {
         type: GET_ORDER_DETAILS
     })
 
-    request("orders", {
+    requestWithRefresh("orders", {
       // Метод, если не указывать, будет использоваться GET
       method: "POST",
       // Заголовок запроса
