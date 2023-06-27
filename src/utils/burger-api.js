@@ -38,6 +38,10 @@ const requestWithRefresh = async (url, options) => {
   }
 }
 
+const getUser = (form) => {
+  requestWithRefresh()
+}
+
 const loginRequest = (form) => {
   return request("auth/login", {
     method: "POST",

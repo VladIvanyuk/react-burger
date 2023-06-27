@@ -9,18 +9,21 @@ import styles from "./authorization.module.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { registerRequest } from "../../utils/burger-api";
+import { useDispatch } from "react-redux";
+import { SET_AUTH } from "../../services/actions/user";
 
 export const Register = (props) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [nameValue, setNameValue] = useState("");
+  const dispatch = useDispatch();
+  
   const register = () => {
-    registerRequest({
+    dispatch(registerRequest({
       email: emailValue,
       name: nameValue,
-      password: passwordValue,
-    });
-  };
+    }));
+  }
 
   return (
     <>

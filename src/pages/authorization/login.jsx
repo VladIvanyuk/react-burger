@@ -3,7 +3,7 @@ import { AppHeader } from '../../components/app-header/app-header';
 import { EmailInput, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { loginUser } from '../../services/actions/user';
+import { SET_AUTH, loginUser } from '../../services/actions/user';
 import { useDispatch } from 'react-redux';
 
 export const Login = (props) => {
