@@ -25,7 +25,7 @@ export const Register = (props) => {
   return (
     <>
       <AppHeader />
-      <div className={`${styles.window} container`}>
+      <main className={`${styles.window} container main`}>
         <div className={styles.mainBlock}>
           <h3 className={`${styles.title} text text_type_main-medium mb-6`}>
             Регистрация
@@ -65,7 +65,7 @@ export const Register = (props) => {
             </Link>
           </p>
         </div>
-      </div>
+      </main>
     </>
   );
 };

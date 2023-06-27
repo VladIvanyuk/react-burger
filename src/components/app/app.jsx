@@ -8,6 +8,8 @@ import { ResetPassword } from "../../pages/authorization/reset-password";
 import { IngredientPage } from "../../pages/ingredient-page/ingredient-page";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { ProfilePage } from "../../pages/profile-page/profile-page";
+import styles from './app.module.css';
 
 export const App = (props) => {
   const location = useLocation();
@@ -20,11 +22,15 @@ export const App = (props) => {
   };
 
   return (
-    <>
+    <div className={styles.app}>
       <Routes location={background || location}>
         <Route
           path="/"
           element={<ProtectedRouteElement element={<MainPage />} />}
+        />
+        <Route
+          path="/profile"
+          element={<ProtectedRouteElement element={<ProfilePage />} />}
         />
         <Route
           path="/login"
@@ -60,6 +66,6 @@ export const App = (props) => {
           />
         </Routes>
       )}
-    </>
+    </div>
   );
 };

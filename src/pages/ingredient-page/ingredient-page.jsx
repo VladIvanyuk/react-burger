@@ -7,7 +7,9 @@ export const IngredientPage = (props) => {
   return (
     <>
       <AppHeader />
-      <IngredientDetails />
+      <main>
+        <IngredientDetails />
+      </main>
     </>
   );
 };

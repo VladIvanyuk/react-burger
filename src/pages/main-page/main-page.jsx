@@ -10,15 +10,17 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const MainPage = (props) => {
 
-  const { isLoaded, isError } = useSelector((store) => store.burgerIngredients);
+  const { isLoaded, isError, data } = useSelector((store) => store.burgerIngredients);
   const dispatch = useDispatch();
   // получаем список ингредиентов
   useEffect(() => {
-    dispatch(getBurgerIngredients());
-  }, [dispatch]);
+    if(data.length === 0) {
+      dispatch(getBurgerIngredients());
+    }
+  }, [dispatch, data]);
 
   return (
-      <div className={styles.app}>
+      <>
         {isLoaded && (
           <>
             <AppHeader />
@@ -51,6 +53,6 @@ export const MainPage = (props) => {
             </span>
           </p>
         )}
-      </div>
+      </>
   );
 };

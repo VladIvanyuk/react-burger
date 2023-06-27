@@ -10,7 +10,7 @@ export const ResetPassword = (props) => {
   return (
     <>
       <AppHeader />
-      <div className={`${styles.window} container`}>
+      <main className={`${styles.window} container`}>
         <div className={styles.mainBlock}>
           <h3 className={`${styles.title} text text_type_main-medium mb-6`}>Восстановить пароль</h3>
           <PasswordInput
@@ -32,7 +32,7 @@ export const ResetPassword = (props) => {
           </Button>
           <p className='text text_type_main-default text_color_inactive mb-4'>Вспомнили пароль? <Link to='/login' className={styles.link}>Войти</Link></p>
         </div>
-      </div>
+      </main>
     </>
   );
 };
