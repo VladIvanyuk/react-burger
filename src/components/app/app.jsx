@@ -44,32 +44,31 @@ export const App = (props) => {
   return (
     <div className={styles.app}>
       <Routes location={background || location}>
-        <Route path="/" element={<MainPage />} />
+        <Route
+          path="/"
+          element={<MainPage />} />
         <Route
           path="/profile"
-          element={<OnlyAuth element={<ProfilePage />} />}
+          element={<OnlyAuth component={<ProfilePage />} />}
         />
-
         <Route
           path="/login"
-          element={<ProtectedRouteElement onlyUnAuth={true} element={<Login />} />}
-        />
+          element={<OnlyUnAuth component={<Login />} />} />
         <Route
           path="/register"
-          element={<ProtectedRouteElement onlyUnAuth={true} element={<Register />} />}
+          element={<OnlyUnAuth component={<Register />} />}
         />
         <Route
           path="/forgot-password"
-          element={<ProtectedRouteElement element={<ForgotPassword />} />}
+          element={<OnlyUnAuth component={<ForgotPassword />} />}
         />
         <Route
           path="/reset-password"
-          element={<ProtectedRouteElement element={<ResetPassword />} />}
+          element={<OnlyUnAuth component={<ResetPassword />} />}
         />
         <Route
-          path="/ingredients/:ingredientId"
-          element={<ProtectedRouteElement element={<IngredientPage />} />}
-        />
+          path="/ingredients/:ingredientId" 
+          element={<IngredientPage />} />
       </Routes>
 
       {background && (
