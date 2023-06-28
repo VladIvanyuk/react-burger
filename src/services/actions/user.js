@@ -7,18 +7,7 @@ export const DELETE_USER = 'DELETE_USER';
 
 export const registerUser = (form) => {
   return function (dispatch) {
-    registerRequest("auth/register", {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(form),
-    }).then((res) => {
+    registerRequest(form).then((res) => {
       console.log(res);
       dispatch({
         type: REGISTER_USER,

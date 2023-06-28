@@ -78,6 +78,7 @@ const loginRequest = (form) => {
 }
 
 const registerRequest = (form) => {
+  console.log(form)
   return request("auth/register", {
     method: "POST",
     mode: "cors",
