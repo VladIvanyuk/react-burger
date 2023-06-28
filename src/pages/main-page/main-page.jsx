@@ -10,14 +10,8 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const MainPage = (props) => {
 
-  const { isLoaded, isError, data } = useSelector((store) => store.burgerIngredients);
-  const dispatch = useDispatch();
-  // получаем список ингредиентов
-  useEffect(() => {
-    if(data.length === 0) {
-      dispatch(getBurgerIngredients());
-    }
-  }, [dispatch, data]);
+  const { isLoaded, isError } = useSelector((store) => store.burgerIngredients);
+
 
   return (
       <>

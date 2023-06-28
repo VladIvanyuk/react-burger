@@ -1,8 +1,7 @@
-import {REGISTER_USER, SET_AUTH, SET_USER } from "../actions/user"
+import {REGISTER_USER, SET_AUTH, SET_USER, GET_USER, DELETE_USER } from "../actions/user"
 
 const initialState = {
-    email: '',
-    name: '',
+    user: null,
     isAuthChecked: false,
 }
 
@@ -13,8 +12,11 @@ export const setUser = (state = initialState, action) => {
             localStorage.setItem('refreshToken', action.payload.refreshToken);
             return {
                 ...state,
-                email: action.payload.user.email,
-                name: action.payload.user.name,
+                user: {
+                    ...state.user,
+                    email: action.payload.user.email,
+                    name: action.payload.user.name,
+                }
             }
         case SET_AUTH:
             return {
@@ -26,9 +28,27 @@ export const setUser = (state = initialState, action) => {
             localStorage.setItem('refreshToken', action.payload.refreshToken); 
             return {
                 ...state,
-                email: action.payload.user.email,
-                name: action.payload.user.name,
+                user: {
+                    ...state.user,
+                    email: action.payload.user.email,
+                    name: action.payload.user.name,
+                }
             }
+        case GET_USER: 
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    email: action.payload.user.email,
+                    name: action.payload.user.name,
+                }
+            }
+        case DELETE_USER: {
+            return {
+                ...state,
+                user: null
+            }
+        }
         default:
             return state;
     }

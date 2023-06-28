@@ -38,8 +38,25 @@ const requestWithRefresh = async (url, options) => {
   }
 }
 
-const getUser = (form) => {
-  requestWithRefresh()
+const getUser = () => {
+  return requestWithRefresh('auth/user', {
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      authorization: localStorage.getItem('accessToken')
+    }
+  })
+}
+
+const logout = () => {
+  return request('auth/logout', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+    })
+  })
 }
 
 const loginRequest = (form) => {
@@ -80,4 +97,4 @@ const request = (endpoint, options) => {
   return fetch(`${DATA_URL}/${endpoint}`, options).then(checkResponse);
 }
 
-export { checkResponse, requestWithRefresh, request, loginRequest, registerRequest, DATA_URL };
+export { checkResponse, requestWithRefresh, request, loginRequest, registerRequest, getUser, logout, DATA_URL };

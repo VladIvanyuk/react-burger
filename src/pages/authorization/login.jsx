@@ -1,10 +1,11 @@
 import styles from './authorization.module.css';
 import { AppHeader } from '../../components/app-header/app-header';
 import { EmailInput, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { SET_AUTH, loginUser } from '../../services/actions/user';
+import { SET_AUTH, checkAuth, loginUser } from '../../services/actions/user';
 import { useDispatch } from 'react-redux';
+import { getUser } from '../../utils/burger-api';
 
 export const Login = (props) => {
   const [emailValue, setEmailValue] = useState('');
