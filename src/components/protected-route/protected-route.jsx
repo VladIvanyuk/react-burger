@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 
 export const ProtectedRouteElement = ({ component, onlyUnAuth = false }) => {
-  const { isAuthChecked, user } = useSelector((store) => store.setUser);
+  const { isAuthChecked, user } = useSelector((store) => store.user);
   const location = useLocation();
 
   console.log('1')

@@ -77,6 +77,20 @@ const loginRequest = (form) => {
   })
 }
 
+const updateUserRequest = (form) => {
+  return requestWithRefresh('auth/user', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      authorization: localStorage.getItem('accessToken')
+    },
+    body: JSON.stringify({
+      "name": form.name,
+      "email": form.email, 
+    } ),
+  })
+}
+
 const registerRequest = (form) => {
   console.log(form)
   return request("auth/register", {
@@ -98,4 +112,4 @@ const request = (endpoint, options) => {
   return fetch(`${DATA_URL}/${endpoint}`, options).then(checkResponse);
 }
 
-export { checkResponse, requestWithRefresh, request, loginRequest, registerRequest, getUser, logout, DATA_URL };
+export { checkResponse, requestWithRefresh, request, loginRequest, registerRequest, getUser, logout, updateUserRequest, DATA_URL };

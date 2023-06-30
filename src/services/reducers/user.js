@@ -5,7 +5,7 @@ const initialState = {
     isAuthChecked: false,
 }
 
-export const setUser = (state = initialState, action) => {
+export const user = (state = initialState, action) => {
     switch(action.type) {
         case SET_USER:
             localStorage.setItem('accessToken', action.payload.accessToken);

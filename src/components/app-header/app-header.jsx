@@ -6,8 +6,11 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useSelector } from "react-redux";
 
 export const AppHeader = (props) => {
+  const user = useSelector((store) => store.user?.user);
+  console.log(user)
   return (
     <header className={`${styles.header} pt-4 pb-4 mb-10`}>
       <nav className={styles.nav}>
@@ -38,7 +41,7 @@ export const AppHeader = (props) => {
             <>
               <ProfileIcon type={isActive ? "primary" : "secondary"} />
               <p className="text text_type_main-default text_color_inactive pl-2">
-                Личный кабинет
+                {user?.name ? user?.name : 'Личный кабинет'}
               </p>
             </>
           )}
