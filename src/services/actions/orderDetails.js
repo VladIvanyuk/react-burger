@@ -16,6 +16,7 @@ export const getOrderDetails = (idList) => {
       // Заголовок запроса
       headers: {
         "Content-Type": "application/json",
+        authorization: localStorage.getItem('accessToken')
       },
       // Данные
       body: JSON.stringify(idList),
