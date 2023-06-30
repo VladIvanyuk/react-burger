@@ -15,7 +15,7 @@ import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { ProfilePage } from "../../pages/profile-page/profile-page";
 import styles from "./app.module.css";
 import { useEffect } from "react";
-import { checkAuth } from "../../services/actions/user";
+import { initialAuth } from "../../services/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/burgerIngredients";
 
@@ -32,7 +32,7 @@ export const App = (props) => {
   };
   console.log("render");
   useEffect(() => {
-    dispatch(checkAuth());
+    dispatch(initialAuth());
   }, [dispatch]);
 
   useEffect(() => {

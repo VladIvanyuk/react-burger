@@ -17,6 +17,8 @@ import {
   addBun,
   addIngridient,
 } from "../../services/actions/burgerConstructor";
+import { useNavigate, useLocation } from "react-router-dom";
+
 
 export const BurgerConstructor = () => {
   const [isModal, setIsModal] = useState(false);
@@ -25,12 +27,16 @@ export const BurgerConstructor = () => {
     buns: true,
     mains: true
   });
-  const { burgerIngredients } = useSelector((store) => store);
+  const store = useSelector((store) => store);
+  const burgerIngredients = store.burgerIngredients;
   const dispatch = useDispatch();
-  const orderNumber = useSelector((store) =>
-    store.orderDetails.details.order.number.toString()
-  );
-  const constructorList = useSelector((store) => store.burgerConstructor);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const orderNumber = store.orderDetails.details.order.number.toString();
+
+  const { user } = store.user;
+  const constructorList = store.burgerConstructor;
+  console.log(constructorList)
   // разбиваем ингредиенты на булки и остальное
   const ingredientsWithoutBuns = constructorList.ingredients;
   // отдельно сохраняем булки
@@ -98,6 +104,11 @@ export const BurgerConstructor = () => {
   );
 
   const sendData = () => {
+    if(!user) {
+      navigate('/login', {
+        state: location
+      })
+    }
     dispatch(getOrderDetails({ ingredients: indgredientsIdList }));
     setIsModal(true);
   };

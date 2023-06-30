@@ -72,7 +72,7 @@ export const logoutUser = () => {
   };
 };
 
-export const checkAuth = () => {
+export const initialAuth = () => {
   return function (dispatch) {
     if (localStorage.getItem("accessToken")) {
       getUser().then((res) => {
@@ -94,3 +94,4 @@ export const checkAuth = () => {
     }
   };
 };
+
