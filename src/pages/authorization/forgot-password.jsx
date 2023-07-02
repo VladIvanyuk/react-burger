@@ -3,9 +3,22 @@ import { AppHeader } from '../../components/app-header/app-header';
 import styles from './authorization.module.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { checkEmailForResetPassword } from '../../utils/burger-api';
+import { useNavigate } from 'react-router-dom';
 
 export const ForgotPassword = (props) => {
   const [emailValue, setEmailValue] = useState('');
+  const navigate = useNavigate();
+
+  const checkEmail = () => {
+    checkEmailForResetPassword(emailValue).then(() => {
+      localStorage.setItem('visitForgotPage', true);
+      navigate('/reset-password');
+    }).catch((err) => {
+      alert(err.message);
+    })
+  }
+
   return (
     <>
       <AppHeader />
@@ -18,7 +31,7 @@ export const ForgotPassword = (props) => {
             extraClass="mb-6"
             onChange={(e) => setEmailValue(e.target.value)}
           />
-          <Button htmlType="button" type="primary" size="medium" extraClass="mb-20">
+          <Button htmlType="button" type="primary" size="medium" extraClass="mb-20" onClick={checkEmail}>
             Восстановить
           </Button>
           <p className='text text_type_main-default text_color_inactive mb-4'>Вспомнили пароль? <Link to='/login' className={styles.link}>Войти</Link></p>

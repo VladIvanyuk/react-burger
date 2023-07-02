@@ -77,6 +77,31 @@ const loginRequest = (form) => {
   })
 }
 
+const checkEmailForResetPassword = (email) => {
+  return request("password-reset", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      "email": email, 
+    })
+  })
+}
+
+const resetPasswordRequest = (data) => {
+  return request("password-reset/reset", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      password: data.password,
+      token: data.token
+    })
+  })
+}
+
 const updateUserRequest = (form) => {
   return requestWithRefresh('auth/user', {
     method: 'PATCH',
@@ -112,4 +137,4 @@ const request = (endpoint, options) => {
   return fetch(`${DATA_URL}/${endpoint}`, options).then(checkResponse);
 }
 
-export { checkResponse, requestWithRefresh, request, loginRequest, registerRequest, getUser, logout, updateUserRequest, DATA_URL };
+export { checkResponse, requestWithRefresh, request, loginRequest, registerRequest, getUser, logout, updateUserRequest, checkEmailForResetPassword, resetPasswordRequest, DATA_URL };
