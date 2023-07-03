@@ -12,7 +12,7 @@ export const ProfilePage = (props) => {
       <AppHeader />
       <main className={`${styles.profile} container pt-15`}>
         <div className='mr-15'>
-          <NavLink to="/profile/" className={`${styles.navItem} p-5`}>
+          <NavLink to="/profile" end className={`${styles.navItem} p-5`}>
             {({ isActive }) => (
               <>
                 <p

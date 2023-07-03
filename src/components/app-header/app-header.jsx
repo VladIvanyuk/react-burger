@@ -32,7 +32,7 @@ export const AppHeader = (props) => {
         </NavLink>
         <Logo />
         <NavLink
-          to="/profile/"
+          to="/profile"
           className={({ isActive }) =>
             `${styles.navItem} ${isActive ? "active" : ""} p-5`
           }
@@ -46,14 +46,6 @@ export const AppHeader = (props) => {
             </>
           )}
         </NavLink>
-        {/* <NavLink
-          to="/profile"
-          className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "active" : ""
-          }
-        >
-          Messages
-        </NavLink> */}
       </nav>
     </header>
   );

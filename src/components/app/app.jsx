@@ -3,7 +3,6 @@ import { MainPage } from "../../pages/main-page/main-page";
 import {
   OnlyAuth,
   OnlyUnAuth,
-  ProtectedRouteElement,
 } from "../protected-route/protected-route";
 import { Login } from "../../pages/authorization/login";
 import { Register } from "../../pages/authorization/register";
