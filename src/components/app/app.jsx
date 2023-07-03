@@ -19,6 +19,8 @@ import { initialAuth } from "../../services/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/burgerIngredients";
 import { Page404 } from "../../pages/404/404";
+import { ProfileReset } from "../profile-reset/profile-reset";
+import { OrdersList } from "../orders-list/orders-list";
 
 export const App = (props) => {
   const location = useLocation();
@@ -46,16 +48,15 @@ export const App = (props) => {
     <div className={styles.app}>
       <Routes location={background || location}>
         <Route path="*" element={<Page404 />} />
-        <Route
-          path="/"
-          element={<MainPage />} />
+        <Route path="/" element={<MainPage />} />
         <Route
           path="/profile"
           element={<OnlyAuth component={<ProfilePage />} />}
-        />
-        <Route
-          path="/login"
-          element={<OnlyUnAuth component={<Login />} />} />
+        >
+          <Route path="" element={<ProfileReset />} />
+          <Route path="orders" element={<OrdersList />} />
+        </Route>
+        <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
         <Route
           path="/register"
           element={<OnlyUnAuth component={<Register />} />}
@@ -68,9 +69,7 @@ export const App = (props) => {
           path="/reset-password"
           element={<OnlyUnAuth component={<ResetPassword />} />}
         />
-        <Route
-          path="/ingredients/:ingredientId" 
-          element={<IngredientPage />} />
+        <Route path="/ingredients/:ingredientId" element={<IngredientPage />} />
       </Routes>
 
       {background && (

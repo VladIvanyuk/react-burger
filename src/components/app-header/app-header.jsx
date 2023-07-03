@@ -24,7 +24,7 @@ export const AppHeader = (props) => {
             </>
           )}
         </NavLink>
-        <NavLink type="button" className={`${styles.navItem} p-5 mr-30`}>
+        <NavLink to='somewhere' type="button" className={`${styles.navItem} p-5 mr-30`}>
           <ListIcon type="secondary" />
           <p className="text text_type_main-default text_color_inactive pl-2">
             Лента заказов

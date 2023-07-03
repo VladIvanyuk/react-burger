@@ -1,9 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { AppHeader } from "../../components/app-header/app-header";
 import styles from "./profile-page.module.css";
-import { ProfileReset } from "../../components/profile-reset/profile-reset";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../services/actions/user";
+
 
 export const ProfilePage = (props) => {
   const dispatch = useDispatch();
@@ -16,16 +16,14 @@ export const ProfilePage = (props) => {
             {({ isActive }) => (
               <>
                 <p
-                  className={`${
-                    isActive ? "" : " text_color_inactive"
-                  } text text_type_main-medium pl-2`}
+                  className={`text text_type_main-medium text_color_inactive pl-2`}
                 >
                   Профиль
                 </p>
               </>
             )}
           </NavLink>
-          <NavLink to="/" className={`${styles.navItem} p-5`}>
+          <NavLink to="orders" className={`${styles.navItem} p-5`}>
             {({ isActive }) => (
               <>
                 <p className="text text_type_main-medium text_color_inactive pl-2">
@@ -45,7 +43,7 @@ export const ProfilePage = (props) => {
           </NavLink>
         </div>
         <div>
-          <ProfileReset />
+          <Outlet />
         </div>
       </main>
     </>

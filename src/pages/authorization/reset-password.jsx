@@ -17,7 +17,7 @@ export const ResetPassword = (props) => {
       token: code
     }).then(() => {
       localStorage.removeItem('visitForgotPage')
-      navigate('/');
+      navigate('/login');
     }).catch((err) => {
       alert(err.message)
     })
