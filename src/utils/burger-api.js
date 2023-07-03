@@ -111,7 +111,8 @@ const updateUserRequest = (form) => {
     },
     body: JSON.stringify({
       "name": form.name,
-      "email": form.email, 
+      "email": form.email,
+      "password": form.password
     } ),
   })
 }
