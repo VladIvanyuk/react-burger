@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { initialAuth } from "../../services/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/burgerIngredients";
+import { Page404 } from "../../pages/404/404";
 
 export const App = (props) => {
   const location = useLocation();
@@ -44,6 +45,7 @@ export const App = (props) => {
   return (
     <div className={styles.app}>
       <Routes location={background || location}>
+        <Route path="*" element={<Page404 />} />
         <Route
           path="/"
           element={<MainPage />} />
