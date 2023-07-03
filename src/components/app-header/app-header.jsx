@@ -32,7 +32,7 @@ export const AppHeader = (props) => {
         </NavLink>
         <Logo />
         <NavLink
-          to="/profile"
+          to="/profile/"
           className={({ isActive }) =>
             `${styles.navItem} ${isActive ? "active" : ""} p-5`
           }
