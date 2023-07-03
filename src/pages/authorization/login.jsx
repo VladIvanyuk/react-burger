@@ -10,7 +10,8 @@ export const Login = (props) => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const dispatch = useDispatch();
-  const login = () => {
+  const login = (e) => {
+    e.preventDefault();
     dispatch(loginUser({
       email: emailValue,
       password: passwordValue
@@ -21,7 +22,7 @@ export const Login = (props) => {
     <>
       <AppHeader />
       <main className={`${styles.window} container`}>
-        <div className={styles.mainBlock}>
+        <form className={styles.mainBlock} onSubmit={login}>
           <h3 className={`${styles.title} text text_type_main-medium mb-6`}>Вход</h3>
           <EmailInput 
             value={emailValue}
@@ -35,12 +36,12 @@ export const Login = (props) => {
             extraClass="mb-6"
             onChange={(e) => setPasswordValue(e.target.value)}
           />
-          <Button htmlType="button" type="primary" size="medium" extraClass="mb-20" onClick={login}>
+          <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">
             Войти
           </Button>
           <p className='text text_type_main-default text_color_inactive mb-4'>Вы - новый пользователь? <Link to='/register' className={styles.link}>Зарегистрироваться</Link></p>
           <p className='text text_type_main-default text_color_inactive'>Забыли пароль? <Link to='/forgot-password' className={styles.link}>Восстановить пароль</Link></p>
-        </div>
+        </form>
       </main>
     </>
   );

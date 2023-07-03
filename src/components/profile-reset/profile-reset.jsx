@@ -17,7 +17,8 @@ export const ProfileReset = (props) => {
   const [passwordValue, setPasswordValue] = useState('');
   const dispatch = useDispatch();
   
-  const resetUserInfo = () => {
+  const resetUserInfo = (e) => {
+    e.preventDefault();
     dispatch(updateUser({
       email: emailValue,
       name: nameValue,
@@ -32,7 +33,7 @@ export const ProfileReset = (props) => {
   }
 
   return (
-    <form>
+    <form onSubmit={resetUserInfo}>
       <Input
         value={nameValue}
         placeholder={'Имя'}
@@ -61,10 +62,9 @@ export const ProfileReset = (props) => {
           Отмена
         </button>
         <Button
-            htmlType="button"
+            htmlType="submit"
             type="primary"
             size="medium"
-            onClick={resetUserInfo}
           >
             Сохранить
           </Button>

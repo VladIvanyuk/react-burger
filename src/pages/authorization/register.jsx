@@ -17,7 +17,8 @@ export const Register = (props) => {
   const [nameValue, setNameValue] = useState("");
   const dispatch = useDispatch();
   
-  const register = () => {
+  const register = (e) => {
+    e.preventDefault();
     dispatch(registerUser({
       email: emailValue,
       name: nameValue,
@@ -29,7 +30,7 @@ export const Register = (props) => {
     <>
       <AppHeader />
       <main className={`${styles.window} container main`}>
-        <div className={styles.mainBlock}>
+        <form className={styles.mainBlock} onSubmit={register}>
           <h3 className={`${styles.title} text text_type_main-medium mb-6`}>
             Регистрация
           </h3>
@@ -53,11 +54,10 @@ export const Register = (props) => {
             onChange={(e) => setPasswordValue(e.target.value)}
           />
           <Button
-            htmlType="button"
+            htmlType="submit"
             type="primary"
             size="medium"
             extraClass="mb-20"
-            onClick={register}
           >
             Зарегистрироваться
           </Button>
@@ -67,7 +67,7 @@ export const Register = (props) => {
               Войти
             </Link>
           </p>
-        </div>
+        </form>
       </main>
     </>
   );

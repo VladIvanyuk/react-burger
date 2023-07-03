@@ -10,11 +10,13 @@ export const ResetPassword = (props) => {
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
   const navigate = useNavigate();
-  const resetPassword = () => {
+  const resetPassword = (e) => {
+    e.preventDefault();
     resetPasswordRequest({
       password: password,
       token: code
     }).then(() => {
+      localStorage.removeItem('visitForgotPage')
       navigate('/');
     }).catch((err) => {
       alert(err.message)
@@ -30,7 +32,7 @@ export const ResetPassword = (props) => {
     <>
       <AppHeader />
       <main className={`${styles.window} container`}>
-        <div className={styles.mainBlock}>
+        <form className={styles.mainBlock} onSubmit={resetPassword}>
           <h3 className={`${styles.title} text text_type_main-medium mb-6`}>Восстановить пароль</h3>
           <PasswordInput
             placeholder='Введите новый пароль'
@@ -46,11 +48,11 @@ export const ResetPassword = (props) => {
             extraClass="mb-6"
             onChange={(e) => setCode(e.target.value)}
           />
-          <Button htmlType="button" type="primary" size="medium" extraClass="mb-20" onClick={resetPassword}>
+          <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">
             Сохранить
           </Button>
           <p className='text text_type_main-default text_color_inactive mb-4'>Вспомнили пароль? <Link to='/login' className={styles.link}>Войти</Link></p>
-        </div>
+        </form>
       </main>
     </>
   );
