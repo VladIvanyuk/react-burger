@@ -32,8 +32,9 @@ export const App = (props) => {
     // Возвращаемся к предыдущему пути при закрытии модалки
     navigate(-1);
   };
-  console.log("render");
+
   useEffect(() => {
+    // первоначальная проверка авторизации при входе на страницу
     dispatch(initialAuth());
   }, [dispatch]);
 

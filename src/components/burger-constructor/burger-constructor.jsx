@@ -28,24 +28,21 @@ export const BurgerConstructor = () => {
     mains: true
   });
   const store = useSelector((store) => store);
-  const burgerIngredients = store.burgerIngredients;
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const orderNumber = store.orderDetails.details.order.number.toString();
-
   const { user } = store.user;
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const burgerIngredients = store.burgerIngredients;
+  const orderNumber = store.orderDetails.details.order.number.toString();
   const constructorList = store.burgerConstructor;
-  console.log(constructorList)
-  // разбиваем ингредиенты на булки и остальное
   const ingredientsWithoutBuns = constructorList.ingredients;
-  // отдельно сохраняем булки
   const bun = constructorList.buns;
+  const indgredientsIdList = constructorList.ingredients.map((el) => el._id);
   const isEmptyBuns = Object.entries(bun).length === 0;
   const isEmptyIngredients = Object.entries(ingredientsWithoutBuns).length === 0;
-  const indgredientsIdList = constructorList.ingredients.map((el) => el._id);
   const bordersBun = isShowBorders.buns ? styles.bordersBun : '';
   const bordersMain = isShowBorders.mains ? styles.bordersMain : '';
+
   const [, dropTarget] = useDrop({
     accept: ["main", "sauce", "bun"],
     drop(item) {
@@ -113,6 +110,14 @@ export const BurgerConstructor = () => {
     setIsModal(true);
   };
   
+  useEffect(() => {
+    if(!isEmptyBuns && !isEmptyIngredients) {
+      setIsShowBorders({
+        buns: false,
+        mains: false
+      })
+    }
+  }, [isEmptyBuns, isEmptyIngredients])
 
   useEffect(() => {
     // считаем общую стоимость ингридиентов с двумя булками

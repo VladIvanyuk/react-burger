@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 
 export const AppHeader = (props) => {
   const user = useSelector((store) => store.user?.user);
-  console.log(user)
   return (
     <header className={`${styles.header} pt-4 pb-4 mb-10`}>
       <nav className={styles.nav}>
