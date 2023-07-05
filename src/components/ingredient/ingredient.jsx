@@ -11,7 +11,7 @@ import { Link, useLocation } from "react-router-dom";
 
 export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, type }) => {
   const [ingredientCounter, setIngredientCounter] = useState(0);
-  const { burgerConstructor } = useSelector((store) => store);
+  const burgerConstructor = useSelector((store) => store.burgerConstructor);
   const location = useLocation();
   let count = 0;
   // считаем количество ингридиентов в конструкторе

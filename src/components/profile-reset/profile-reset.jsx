@@ -11,7 +11,7 @@ import { updateUser } from "../../services/actions/user";
 import { useSelector } from "react-redux";
 
 export const ProfileReset = (props) => {
-  const { user } = useSelector((store) => store.user);
+  const user = useSelector((store) => store.user.user);
   const [emailValue, setEmailValue] = useState(user?.email);
   const [nameValue, setNameValue] = useState(user?.name);
   const [passwordValue, setPasswordValue] = useState("");

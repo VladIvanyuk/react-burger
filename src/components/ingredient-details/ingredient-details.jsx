@@ -10,7 +10,8 @@ export const IngredientDetails = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { ingredientId } = useParams();
-  const ingredient = useSelector((store) => store.burgerIngredients.data.filter((el) => el._id === ingredientId));
+  const burgerIngredients = useSelector((store) => store.burgerIngredients.data);
+  const ingredient = burgerIngredients.filter((el) => el._id === ingredientId);
   const { name, image_large, calories, fat, carbohydrates, proteins } = ingredient[0] ? ingredient[0] : {};
   useEffect(() => {
     if(!location.state) {
