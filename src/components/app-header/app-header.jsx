@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import styles from "./app-header.module.css";
 import {
   Logo,
@@ -5,28 +6,45 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useSelector } from "react-redux";
 
 export const AppHeader = (props) => {
+  const user = useSelector((store) => store.user?.user);
   return (
-    <header className="pt-4 pb-4 mb-10">
+    <header className={`${styles.header} pt-4 pb-4 mb-10`}>
       <nav className={styles.nav}>
-        <button type="button" className={`${styles.navItem} p-5`}>
-          <BurgerIcon type="primary" />
-          <p className="text text_type_main-default pl-2">Конструктор</p>
-        </button>
-        <button type="button" className={`${styles.navItem} p-5 mr-30`}>
+        <NavLink to="/" className={`${styles.navItem} p-5`}>
+          {({ isActive }) => (
+            <>
+              <BurgerIcon type={isActive ? 'primary' : 'secondary'} />
+              <p className="text text_type_main-default text_color_inactive pl-2">
+                Конструктор
+              </p>
+            </>
+          )}
+        </NavLink>
+        <NavLink to='somewhere' type="button" className={`${styles.navItem} p-5 mr-30`}>
           <ListIcon type="secondary" />
           <p className="text text_type_main-default text_color_inactive pl-2">
             Лента заказов
           </p>
-        </button>
+        </NavLink>
         <Logo />
-        <button type="button" className={`${styles.navItem} p-5`}>
-          <ProfileIcon type="secondary" />
-          <p className="text text_type_main-default text_color_inactive pl-2">
-            Личный кабинет
-          </p>
-        </button>
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            `${styles.navItem} ${isActive ? "active" : ""} p-5`
+          }
+        >
+          {({ isActive }) => (
+            <>
+              <ProfileIcon type={isActive ? "primary" : "secondary"} />
+              <p className="text text_type_main-default text_color_inactive pl-2">
+                {user?.name ? user?.name : 'Личный кабинет'}
+              </p>
+            </>
+          )}
+        </NavLink>
       </nav>
     </header>
   );

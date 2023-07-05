@@ -1,0 +1,8 @@
+.profile {
+    display: flex;
+}
+
+.navItem {
+    display: block;
+    height: 60px;
+}

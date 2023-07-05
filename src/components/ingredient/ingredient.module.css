@@ -4,6 +4,8 @@
     position: relative;
     flex-direction: column;
     align-items: center;
+    text-decoration: none;
+    color: white;
 }
 
 .itemText {

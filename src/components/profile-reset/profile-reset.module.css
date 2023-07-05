@@ -1,0 +1,9 @@
+.cancel {
+    color: #4C4CFF;
+}
+
+.buttonBlock {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}

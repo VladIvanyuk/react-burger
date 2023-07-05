@@ -1,21 +1,14 @@
 import styles from "./ingredients-list.module.css";
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { ingredientsListTypes } from "../../utils/prop-types";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { Modal } from "../modal/modal";
-import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { useDispatch } from "react-redux";
 import { Ingredient } from "../ingredient/ingredient";
 import { ON_CLICK_INGREDIENT } from "../../services/actions/ingredientDetails";
 
 export const IngredientList = ({ name, id, ingredientsInfo }) => {
-  const ingredientForModal = useSelector((store) => store.ingredientDetails);
-  const [isModal, setIsModal] = useState(false);
   const dispatch = useDispatch();
 
-  const onShowModalHandler = useCallback((value) => {
-    setIsModal(value);
-  }, []);
   // по клику на ингредиент находим его в общем списке и сохраняем
   const findCurrentIngredient = useCallback(
     (id) => {
@@ -24,9 +17,8 @@ export const IngredientList = ({ name, id, ingredientsInfo }) => {
         type: ON_CLICK_INGREDIENT,
         ingredient: clickedIngredient,
       });
-      onShowModalHandler(true);
     },
-    [dispatch, ingredientsInfo, onShowModalHandler]
+    [dispatch, ingredientsInfo]
   );
 
   const ingredientsList = ingredientsInfo.map((item) => (
@@ -42,13 +34,6 @@ export const IngredientList = ({ name, id, ingredientsInfo }) => {
   ));
   return (
     <div>
-      {isModal && (
-        <Modal onShowModal={onShowModalHandler} modalHeaderText={'Детали ингридиента'}>
-          <IngredientDetails
-            ingredient={ingredientForModal}
-          ></IngredientDetails>
-        </Modal>
-      )}
       <h2 id={id} className="text text_type_main-medium">
         {name}
       </h2>

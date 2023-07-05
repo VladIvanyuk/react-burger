@@ -1,6 +1,16 @@
 import { GET_ORDER_DETAILS, GET_ORDER_DETAILS_FAILED, GET_ORDER_DETAILS_SUCCESS, DELETE_ORDER_DETAILS } from '../actions/orderDetails';
 
-export const orderDetails = (state = {}, action) => {
+const initialState = {
+    details: {
+      order: {
+        number: '',
+      }
+    },
+    isOrderError: false,
+    isOrderLoaded: false,
+  }
+
+export const orderDetails = (state = initialState, action) => {
     switch(action.type) {
         case GET_ORDER_DETAILS:
             return {

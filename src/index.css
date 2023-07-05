@@ -7,6 +7,28 @@ body {
   background-color: #131316;
 }
 
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.app {
+  max-width: 1920px;
+  padding: 40px;
+}
+
 .container {
   max-width: 1240px;
+  margin: 0 auto;
+}
+
+.active * {
+  color: white !important;
 }

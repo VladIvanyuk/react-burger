@@ -15,6 +15,10 @@
     cursor: pointer;
 }
 
+.header {
+    background-color: #1C1C21;
+}
+
 .navItem:last-child {
     margin-left: auto;
 }

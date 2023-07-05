@@ -2,20 +2,27 @@ import styles from './ingredient-details.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { DELETE_DETAILS } from '../../services/actions/ingredientDetails';
+import { useParams, useLocation } from 'react-router-dom';
+import { getBurgerIngredients } from '../../services/actions/burgerIngredients';
 
-export const IngredientDetails = () => {
+export const IngredientDetails = (props) => {
 
-  const ingredient = useSelector((store) => store.ingredientDetails)
-  const { name, image_large, calories, fat, carbohydrates, proteins } = ingredient;
   const dispatch = useDispatch();
-  
+  const location = useLocation();
+  const { ingredientId } = useParams();
+  const burgerIngredients = useSelector((store) => store.burgerIngredients.data);
+  const ingredient = burgerIngredients.filter((el) => el._id === ingredientId);
+  const { name, image_large, calories, fat, carbohydrates, proteins } = ingredient[0] ? ingredient[0] : {};
   useEffect(() => {
+    if(!location.state) {
+      dispatch(getBurgerIngredients());
+    }
     return () => {
       dispatch({
         type: DELETE_DETAILS
       })
     }
-  }, [dispatch])
+  }, [dispatch, location.state])
 
   return (
     <div className={styles.ingredientBlock}>

@@ -7,11 +7,12 @@ import { useState, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 import { ingredientType } from "../../utils/prop-types";
+import { Link, useLocation } from "react-router-dom";
 
 export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, type }) => {
   const [ingredientCounter, setIngredientCounter] = useState(0);
-  const { burgerConstructor } = useSelector((store) => store);
-
+  const burgerConstructor = useSelector((store) => store.burgerConstructor);
+  const location = useLocation();
   let count = 0;
   // считаем количество ингридиентов в конструкторе
   if(type !== 'bun') {
@@ -42,10 +43,15 @@ export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, ty
       opacity: monitor.isDragging() ? 0.5 : 1
   })
   })
+  
 
   return (
     <div>
-      <li
+      <Link
+        to={`/ingredients/${id}`}
+        // а также сохраняем в свойство background роут,
+        // на котором была открыта наша модалка
+        state= {{ background: location, id: id }}
         ref={dragRef}
         onClick={() => onFindCurrentIngredient(id)}
         key={id}
@@ -64,7 +70,7 @@ export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, ty
         <p className={`${styles.itemText} text text_type_main-default mb-8`}>
           {name}
         </p>
-      </li>
+      </Link>
     </div>
   );
 };
