@@ -3,13 +3,12 @@ import { ModalOverlay } from "./modal-overlay/modal-overlay";
 import { createPortal } from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect } from "react";
-import { modalTypes } from "../../utils/prop-types";
-import PropTypes from 'prop-types';
+import { TModal } from "../../types/types";
 
-export const Modal = ({ onShowModal, modalHeaderText, ...props }) => {
+export const Modal = ({ onShowModal, modalHeaderText, ...props }: TModal) => {
   useEffect(() => {
     // по нажатию на ESC закрываем модалку
-    const closeModalWithESC = (e) => {
+    const closeModalWithESC = (e: KeyboardEvent) => {
       console.log(e.key)
       if (e.key === 'Escape') {
         onShowModal(false);
@@ -33,11 +32,6 @@ export const Modal = ({ onShowModal, modalHeaderText, ...props }) => {
       </div>
       <ModalOverlay onShowModal={onShowModal} />
     </>,
-    document.getElementById("modal")
+    document.getElementById("modal") as HTMLElement
   );
 };
-
-Modal.propTypes = {
-  onShowModal: modalTypes.onShowModal,
-  children: PropTypes.object
-}

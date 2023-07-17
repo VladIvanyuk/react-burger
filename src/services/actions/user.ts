@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import {
   getUser,
   loginRequest,
@@ -5,6 +6,7 @@ import {
   registerRequest,
   updateUserRequest,
 } from "../../utils/burger-api";
+import { TLoginUser, TRegisterUser, TUpdateUser } from "../../types/types";
 export const SET_USER = "SET_USER";
 export const SET_AUTH = "SET_AUTH";
 export const REGISTER_USER = "REGISTAER_USER";
@@ -12,10 +14,9 @@ export const GET_USER = "GET_USER";
 export const DELETE_USER = "DELETE_USER";
 export const UPDATE_USER = "UPDATE_USER";
 
-export const registerUser = (form) => {
-  return function (dispatch) {
+export const registerUser = (form: TRegisterUser) => {
+  return function (dispatch: Dispatch) {
     registerRequest(form).then((res) => {
-      console.log(res);
       dispatch({
         type: REGISTER_USER,
         payload: res,
@@ -24,8 +25,8 @@ export const registerUser = (form) => {
   };
 };
 
-export const updateUser = (form) => {
-  return function (dispatch) {
+export const updateUser = (form: TUpdateUser) => {
+  return function (dispatch: Dispatch) {
     updateUserRequest(form).then((res) => {
       console.log(res);
       dispatch({
@@ -36,8 +37,8 @@ export const updateUser = (form) => {
   };
 };
 
-export const loginUser = (form) => {
-  return function (dispatch) {
+export const loginUser = (form: TLoginUser) => {
+  return function (dispatch: Dispatch) {
     loginRequest(form).then((res) => {
       if (res.success) {
         dispatch({
@@ -55,7 +56,7 @@ export const loginUser = (form) => {
 };
 
 export const logoutUser = () => {
-  return function (dispatch) {
+  return function (dispatch: Dispatch) {
     logout().then(() => {
       if (
         localStorage.getItem("accessToken") &&
@@ -72,11 +73,10 @@ export const logoutUser = () => {
   };
 };
 
-export const initialAuth = () => {
-  return function (dispatch) {
+export const initialAuth = (): any => {
+  return function (dispatch: Dispatch) {
     if (localStorage.getItem("accessToken")) {
       getUser().then((res) => {
-        console.log(res);
         dispatch({
           type: GET_USER,
           payload: res,
@@ -94,4 +94,3 @@ export const initialAuth = () => {
     }
   };
 };
-

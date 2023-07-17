@@ -21,12 +21,12 @@ import { Page404 } from "../../pages/404/404";
 import { ProfileReset } from "../profile-reset/profile-reset";
 import { OrdersList } from "../orders-list/orders-list";
 
-export const App = (props) => {
+export const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const background = location.state && location.state.background;
-  const { data } = useSelector((store) => store.burgerIngredients);
+  const { data } = useSelector((store: any) => store.burgerIngredients);
 
   const handleModalClose = () => {
     // Возвращаемся к предыдущему пути при закрытии модалки
@@ -77,7 +77,7 @@ export const App = (props) => {
           <Route
             path="/ingredients/:ingredientId"
             element={
-              <Modal onShowModal={handleModalClose}>
+              <Modal onShowModal={handleModalClose} modalHeaderText={""}>
                 <IngredientDetails />
               </Modal>
             }

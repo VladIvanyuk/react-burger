@@ -1,16 +1,16 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { AppHeader } from '../../components/app-header/app-header';
 import styles from './authorization.module.css';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { resetPasswordRequest } from '../../utils/burger-api';
 
-export const ResetPassword = (props) => {
+export const ResetPassword = (): JSX.Element | null => {
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
   const navigate = useNavigate();
-  const resetPassword = (e) => {
+  const resetPassword = (e: SyntheticEvent): void => {
     e.preventDefault();
     resetPasswordRequest({
       password: password,
@@ -25,7 +25,7 @@ export const ResetPassword = (props) => {
 
   if(!localStorage.getItem('visitForgotPage')) {
     navigate('/forgot-password');
-    return;
+    return null;
   };
 
   return (

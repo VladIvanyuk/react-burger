@@ -18,6 +18,7 @@ import {
   addIngridient,
 } from "../../services/actions/burgerConstructor";
 import { useNavigate, useLocation } from "react-router-dom";
+import { TDragObj, TIngredient } from "../../types/types";
 
 
 export const BurgerConstructor = () => {
@@ -27,7 +28,7 @@ export const BurgerConstructor = () => {
     buns: true,
     mains: true
   });
-  const store = useSelector((store) => store);
+  const store = useSelector((store: any ) => store);
   const { user } = store.user;
   const location = useLocation();
   const dispatch = useDispatch();
@@ -37,22 +38,22 @@ export const BurgerConstructor = () => {
   const constructorList = store.burgerConstructor;
   const ingredientsWithoutBuns = constructorList.ingredients;
   const bun = constructorList.buns;
-  const indgredientsIdList = constructorList.ingredients.map((el) => el._id);
+  const indgredientsIdList = constructorList.ingredients.map((el: TIngredient) => el._id);
   const isEmptyBuns = Object.entries(bun).length === 0;
   const isEmptyIngredients = Object.entries(ingredientsWithoutBuns).length === 0;
   const bordersBun = isShowBorders.buns ? styles.bordersBun : '';
   const bordersMain = isShowBorders.mains ? styles.bordersMain : '';
 
-  const [, dropTarget] = useDrop({
+  const [, dropTarget] = useDrop<TDragObj>({
     accept: ["main", "sauce", "bun"],
     drop(item) {
       // проверка на добавление в конструктор или его сортировку
       if (item.action === "add") {
         // проверка на тип ингредиента
         if (item.type !== "bun") {
-          item.setIngredientCounter((prev) => prev + 1);
+          item.setIngredientCounter((prev: number) => prev + 1);
           const ingredient = burgerIngredients.data.find(
-            (el) => el._id === item.id
+            (el: TIngredient) => el._id === item.id
           );
           dispatch(addIngridient(ingredient));
           setIsShowBorders(() => {
@@ -62,8 +63,8 @@ export const BurgerConstructor = () => {
             }
           });
         } else {
-          item.setIngredientCounter((prev) => prev + 1);
-          const bun = burgerIngredients.data.find((el) => el._id === item.id);
+          item.setIngredientCounter((prev: number) => prev + 1);
+          const bun = burgerIngredients.data.find((el: TIngredient) => el._id === item.id);
           dispatch(addBun(bun));
           setIsShowBorders(() => {
             return {
@@ -73,18 +74,17 @@ export const BurgerConstructor = () => {
           });
         }
       }
-      
     },
   });
 
-  const onShowModalHandler = useCallback((value) => {
+  const onShowModalHandler = useCallback((value: boolean) => {
     setIsModal(value);
   }, []);
 
   const isActiveButton = !isEmptyBuns && !isEmptyIngredients ? false : true;
 
   const moveCard = useCallback(
-    (dragIndex, hoverIndex) => {
+    (dragIndex: number, hoverIndex: number) => {
       const sorted = update(constructorList.ingredients, {
         $splice: [
           [dragIndex, 1],
@@ -122,12 +122,12 @@ export const BurgerConstructor = () => {
   useEffect(() => {
     // считаем общую стоимость ингридиентов с двумя булками
     let sum =
-      constructorList.ingredients.reduce((acc, cur) => acc + cur.price, 0) +
+      constructorList.ingredients.reduce((acc: TIngredient, cur: TIngredient) => acc.price + cur.price, 0) +
       (bun.price ? bun.price * 2 : 0);
     setOrderSum(sum);
   }, [constructorList, bun]);
 
-  const ingredientsList = ingredientsWithoutBuns.map((el, index) => {
+  const ingredientsList = ingredientsWithoutBuns.map((el: TIngredient, index: number) => {
     return (
       <ConstructorIngredient
         key={el.uniqueId}
@@ -148,7 +148,7 @@ export const BurgerConstructor = () => {
       className={`${styles.constructorBlock} pr-1 pl-2`}
     >
       {isModal && (
-        <Modal onShowModal={onShowModalHandler}>
+        <Modal onShowModal={onShowModalHandler} modalHeaderText={""}>
           <OrderDetails orderNumber={orderNumber} />
         </Modal>
       )}
@@ -156,7 +156,7 @@ export const BurgerConstructor = () => {
         <div className={`${styles.elementWrapper} ${bordersBun} ${styles.bordersTopBuns} mr-4 mb-4`}>
           {!isEmptyBuns && (
             <ConstructorElement
-              className="mb-4"
+              extraClass="mb-4"
               type="top"
               isLocked={true}
               text={`${bun.name} (верх)`}
@@ -182,7 +182,7 @@ export const BurgerConstructor = () => {
         <div className={`${styles.elementWrapper} ${bordersBun} ${styles.bordersBottomBuns} mr-4`}>
           {!isEmptyBuns && (
             <ConstructorElement
-              className="mb-4"
+              extraClass="mb-4"
               type="bottom"
               isLocked={true}
               text={`${bun.name} (верх)`}
@@ -198,7 +198,7 @@ export const BurgerConstructor = () => {
       <div className={styles.priceBlock}>
         <p className={`${styles.price} text text_type_digits-medium`}>
           {orderSum ? orderSum : 0}
-          <CurrencyIcon />
+          <CurrencyIcon type={"secondary"} />
         </p>
         <Button
           disabled={isActiveButton}

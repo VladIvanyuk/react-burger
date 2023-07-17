@@ -6,13 +6,13 @@ import styles from "./constructor-ingredient.module.css";
 import { useRef } from 'react';
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { constructorIngredientType } from "../../utils/prop-types";
 import { DELETE_INGREDIENT } from "../../services/actions/burgerConstructor";
+import { TConstructorIngredient, TDragCollectedProps, TDragObj, TDragObjWithoutCounter, TDropCollectedProps } from "../../types/types";
 
-export const ConstructorIngredient = ({ name, price, image, uniqueId, type, moveCard, index }) => {
+export const ConstructorIngredient = ({ name, price, image, uniqueId, type, moveCard, index }: TConstructorIngredient) => {
   const dispatch = useDispatch();
-  const dragRef = useRef(null)
-  const [{ handlerId }, drop] = useDrop({
+  const dragRef = useRef<HTMLDivElement | null>(null)
+  const [{ handlerId }, drop] = useDrop<TDragObj, unknown, TDropCollectedProps>({
     accept: ['sauce', 'main'],
     collect(monitor) {
       return {
@@ -33,10 +33,10 @@ export const ConstructorIngredient = ({ name, price, image, uniqueId, type, move
       if (dragIndex === hoverIndex) {
         return
       }
-      const hoverBoundingRect = dragRef.current?.getBoundingClientRect()
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-      const clientOffset = monitor.getClientOffset()
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top
+      const hoverBoundingRect = dragRef.current.getBoundingClientRect();
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return
       }
@@ -48,9 +48,9 @@ export const ConstructorIngredient = ({ name, price, image, uniqueId, type, move
     },
   })
 
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag<TDragObjWithoutCounter, unknown, TDragCollectedProps>({
     type: type,
-    item: () => {
+    item: (): TDragObjWithoutCounter => {
       return { index }
     },
     collect: (monitor) => ({
@@ -62,7 +62,7 @@ export const ConstructorIngredient = ({ name, price, image, uniqueId, type, move
 
   drag(drop(dragRef))
 
-  const deleteIngredient = (uniqueId) => {
+  const deleteIngredient = (uniqueId: string | undefined) => {
     dispatch({
       type: DELETE_INGREDIENT,
       payload: uniqueId,
@@ -72,7 +72,7 @@ export const ConstructorIngredient = ({ name, price, image, uniqueId, type, move
   return (
     <div>
       <div ref={dragRef} className={styles.element} style={{opacity}} data-handler-id={handlerId}>
-        <DragIcon />
+        <DragIcon type={"secondary"} />
         <ConstructorElement
           text={name}
           price={price}
@@ -83,5 +83,3 @@ export const ConstructorIngredient = ({ name, price, image, uniqueId, type, move
     </div>
   );
 };
-
-ConstructorIngredient.propTypes = constructorIngredientType;

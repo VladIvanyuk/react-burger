@@ -8,15 +8,16 @@ import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 import { ingredientType } from "../../utils/prop-types";
 import { Link, useLocation } from "react-router-dom";
+import { TIngredient, TSmallIngredient } from "../../types/types";
 
-export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, type }) => {
-  const [ingredientCounter, setIngredientCounter] = useState(0);
-  const burgerConstructor = useSelector((store) => store.burgerConstructor);
+export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, type }: TSmallIngredient) => {
+  const [ingredientCounter, setIngredientCounter] = useState<number>(0);
+  const burgerConstructor = useSelector((store: any) => store.burgerConstructor);
   const location = useLocation();
   let count = 0;
   // считаем количество ингридиентов в конструкторе
   if(type !== 'bun') {
-    burgerConstructor.ingredients.forEach((el) => {
+    burgerConstructor.ingredients.forEach((el: TIngredient) => {
       if (el._id === id) {
         count += 1;
       }
@@ -65,7 +66,7 @@ export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, ty
           <span className="text text_type_digits-default mr-2">
             {price}
           </span>
-          <CurrencyIcon />
+          <CurrencyIcon type={"secondary"} />
         </div>
         <p className={`${styles.itemText} text text_type_main-default mb-8`}>
           {name}
