@@ -1,11 +1,13 @@
+import { AnyAction } from "redux";
 import { DELETE_INGREDIENT, ADD_INGREDIENT, SORT_INGREDIENT, ADD_BUN, CLEAR_CONSTRUCTOR } from "../actions/burgerConstructor";
+import { TIngredient } from "../../types/types";
 
 const initialState = {
     buns: {},
     ingredients: [],
 };
 
-export const burgerConstructor = (state = initialState, action) => {
+export const burgerConstructor = (state = initialState, action: AnyAction) => {
     switch (action.type) {
         case ADD_INGREDIENT:
             return {
@@ -20,7 +22,7 @@ export const burgerConstructor = (state = initialState, action) => {
             return {
                 ...state,
                 ingredients: [
-                    ...state.ingredients.filter((el) => {
+                    ...state.ingredients.filter((el: TIngredient) => {
                         if(el.uniqueId) {
                             return el.uniqueId !== action.payload
                         } else {

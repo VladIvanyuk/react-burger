@@ -1,15 +1,15 @@
 import styles from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import checkBackground from "../../img/check.png";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
 import { DELETE_ORDER_DETAILS } from "../../services/actions/orderDetails";
 import { CLEAR_CONSTRUCTOR } from "../../services/actions/burgerConstructor";
+import { TOrderDetails } from "../../types/types";
 
-export const OrderDetails = ({ orderNumber }) => {
-  const isLoaded = useSelector((store) => store.orderDetails.isOrderLoaded);
-  const isError = useSelector((store) => store.orderDetails.isOrderError);
+export const OrderDetails: React.FC<TOrderDetails> = ({ orderNumber }: TOrderDetails): JSX.Element => {
+  const isLoaded: boolean = useSelector((store: any) => store.orderDetails.isOrderLoaded);
+  const isError: boolean = useSelector((store: any) => store.orderDetails.isOrderError);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -66,8 +66,4 @@ export const OrderDetails = ({ orderNumber }) => {
       )}
     </>
   );
-};
-
-OrderDetails.propTypes = {
-  orderNumber: PropTypes.string.isRequired,
 };

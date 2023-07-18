@@ -1,24 +1,23 @@
 import {
   Button,
-  EmailInput,
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, SyntheticEvent } from "react";
 import styles from "./profile-reset.module.css";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../services/actions/user";
 import { useSelector } from "react-redux";
 
-export const ProfileReset = (props) => {
-  const user = useSelector((store) => store.user.user);
-  const [emailValue, setEmailValue] = useState(user?.email);
-  const [nameValue, setNameValue] = useState(user?.name);
-  const [passwordValue, setPasswordValue] = useState("");
-  const [isShowButtons, setIsShowButtons] = useState(false);
+export const ProfileReset: React.FC = (): JSX.Element => {
+  const user = useSelector((store: any) => store.user.user);
+  const [emailValue, setEmailValue] = useState<string>(user?.email);
+  const [nameValue, setNameValue] = useState<string>(user?.name);
+  const [passwordValue, setPasswordValue] = useState<string>("");
+  const [isShowButtons, setIsShowButtons] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  const resetUserInfo = (e) => {
+  const resetUserInfo = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(
       updateUser({
@@ -37,7 +36,7 @@ export const ProfileReset = (props) => {
     }
   }, [emailValue, nameValue, passwordValue, user])
 
-  const resetFields = () => {
+  const resetFields = (): void => {
     setEmailValue(user.email);
     setNameValue(user.name);
     setPasswordValue("");
@@ -53,7 +52,7 @@ export const ProfileReset = (props) => {
         extraClass="mb-6"
         onChange={(e) => setNameValue(e.target.value)}
       />
-      <EmailInput
+      <Input
         value={emailValue}
         placeholder={"Email"}
         icon="EditIcon"

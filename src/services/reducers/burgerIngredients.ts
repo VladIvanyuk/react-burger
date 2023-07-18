@@ -1,3 +1,4 @@
+import { AnyAction } from 'redux';
 import { GET_INGREDIENTS, GET_INGREDIENTS_REQUEST_SUCCESS, GET_INGREDIENTS_REQUEST_FAILED } from '../actions/burgerIngredients';
 
 const initialState = {
@@ -6,7 +7,7 @@ const initialState = {
     isError: false
   }
 
-export const burgerIngredients = (state = initialState, action) => {
+export const burgerIngredients = (state = initialState, action: AnyAction) => {
     switch(action.type) {
         case GET_INGREDIENTS:
             return {

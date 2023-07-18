@@ -2,13 +2,13 @@ import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-comp
 import { AppHeader } from '../../components/app-header/app-header';
 import styles from './authorization.module.css';
 import { useState, SyntheticEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavigateFunction } from 'react-router-dom';
 import { checkEmailForResetPassword } from '../../utils/burger-api';
 import { useNavigate } from 'react-router-dom';
 
-export const ForgotPassword = (): JSX.Element => {
-  const [emailValue, setEmailValue] = useState('');
-  const navigate = useNavigate();
+export const ForgotPassword: React.FC = (): JSX.Element => {
+  const [emailValue, setEmailValue] = useState<string>('');
+  const navigate: NavigateFunction = useNavigate();
 
   const checkEmail = (e: SyntheticEvent): void => {
     e.preventDefault();

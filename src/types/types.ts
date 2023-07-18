@@ -4,7 +4,7 @@ import { Identifier } from "dnd-core";
 export type TModal = {
   onShowModal: (value: boolean) => void;
   modalHeaderText: string;
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 export type TRegisterUser = {
@@ -16,37 +16,59 @@ export type TRegisterUser = {
 export type TUpdateUser = TRegisterUser;
 
 export type TIngredient = {
-  _id: string;
+  readonly _id: string;
   uniqueId?: string | undefined;
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  __v?: number;
+  readonly name: string;
+  readonly type: string;
+  readonly proteins: number;
+  readonly fat: number;
+  readonly carbohydrates: number;
+  readonly calories: number;
+  readonly price: number;
+  readonly image: string;
+  readonly image_mobile: string;
+  readonly image_large: string;
+  readonly __v?: number;
 };
 
+export type TBorders = {
+  buns: boolean;
+  mains: boolean;
+};
+
+export type TLocation = {
+  hash: string;
+  key: string;
+  pathname: string;
+  search: string;
+  state: any;
+};
+
+export type TConstructorList<T> = {
+  buns: T;
+  ingredients: T[];
+}
+
+export type TOrderDetails = {
+  orderNumber: string
+}
+
 export type TSmallIngredient = {
-  name: string;
-  type: string;
-  price: number;
-  image: string;
-  id: string;
-  onFindCurrentIngredient: (id: string) => void;
+  readonly name: string;
+  readonly type: string;
+  readonly price: number;
+  readonly image: string;
+  readonly id: string;
+  readonly onFindCurrentIngredient: (id: string) => void;
 };
 
 export type TConstructorIngredient = {
-  name: string;
-  type: string;
-  price: number;
-  image: string;
+  readonly name: string;
+  readonly  type: string;
+  readonly price: number;
+  readonly image: string;
   uniqueId: string | undefined;
-  moveCard: (dragIndex: number, hoverIndex: number) => void;
+  readonly moveCard: (dragIndex: number, hoverIndex: number) => void;
   index: number;
 };
 
@@ -58,15 +80,31 @@ export type TDragObj = {
   setIngredientCounter: (prev: any) => number;
 };
 
-export type TDragObjWithoutCounter = Omit<TDragObj, 'setIngredientCounter'>;
+export type TProtectedRouteElement = {
+  component: JSX.Element,
+  onlyUnAuth: boolean
+}
+
+export type TDragObjWithoutCounter = Omit<TDragObj, "setIngredientCounter">;
 
 export type TDragCollectedProps = {
   isDragging: boolean;
 };
 
+export type TTabs = {
+  text: string,
+  code: string
+}
+
 export type TIngredientsIdList = {
   ingredients: string[];
 };
+
+export type TIngredientsList<T> = {
+  ingredientsInfo: T[],
+  name: string,
+  id: string,
+}
 
 export type TDropCollectedProps = {
   handlerId: Identifier | null;

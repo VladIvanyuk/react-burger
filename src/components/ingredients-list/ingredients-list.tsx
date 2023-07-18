@@ -1,17 +1,18 @@
 import styles from "./ingredients-list.module.css";
 import { useCallback } from "react";
-import { ingredientsListTypes } from "../../utils/prop-types";
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { Ingredient } from "../ingredient/ingredient";
 import { ON_CLICK_INGREDIENT } from "../../services/actions/ingredientDetails";
+import { TIngredient, TIngredientsList } from "../../types/types";
+import { AnyAction, Dispatch } from "redux";
 
-export const IngredientList = ({ name, id, ingredientsInfo }) => {
-  const dispatch = useDispatch();
+
+export const IngredientList = ({ name, id, ingredientsInfo }: TIngredientsList<TIngredient>) => {
+  const dispatch: Dispatch<AnyAction> = useDispatch();
 
   // по клику на ингредиент находим его в общем списке и сохраняем
   const findCurrentIngredient = useCallback(
-    (id) => {
+    (id: string): void => {
       const clickedIngredient = ingredientsInfo.find((el) => el._id === id);
       dispatch({
         type: ON_CLICK_INGREDIENT,
@@ -21,7 +22,7 @@ export const IngredientList = ({ name, id, ingredientsInfo }) => {
     [dispatch, ingredientsInfo]
   );
 
-  const ingredientsList = ingredientsInfo.map((item) => (
+  const ingredientsList: JSX.Element[] = ingredientsInfo.map((item) => (
     <Ingredient
       onFindCurrentIngredient={findCurrentIngredient}
       type={item.type}
@@ -42,8 +43,3 @@ export const IngredientList = ({ name, id, ingredientsInfo }) => {
   );
 };
 
-IngredientList.propTypes = {
-  ingredientsInfo: ingredientsListTypes.data,
-  name: PropTypes.string,
-  id: PropTypes.string,
-};

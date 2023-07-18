@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { TIngredient } from '../../types/types';
 
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const ADD_BUN = 'ADD_BUN';
@@ -6,7 +7,7 @@ export const SORT_INGREDIENT = 'SORT_INGREDIENT';
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
 
-export const addIngridient = (item) => {
+export const addIngridient = (item: TIngredient) => {
     return {
         type: ADD_INGREDIENT,
         payload: {
@@ -15,7 +16,7 @@ export const addIngridient = (item) => {
         }
     }
 }
-export const addBun = (bun) => {
+export const addBun = (bun: TIngredient) => {
     return {
         type: ADD_BUN,
         payload: bun,

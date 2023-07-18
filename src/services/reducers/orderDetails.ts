@@ -1,3 +1,4 @@
+import { AnyAction } from 'redux';
 import { GET_ORDER_DETAILS, GET_ORDER_DETAILS_FAILED, GET_ORDER_DETAILS_SUCCESS, DELETE_ORDER_DETAILS } from '../actions/orderDetails';
 
 const initialState = {
@@ -10,7 +11,7 @@ const initialState = {
     isOrderLoaded: false,
   }
 
-export const orderDetails = (state = initialState, action) => {
+export const orderDetails = (state = initialState, action: AnyAction) => {
     switch(action.type) {
         case GET_ORDER_DETAILS:
             return {

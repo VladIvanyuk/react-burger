@@ -6,18 +6,18 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { AppHeader } from "../../components/app-header/app-header";
 import styles from "./authorization.module.css";
-import { useState } from "react";
+import { useState, SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../services/actions/user";
 
-export const Register = (props) => {
-  const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
-  const [nameValue, setNameValue] = useState("");
+export const Register: React.FC = (): JSX.Element => {
+  const [emailValue, setEmailValue] = useState<string>("");
+  const [passwordValue, setPasswordValue] = useState<string>("");
+  const [nameValue, setNameValue] = useState<string>("");
   const dispatch = useDispatch();
   
-  const register = (e) => {
+  const register = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(registerUser({
       email: emailValue,

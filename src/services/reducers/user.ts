@@ -1,11 +1,12 @@
+import { AnyAction } from "redux";
 import {REGISTER_USER, SET_AUTH, SET_USER, GET_USER, DELETE_USER } from "../actions/user"
 
 const initialState = {
-    user: null,
+    user: {},
     isAuthChecked: false,
 }
 
-export const user = (state = initialState, action) => {
+export const user = (state = initialState, action: AnyAction) => {
     switch(action.type) {
         case SET_USER:
             localStorage.setItem('accessToken', action.payload.accessToken);

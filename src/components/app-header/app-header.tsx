@@ -8,7 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
 
-export const AppHeader = () => {
+export const AppHeader: React.FC = (): JSX.Element => {
   const user = useSelector((store: any) => store.user?.user);
   return (
     <header className={`${styles.header} pt-4 pb-4 mb-10`}>

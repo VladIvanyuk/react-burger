@@ -17,32 +17,33 @@ import {
   addBun,
   addIngridient,
 } from "../../services/actions/burgerConstructor";
-import { useNavigate, useLocation } from "react-router-dom";
-import { TDragObj, TIngredient } from "../../types/types";
+import { useNavigate, useLocation, NavigateFunction } from "react-router-dom";
+import { TBorders, TConstructorList, TDragObj, TIngredient, TLocation } from "../../types/types";
+import { AnyAction, Dispatch } from "redux";
 
 
-export const BurgerConstructor = () => {
-  const [isModal, setIsModal] = useState(false);
-  const [orderSum, setOrderSum] = useState(0);
-  const [isShowBorders, setIsShowBorders] = useState({
+export const BurgerConstructor: React.FC = (): JSX.Element => {
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const [orderSum, setOrderSum] = useState<number>(0);
+  const [isShowBorders, setIsShowBorders] = useState<TBorders>({
     buns: true,
     mains: true
   });
   const store = useSelector((store: any ) => store);
   const { user } = store.user;
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const location: TLocation = useLocation();
+  const dispatch: Dispatch<AnyAction> = useDispatch();
+  const navigate: NavigateFunction = useNavigate();
   const burgerIngredients = store.burgerIngredients;
-  const orderNumber = store.orderDetails.details.order.number.toString();
-  const constructorList = store.burgerConstructor;
-  const ingredientsWithoutBuns = constructorList.ingredients;
-  const bun = constructorList.buns;
-  const indgredientsIdList = constructorList.ingredients.map((el: TIngredient) => el._id);
-  const isEmptyBuns = Object.entries(bun).length === 0;
-  const isEmptyIngredients = Object.entries(ingredientsWithoutBuns).length === 0;
-  const bordersBun = isShowBorders.buns ? styles.bordersBun : '';
-  const bordersMain = isShowBorders.mains ? styles.bordersMain : '';
+  const orderNumber: string = store.orderDetails.details.order.number.toString();
+  const constructorList: TConstructorList<TIngredient> = store.burgerConstructor;
+  const ingredientsWithoutBuns: TIngredient[] = constructorList.ingredients;
+  const bun: TIngredient = constructorList.buns;
+  const indgredientsIdList: string[] = constructorList.ingredients.map((el: TIngredient) => el._id);
+  const isEmptyBuns: boolean = Object.entries(bun).length === 0;
+  const isEmptyIngredients: boolean = Object.entries(ingredientsWithoutBuns).length === 0;
+  const bordersBun: string | null = isShowBorders.buns ? styles.bordersBun : '';
+  const bordersMain: string | null = isShowBorders.mains ? styles.bordersMain : '';
 
   const [, dropTarget] = useDrop<TDragObj>({
     accept: ["main", "sauce", "bun"],
@@ -52,7 +53,7 @@ export const BurgerConstructor = () => {
         // проверка на тип ингредиента
         if (item.type !== "bun") {
           item.setIngredientCounter((prev: number) => prev + 1);
-          const ingredient = burgerIngredients.data.find(
+          const ingredient: TIngredient = burgerIngredients.data.find(
             (el: TIngredient) => el._id === item.id
           );
           dispatch(addIngridient(ingredient));
@@ -77,11 +78,11 @@ export const BurgerConstructor = () => {
     },
   });
 
-  const onShowModalHandler = useCallback((value: boolean) => {
+  const onShowModalHandler = useCallback((value: boolean): void => {
     setIsModal(value);
   }, []);
 
-  const isActiveButton = !isEmptyBuns && !isEmptyIngredients ? false : true;
+  const isActiveButton: boolean = !isEmptyBuns && !isEmptyIngredients ? false : true;
 
   const moveCard = useCallback(
     (dragIndex: number, hoverIndex: number) => {
@@ -100,7 +101,7 @@ export const BurgerConstructor = () => {
     [constructorList, dispatch]
   );
 
-  const sendData = () => {
+  const sendData = (): void => {
     if(!user) {
       navigate('/login', {
         state: location
@@ -121,13 +122,13 @@ export const BurgerConstructor = () => {
 
   useEffect(() => {
     // считаем общую стоимость ингридиентов с двумя булками
-    let sum =
-      constructorList.ingredients.reduce((acc: TIngredient, cur: TIngredient) => acc.price + cur.price, 0) +
+    let sum: number =
+      constructorList.ingredients.reduce((acc: number, cur:TIngredient) => acc + cur.price, 0) +
       (bun.price ? bun.price * 2 : 0);
     setOrderSum(sum);
   }, [constructorList, bun]);
 
-  const ingredientsList = ingredientsWithoutBuns.map((el: TIngredient, index: number) => {
+  const ingredientsList: JSX.Element[] = ingredientsWithoutBuns.map((el: TIngredient, index: number) => {
     return (
       <ConstructorIngredient
         key={el.uniqueId}

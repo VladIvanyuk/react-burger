@@ -1,6 +1,6 @@
 import styles from './orders-list.module.css';
 
-export const OrdersList = (props) => {
+export const OrdersList = () => {
   return (
     <div>
       Список заказов

@@ -4,15 +4,17 @@ import { useEffect } from 'react';
 import { DELETE_DETAILS } from '../../services/actions/ingredientDetails';
 import { useParams, useLocation } from 'react-router-dom';
 import { getBurgerIngredients } from '../../services/actions/burgerIngredients';
+import { AnyAction, Dispatch } from 'redux';
+import { TIngredient, TLocation } from '../../types/types';
 
-export const IngredientDetails = (props) => {
+export const IngredientDetails: React.FC = (): JSX.Element => {
 
-  const dispatch = useDispatch();
-  const location = useLocation();
+  const dispatch: Dispatch<AnyAction> = useDispatch();
+  const location: TLocation = useLocation();
   const { ingredientId } = useParams();
-  const burgerIngredients = useSelector((store) => store.burgerIngredients.data);
-  const ingredient = burgerIngredients.filter((el) => el._id === ingredientId);
-  const { name, image_large, calories, fat, carbohydrates, proteins } = ingredient[0] ? ingredient[0] : {};
+  const burgerIngredients = useSelector((store: any) => store.burgerIngredients.data);
+  const ingredient: TIngredient[] = burgerIngredients.filter((el: TIngredient) => el._id === ingredientId);
+  const { name = '', image_large = '', calories = '', fat = '', carbohydrates = '', proteins = '' } = ingredient[0] ? ingredient[0] : {};
   useEffect(() => {
     if(!location.state) {
       dispatch(getBurgerIngredients());

@@ -30,7 +30,7 @@ export const Modal = ({ onShowModal, modalHeaderText, ...props }: TModal) => {
         </div>
         {props.children}
       </div>
-      <ModalOverlay onShowModal={onShowModal} />
+      <ModalOverlay onShowModal={onShowModal} modalHeaderText={""} />
     </>,
     document.getElementById("modal") as HTMLElement
   );

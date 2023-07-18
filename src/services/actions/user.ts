@@ -14,7 +14,7 @@ export const GET_USER = "GET_USER";
 export const DELETE_USER = "DELETE_USER";
 export const UPDATE_USER = "UPDATE_USER";
 
-export const registerUser = (form: TRegisterUser) => {
+export const registerUser = (form: TRegisterUser): any => {
   return function (dispatch: Dispatch) {
     registerRequest(form).then((res) => {
       dispatch({
@@ -25,7 +25,7 @@ export const registerUser = (form: TRegisterUser) => {
   };
 };
 
-export const updateUser = (form: TUpdateUser) => {
+export const updateUser = (form: TUpdateUser): any => {
   return function (dispatch: Dispatch) {
     updateUserRequest(form).then((res) => {
       console.log(res);
@@ -37,7 +37,7 @@ export const updateUser = (form: TUpdateUser) => {
   };
 };
 
-export const loginUser = (form: TLoginUser) => {
+export const loginUser = (form: TLoginUser): any => {
   return function (dispatch: Dispatch) {
     loginRequest(form).then((res) => {
       if (res.success) {
@@ -55,7 +55,7 @@ export const loginUser = (form: TLoginUser) => {
   };
 };
 
-export const logoutUser = () => {
+export const logoutUser = (): any => {
   return function (dispatch: Dispatch) {
     logout().then(() => {
       if (

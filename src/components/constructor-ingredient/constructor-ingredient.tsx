@@ -5,12 +5,13 @@ import {
 import styles from "./constructor-ingredient.module.css";
 import { useRef } from 'react';
 import { useDispatch } from "react-redux";
-import { useDrag, useDrop } from "react-dnd";
+import { XYCoord, useDrag, useDrop } from "react-dnd";
 import { DELETE_INGREDIENT } from "../../services/actions/burgerConstructor";
 import { TConstructorIngredient, TDragCollectedProps, TDragObj, TDragObjWithoutCounter, TDropCollectedProps } from "../../types/types";
+import { AnyAction, Dispatch } from "redux";
 
-export const ConstructorIngredient = ({ name, price, image, uniqueId, type, moveCard, index }: TConstructorIngredient) => {
-  const dispatch = useDispatch();
+export const ConstructorIngredient: React.FC<TConstructorIngredient> = ({ name, price, image, uniqueId, type, moveCard, index }: TConstructorIngredient): JSX.Element => {
+  const dispatch: Dispatch<AnyAction> = useDispatch();
   const dragRef = useRef<HTMLDivElement | null>(null)
   const [{ handlerId }, drop] = useDrop<TDragObj, unknown, TDropCollectedProps>({
     accept: ['sauce', 'main'],
@@ -28,23 +29,28 @@ export const ConstructorIngredient = ({ name, price, image, uniqueId, type, move
       // убиваем если перетаскиваемый ингридиент летит из общего списка
       if (item.action === 'add') return;
 
-      const dragIndex = item.index
-      const hoverIndex = index
+      const dragIndex: number = item.index
+      const hoverIndex: number = index
+
       if (dragIndex === hoverIndex) {
-        return
+        return;
       }
-      const hoverBoundingRect = dragRef.current.getBoundingClientRect();
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
+
+      const hoverBoundingRect: DOMRect = dragRef.current.getBoundingClientRect();
+      const hoverMiddleY: number = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const clientOffset: XYCoord | null = monitor.getClientOffset();
+      const hoverClientY: number = clientOffset!.y - hoverBoundingRect.top;
+
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return
       }
+
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return
       }
-      moveCard(dragIndex, hoverIndex)
-      item.index = hoverIndex
+
+      moveCard(dragIndex, hoverIndex);
+      item.index = hoverIndex;
     },
   })
 
@@ -58,11 +64,11 @@ export const ConstructorIngredient = ({ name, price, image, uniqueId, type, move
     }),
   })
 
-  const opacity = isDragging ? 0 : 1;
+  const opacity: number = isDragging ? 0 : 1;
 
   drag(drop(dragRef))
 
-  const deleteIngredient = (uniqueId: string | undefined) => {
+  const deleteIngredient = (uniqueId: string | undefined): void => {
     dispatch({
       type: DELETE_INGREDIENT,
       payload: uniqueId,

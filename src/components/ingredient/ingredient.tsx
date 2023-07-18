@@ -8,13 +8,13 @@ import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 import { ingredientType } from "../../utils/prop-types";
 import { Link, useLocation } from "react-router-dom";
-import { TIngredient, TSmallIngredient } from "../../types/types";
+import { TIngredient, TLocation, TSmallIngredient } from "../../types/types";
 
-export const Ingredient = ({ onFindCurrentIngredient, id, image, price, name, type }: TSmallIngredient) => {
+export const Ingredient: React.FC<TSmallIngredient> = ({ onFindCurrentIngredient, id, image, price, name, type }: TSmallIngredient): JSX.Element => {
   const [ingredientCounter, setIngredientCounter] = useState<number>(0);
   const burgerConstructor = useSelector((store: any) => store.burgerConstructor);
-  const location = useLocation();
-  let count = 0;
+  const location: TLocation = useLocation();
+  let count: number = 0;
   // считаем количество ингридиентов в конструкторе
   if(type !== 'bun') {
     burgerConstructor.ingredients.forEach((el: TIngredient) => {
