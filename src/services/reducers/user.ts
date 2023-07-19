@@ -2,7 +2,7 @@ import { AnyAction } from "redux";
 import {REGISTER_USER, SET_AUTH, SET_USER, GET_USER, DELETE_USER } from "../actions/user"
 
 const initialState = {
-    user: {},
+    user: null,
     isAuthChecked: false,
 }
 
@@ -14,7 +14,6 @@ export const user = (state = initialState, action: AnyAction) => {
             return {
                 ...state,
                 user: {
-                    ...state.user,
                     email: action.payload.user.email,
                     name: action.payload.user.name,
                 }
@@ -30,7 +29,6 @@ export const user = (state = initialState, action: AnyAction) => {
             return {
                 ...state,
                 user: {
-                    ...state.user,
                     email: action.payload.user.email,
                     name: action.payload.user.name,
                 }
@@ -39,7 +37,6 @@ export const user = (state = initialState, action: AnyAction) => {
             return {
                 ...state,
                 user: {
-                    ...state.user,
                     email: action.payload.user.email,
                     name: action.payload.user.name,
                 }

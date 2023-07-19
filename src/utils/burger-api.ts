@@ -1,9 +1,18 @@
-const DATA_URL = "https://norma.nomoreparties.space/api";
+import {
+  TLoginUser,
+  TRegisterUser,
+  TResetPasswordRequest,
+  TUpdateUser,
+} from "../types/types";
+
+const DATA_URL: string = "https://norma.nomoreparties.space/api";
 
 // проверка ответа запроса
-const checkResponse = (res) => {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
-}
+const checkResponse = (res: Response) => {
+  return res.ok
+    ? res.json()
+    : res.json().then((err: Error) => Promise.reject(err));
+};
 
 const refreshToken = () => {
   return fetch(`${DATA_URL}/auth/token`, {
@@ -17,11 +26,11 @@ const refreshToken = () => {
   }).then(checkResponse);
 };
 
-const requestWithRefresh = async (url, options) => {
+const requestWithRefresh = async (url: string, options: any) => {
   try {
     const res = await fetch(`${DATA_URL}/${url}`, options);
     return await checkResponse(res);
-  } catch (err) {
+  } catch (err: any) {
     if (err.message === "jwt expired") {
       const refreshData = await refreshToken(); //обновляем токен
       if (!refreshData.success) {
@@ -36,60 +45,55 @@ const requestWithRefresh = async (url, options) => {
       return Promise.reject(err);
     }
   }
-}
+};
 
 const getUser = () => {
-  return requestWithRefresh('auth/user', {
+  return requestWithRefresh("auth/user", {
     headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      authorization: localStorage.getItem('accessToken')
-    }
-  })
-}
+      "Content-Type": "application/json;charset=utf-8",
+      authorization: localStorage.getItem("accessToken"),
+    },
+  });
+};
 
 const logout = () => {
-  return request('auth/logout', {
-    method: 'POST',
+  return request("auth/logout", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
-    })
-  })
-}
+    }),
+  });
+};
 
-const loginRequest = (form) => {
+const loginRequest = (form: TLoginUser) => {
   return request("auth/login", {
     method: "POST",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
     },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
     body: JSON.stringify({
-      "email": form.email, 
-      "password": form.password 
-    } ),
-  })
-}
+      email: form.email,
+      password: form.password,
+    }),
+  });
+};
 
-const checkEmailForResetPassword = (email) => {
+const checkEmailForResetPassword = (email: string) => {
   return request("password-reset", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      "email": email, 
-    })
-  })
-}
+      email: email,
+    }),
+  });
+};
 
-const resetPasswordRequest = (data) => {
+const resetPasswordRequest = (data: TResetPasswordRequest) => {
   return request("password-reset/reset", {
     method: "POST",
     headers: {
@@ -97,45 +101,50 @@ const resetPasswordRequest = (data) => {
     },
     body: JSON.stringify({
       password: data.password,
-      token: data.token
-    })
-  })
-}
+      token: data.token,
+    }),
+  });
+};
 
-const updateUserRequest = (form) => {
-  return requestWithRefresh('auth/user', {
-    method: 'PATCH',
+const updateUserRequest = (form: TUpdateUser) => {
+  return requestWithRefresh("auth/user", {
+    method: "PATCH",
     headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      authorization: localStorage.getItem('accessToken')
+      "Content-Type": "application/json;charset=utf-8",
+      authorization: localStorage.getItem("accessToken"),
     },
     body: JSON.stringify({
-      "name": form.name,
-      "email": form.email,
-      "password": form.password
-    } ),
-  })
-}
+      name: form.name,
+      email: form.email,
+      password: form.password,
+    }),
+  });
+};
 
-const registerRequest = (form) => {
-  console.log(form)
+const registerRequest = (form: TRegisterUser) => {
   return request("auth/register", {
     method: "POST",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
     },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
     body: JSON.stringify(form),
-  })
-}
+  });
+};
 
-const request = (endpoint, options) => {
-  const DATA_URL = "https://norma.nomoreparties.space/api";
+const request = (endpoint: string, options: any) => {
   return fetch(`${DATA_URL}/${endpoint}`, options).then(checkResponse);
-}
+};
 
-export { checkResponse, requestWithRefresh, request, loginRequest, registerRequest, getUser, logout, updateUserRequest, checkEmailForResetPassword, resetPasswordRequest, DATA_URL };
+export {
+  checkResponse,
+  requestWithRefresh,
+  request,
+  loginRequest,
+  registerRequest,
+  getUser,
+  logout,
+  updateUserRequest,
+  checkEmailForResetPassword,
+  resetPasswordRequest,
+  DATA_URL,
+};

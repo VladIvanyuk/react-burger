@@ -12,7 +12,7 @@ export const getBurgerIngredients = (): any => {
             type: GET_INGREDIENTS
         })
 
-        requestWithRefresh('ingredients').then((res) => {
+        requestWithRefresh('ingredients', {}).then((res) => {
             dispatch({
                 type: GET_INGREDIENTS_REQUEST_SUCCESS,
                 data: res.data

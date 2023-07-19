@@ -6,7 +6,6 @@ import {
 import { useState, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
-import { ingredientType } from "../../utils/prop-types";
 import { Link, useLocation } from "react-router-dom";
 import { TIngredient, TLocation, TSmallIngredient } from "../../types/types";
 
@@ -75,5 +74,3 @@ export const Ingredient: React.FC<TSmallIngredient> = ({ onFindCurrentIngredient
     </div>
   );
 };
-
-Ingredient.propTypes = ingredientType;

@@ -13,6 +13,11 @@ export type TRegisterUser = {
   password: string;
 };
 
+export type TResetPasswordRequest = {
+  password: string,
+  token: string
+}
+
 export type TUpdateUser = TRegisterUser;
 
 export type TIngredient = {
@@ -44,14 +49,23 @@ export type TLocation = {
   state: any;
 };
 
+export type TRequestOptions = {
+  method?: string;
+  headers: {
+    "Content-Type": string;
+    authorization: string | null;
+  };
+  body?: string;
+};
+
 export type TConstructorList<T> = {
   buns: T;
   ingredients: T[];
-}
+};
 
 export type TOrderDetails = {
-  orderNumber: string
-}
+  orderNumber: string;
+};
 
 export type TSmallIngredient = {
   readonly name: string;
@@ -64,7 +78,7 @@ export type TSmallIngredient = {
 
 export type TConstructorIngredient = {
   readonly name: string;
-  readonly  type: string;
+  readonly type: string;
   readonly price: number;
   readonly image: string;
   uniqueId: string | undefined;
@@ -81,9 +95,9 @@ export type TDragObj = {
 };
 
 export type TProtectedRouteElement = {
-  component: JSX.Element,
-  onlyUnAuth: boolean
-}
+  component: JSX.Element;
+  onlyUnAuth: boolean;
+};
 
 export type TDragObjWithoutCounter = Omit<TDragObj, "setIngredientCounter">;
 
@@ -92,19 +106,19 @@ export type TDragCollectedProps = {
 };
 
 export type TTabs = {
-  text: string,
-  code: string
-}
+  text: string;
+  code: string;
+};
 
 export type TIngredientsIdList = {
   ingredients: string[];
 };
 
 export type TIngredientsList<T> = {
-  ingredientsInfo: T[],
-  name: string,
-  id: string,
-}
+  ingredientsInfo: T[];
+  name: string;
+  id: string;
+};
 
 export type TDropCollectedProps = {
   handlerId: Identifier | null;
