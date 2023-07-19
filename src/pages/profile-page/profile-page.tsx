@@ -4,7 +4,7 @@ import styles from "./profile-page.module.css";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../services/actions/user";
 
-export const ProfilePage: React.FC = (): JSX.Element => {
+export const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
   return (
     <>

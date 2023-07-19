@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-export const MainPage: React.FC = (): JSX.Element => {
+export const MainPage: React.FC = () => {
 
   const { isLoaded, isError } = useSelector((store: any) => store.burgerIngredients);
 

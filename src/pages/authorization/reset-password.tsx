@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { resetPasswordRequest } from '../../utils/burger-api';
 
-export const ResetPassword = (): JSX.Element | null => {
+export const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
   const navigate = useNavigate();

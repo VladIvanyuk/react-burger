@@ -11,10 +11,10 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../services/actions/user";
 
-export const Register: React.FC = (): JSX.Element => {
-  const [emailValue, setEmailValue] = useState<string>("");
-  const [passwordValue, setPasswordValue] = useState<string>("");
-  const [nameValue, setNameValue] = useState<string>("");
+export const Register: React.FC = () => {
+  const [emailValue, setEmailValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
+  const [nameValue, setNameValue] = useState("");
   const dispatch = useDispatch();
   
   const register = (e: SyntheticEvent) => {

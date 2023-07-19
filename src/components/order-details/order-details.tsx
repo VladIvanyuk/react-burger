@@ -7,7 +7,7 @@ import { DELETE_ORDER_DETAILS } from "../../services/actions/orderDetails";
 import { CLEAR_CONSTRUCTOR } from "../../services/actions/burgerConstructor";
 import { TOrderDetails } from "../../types/types";
 
-export const OrderDetails: React.FC<TOrderDetails> = ({ orderNumber }: TOrderDetails): JSX.Element => {
+export const OrderDetails: React.FC<TOrderDetails> = ({ orderNumber }: TOrderDetails) => {
   const isLoaded: boolean = useSelector((store: any) => store.orderDetails.isOrderLoaded);
   const isError: boolean = useSelector((store: any) => store.orderDetails.isOrderError);
   const dispatch = useDispatch();

@@ -9,12 +9,12 @@ import { useDispatch } from "react-redux";
 import { updateUser } from "../../services/actions/user";
 import { useSelector } from "react-redux";
 
-export const ProfileReset: React.FC = (): JSX.Element => {
+export const ProfileReset: React.FC = () => {
   const user = useSelector((store: any) => store.user.user);
-  const [emailValue, setEmailValue] = useState<string>(user?.email);
-  const [nameValue, setNameValue] = useState<string>(user?.name);
-  const [passwordValue, setPasswordValue] = useState<string>("");
-  const [isShowButtons, setIsShowButtons] = useState<boolean>(false);
+  const [emailValue, setEmailValue] = useState(user?.email);
+  const [nameValue, setNameValue] = useState(user?.name);
+  const [passwordValue, setPasswordValue] = useState("");
+  const [isShowButtons, setIsShowButtons] = useState(false);
   const dispatch = useDispatch();
 
   const resetUserInfo = (e: SyntheticEvent) => {

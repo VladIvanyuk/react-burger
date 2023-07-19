@@ -6,8 +6,8 @@ import { Link, NavigateFunction } from 'react-router-dom';
 import { checkEmailForResetPassword } from '../../utils/burger-api';
 import { useNavigate } from 'react-router-dom';
 
-export const ForgotPassword: React.FC = (): JSX.Element => {
-  const [emailValue, setEmailValue] = useState<string>('');
+export const ForgotPassword: React.FC = () => {
+  const [emailValue, setEmailValue] = useState('');
   const navigate: NavigateFunction = useNavigate();
 
   const checkEmail = (e: SyntheticEvent): void => {

@@ -22,9 +22,9 @@ import { TBorders, TConstructorList, TDragObj, TIngredient, TLocation } from "..
 import { AnyAction, Dispatch } from "redux";
 
 
-export const BurgerConstructor: React.FC = (): JSX.Element => {
-  const [isModal, setIsModal] = useState<boolean>(false);
-  const [orderSum, setOrderSum] = useState<number>(0);
+export const BurgerConstructor: React.FC = () => {
+  const [isModal, setIsModal] = useState(false);
+  const [orderSum, setOrderSum] = useState(0);
   const [isShowBorders, setIsShowBorders] = useState<TBorders>({
     buns: true,
     mains: true

@@ -5,12 +5,15 @@ import { IngredientList } from "../ingredients-list/ingredients-list";
 import { useSelector } from "react-redux";
 import { TIngredient, TTabs } from "../../types/types";
 
-export const BurgerIngredients: React.FC = (): JSX.Element => {
+export const BurgerIngredients: React.FC = () => {
   const { data } = useSelector((store: any) => store.burgerIngredients);
   const [currentTab, setCurrentTab] = React.useState("bun");
-  const bunFilter = useMemo(() => data.filter((item: TIngredient) => item.type === 'bun'), [data]);
-  const sauceFilter = useMemo(() => data.filter((item: TIngredient) => item.type === 'sauce'), [data]);
-  const mainFilter = useMemo(() => data.filter((item: TIngredient) => item.type === 'main'), [data]);
+  const [bunFilter, sauceFilter, mainFilter] = useMemo(() => {
+    const bunData: TIngredient[] = data.filter((item: TIngredient) => item.type === 'bun');
+    const sauceData: TIngredient[] = data.filter((item: TIngredient) => item.type === 'sauce');
+    const mainData: TIngredient[] = data.filter((item: TIngredient) => item.type === 'main');
+    return [bunData, sauceData, mainData];
+  }, [data]);
 
   // скролл по клику на таб (в будущем можно переделать на ref'ы)
   const onTabClick = (tab: string) => {

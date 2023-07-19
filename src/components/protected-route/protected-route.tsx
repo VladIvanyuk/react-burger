@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { TLocation, TProtectedRouteElement } from "../../types/types";
 
-export const ProtectedRouteElement: React.FC<TProtectedRouteElement> = ({ component, onlyUnAuth }: TProtectedRouteElement): JSX.Element | null => {
+export const ProtectedRouteElement: React.FC<TProtectedRouteElement> = ({ component, onlyUnAuth }: TProtectedRouteElement) => {
   const { isAuthChecked, user } = useSelector((store: any) => store.user);
   const location: TLocation = useLocation();
 
@@ -20,6 +20,6 @@ export const ProtectedRouteElement: React.FC<TProtectedRouteElement> = ({ compon
 };
 
 export const OnlyAuth = ProtectedRouteElement;
-export const OnlyUnAuth = ({ component }: TProtectedRouteElement): JSX.Element => {
+export const OnlyUnAuth = ({ component }: TProtectedRouteElement) => {
   return <ProtectedRouteElement onlyUnAuth={true} component={component} />
 }

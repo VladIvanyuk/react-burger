@@ -7,8 +7,8 @@ import { loginUser } from '../../services/actions/user';
 import { useDispatch } from 'react-redux';
 
 export const Login: React.FC = (): JSX.Element => {
-  const [emailValue, setEmailValue] = useState<string>('');
-  const [passwordValue, setPasswordValue] = useState<string>('');
+  const [emailValue, setEmailValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
   const dispatch = useDispatch();
   const login = (e: SyntheticEvent) => {
     e.preventDefault();

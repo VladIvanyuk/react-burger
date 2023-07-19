@@ -7,7 +7,7 @@ import { getBurgerIngredients } from '../../services/actions/burgerIngredients';
 import { AnyAction, Dispatch } from 'redux';
 import { TIngredient, TLocation } from '../../types/types';
 
-export const IngredientDetails: React.FC = (): JSX.Element => {
+export const IngredientDetails: React.FC = () => {
 
   const dispatch: Dispatch<AnyAction> = useDispatch();
   const location: TLocation = useLocation();
