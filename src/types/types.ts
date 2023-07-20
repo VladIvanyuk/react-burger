@@ -1,10 +1,8 @@
-import { ReactNode } from "react";
 import { Identifier } from "dnd-core";
 
 export type TModal = {
   onShowModal: (value: boolean) => void;
   modalHeaderText: string;
-  children?: ReactNode;
 };
 
 export type TRegisterUser = {
