@@ -122,4 +122,11 @@ export type TDropCollectedProps = {
   handlerId: Identifier | null;
 };
 
+export interface IRequestOptions extends RequestInit {
+  headers: {
+    "Content-Type": string,
+    authorization: any,
+  },
+}
+
 export type TLoginUser = Omit<TRegisterUser, "name">;

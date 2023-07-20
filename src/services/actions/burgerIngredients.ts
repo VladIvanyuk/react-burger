@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { requestWithRefresh } from "../../utils/burger-api";
+import { request } from "../../utils/burger-api";
 
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const GET_INGREDIENTS_REQUEST_SUCCESS = 'GET_INGREDIENTS_REQUEST_SUCCESS';
@@ -12,7 +12,7 @@ export const getBurgerIngredients = (): any => {
             type: GET_INGREDIENTS
         })
 
-        requestWithRefresh('ingredients', {}).then((res) => {
+        request('ingredients', {}).then((res) => {
             dispatch({
                 type: GET_INGREDIENTS_REQUEST_SUCCESS,
                 data: res.data

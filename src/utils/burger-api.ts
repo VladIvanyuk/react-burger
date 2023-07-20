@@ -1,4 +1,5 @@
 import {
+  IRequestOptions,
   TLoginUser,
   TRegisterUser,
   TResetPasswordRequest,
@@ -26,7 +27,9 @@ const refreshToken = () => {
   }).then(checkResponse);
 };
 
-const requestWithRefresh = async (url: string, options: any) => {
+
+
+const requestWithRefresh = async (url: string, options: IRequestOptions) => {
   try {
     const res = await fetch(`${DATA_URL}/${url}`, options);
     return await checkResponse(res);
@@ -131,7 +134,7 @@ const registerRequest = (form: TRegisterUser) => {
   });
 };
 
-const request = (endpoint: string, options: any) => {
+const request = (endpoint: string, options: RequestInit) => {
   return fetch(`${DATA_URL}/${endpoint}`, options).then(checkResponse);
 };
 
