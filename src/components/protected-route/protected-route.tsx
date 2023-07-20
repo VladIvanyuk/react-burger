@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { TLocation, TProtectedRouteElement } from "../../types/types";
 
-export const ProtectedRouteElement: React.FC<TProtectedRouteElement> = ({ component, onlyUnAuth }: TProtectedRouteElement) => {
+export const ProtectedRouteElement: React.FC<TProtectedRouteElement> = ({ component, onlyUnAuth }) => {
   const { isAuthChecked, user } = useSelector((store: any) => store.user);
   const location: TLocation = useLocation();
 

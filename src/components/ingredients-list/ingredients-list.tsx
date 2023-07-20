@@ -7,7 +7,7 @@ import { TIngredient, TIngredientsList } from "../../types/types";
 import { AnyAction, Dispatch } from "redux";
 
 
-export const IngredientList = ({ name, id, ingredientsInfo }: TIngredientsList<TIngredient>) => {
+export const IngredientList: React.FC<TIngredientsList<TIngredient>> = ({ name, id, ingredientsInfo }) => {
   const dispatch: Dispatch<AnyAction> = useDispatch();
 
   // по клику на ингредиент находим его в общем списке и сохраняем

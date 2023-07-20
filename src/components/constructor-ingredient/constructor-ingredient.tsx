@@ -10,7 +10,7 @@ import { DELETE_INGREDIENT } from "../../services/actions/burgerConstructor";
 import { TConstructorIngredient, TDragCollectedProps, TDragObj, TDragObjWithoutCounter, TDropCollectedProps } from "../../types/types";
 import { AnyAction, Dispatch } from "redux";
 
-export const ConstructorIngredient: React.FC<TConstructorIngredient> = ({ name, price, image, uniqueId, type, moveCard, index }: TConstructorIngredient): JSX.Element => {
+export const ConstructorIngredient: React.FC<TConstructorIngredient> = ({ name, price, image, uniqueId, type, moveCard, index }) => {
   const dispatch: Dispatch<AnyAction> = useDispatch();
   const dragRef = useRef<HTMLDivElement | null>(null)
   const [{ handlerId }, drop] = useDrop<TDragObj, unknown, TDropCollectedProps>({

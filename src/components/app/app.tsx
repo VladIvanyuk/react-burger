@@ -23,7 +23,7 @@ import { OrdersList } from "../orders-list/orders-list";
 import { TLocation } from "../../types/types";
 import { AnyAction } from "redux";
 
-export const App: React.FC = (): JSX.Element => {
+export const App: React.FC = () => {
   const location: TLocation = useLocation();
   const navigate: NavigateFunction = useNavigate();
   const dispatch: Dispatch<AnyAction> = useDispatch();

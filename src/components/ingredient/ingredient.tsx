@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { TIngredient, TLocation, TSmallIngredient } from "../../types/types";
 
-export const Ingredient: React.FC<TSmallIngredient> = ({ onFindCurrentIngredient, id, image, price, name, type }: TSmallIngredient): JSX.Element => {
+export const Ingredient: React.FC<TSmallIngredient> = ({ onFindCurrentIngredient, id, image, price, name, type }) => {
   const [ingredientCounter, setIngredientCounter] = useState(0);
   const burgerConstructor = useSelector((store: any) => store.burgerConstructor);
   const location: TLocation = useLocation();
