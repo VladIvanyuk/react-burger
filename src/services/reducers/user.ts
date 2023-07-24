@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import {REGISTER_USER, SET_AUTH, SET_USER, GET_USER, DELETE_USER } from "../actions/user"
+import {REGISTER_USER, SET_AUTH, SET_USER, GET_USER, DELETE_USER } from "../constants/constants"
 
 const initialState = {
     user: null,

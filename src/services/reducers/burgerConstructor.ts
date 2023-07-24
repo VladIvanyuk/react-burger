@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
-import { DELETE_INGREDIENT, ADD_INGREDIENT, SORT_INGREDIENT, ADD_BUN, CLEAR_CONSTRUCTOR } from "../actions/burgerConstructor";
-import { TIngredient } from "../../types/types";
+import { DELETE_INGREDIENT, ADD_INGREDIENT, SORT_INGREDIENT, ADD_BUN, CLEAR_CONSTRUCTOR } from "../constants/constants";
+import { TIngredient } from "../types/types";
 
 const initialState = {
     buns: {},

@@ -2,9 +2,9 @@ import styles from "./ingredients-list.module.css";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Ingredient } from "../ingredient/ingredient";
-import { ON_CLICK_INGREDIENT } from "../../services/actions/ingredientDetails";
-import { TIngredient, TIngredientsList } from "../../types/types";
+import { TIngredient, TIngredientsList } from "../../services/types/types";
 import { AnyAction, Dispatch } from "redux";
+import { ON_CLICK_INGREDIENT } from "../../services/constants/constants";
 
 
 export const IngredientList: React.FC<TIngredientsList<TIngredient>> = ({ name, id, ingredientsInfo }) => {

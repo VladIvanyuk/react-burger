@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { GET_ORDER_DETAILS, GET_ORDER_DETAILS_FAILED, GET_ORDER_DETAILS_SUCCESS, DELETE_ORDER_DETAILS } from '../actions/orderDetails';
+import { GET_ORDER_DETAILS, GET_ORDER_DETAILS_FAILED, GET_ORDER_DETAILS_SUCCESS, DELETE_ORDER_DETAILS } from '../constants/constants';
 
 const initialState = {
     details: {

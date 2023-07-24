@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientList } from "../ingredients-list/ingredients-list";
 import { useSelector } from "react-redux";
-import { TIngredient, TTabs } from "../../types/types";
+import { TIngredient, TTabs } from "../../services/types/types";
 
 export const BurgerIngredients: React.FC = () => {
   const { data } = useSelector((store: any) => store.burgerIngredients);

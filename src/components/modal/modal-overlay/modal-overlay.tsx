@@ -1,5 +1,5 @@
 import styles from "./modal-overlay.module.css";
-import { TModal } from "../../../types/types";
+import { TModal } from "../../../services/types/types";
 
 export const ModalOverlay: React.FC<TModal> = ({ onShowModal }: TModal) => {
   return (

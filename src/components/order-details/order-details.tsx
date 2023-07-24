@@ -3,9 +3,8 @@ import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-component
 import checkBackground from "../../img/check.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
-import { DELETE_ORDER_DETAILS } from "../../services/actions/orderDetails";
-import { CLEAR_CONSTRUCTOR } from "../../services/actions/burgerConstructor";
-import { TOrderDetails } from "../../types/types";
+import { TOrderDetails } from "../../services/types/types";
+import { CLEAR_CONSTRUCTOR, DELETE_ORDER_DETAILS } from "../../services/constants/constants";
 
 export const OrderDetails: React.FC<TOrderDetails> = ({ orderNumber }) => {
   const isLoaded: boolean = useSelector((store: any) => store.orderDetails.isOrderLoaded);

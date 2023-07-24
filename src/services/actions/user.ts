@@ -6,13 +6,8 @@ import {
   registerRequest,
   updateUserRequest,
 } from "../../utils/burger-api";
-import { TLoginUser, TRegisterUser, TUpdateUser } from "../../types/types";
-export const SET_USER = "SET_USER";
-export const SET_AUTH = "SET_AUTH";
-export const REGISTER_USER = "REGISTAER_USER";
-export const GET_USER = "GET_USER";
-export const DELETE_USER = "DELETE_USER";
-export const UPDATE_USER = "UPDATE_USER";
+import { TLoginUser, TRegisterUser, TUpdateUser } from "../types/types";
+import { DELETE_USER, GET_USER, REGISTER_USER, SET_AUTH, SET_USER } from "../constants/constants";
 
 export const registerUser = (form: TRegisterUser): any => {
   return function (dispatch: Dispatch) {

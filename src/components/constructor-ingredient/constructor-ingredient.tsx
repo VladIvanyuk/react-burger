@@ -6,9 +6,9 @@ import styles from "./constructor-ingredient.module.css";
 import { useRef } from 'react';
 import { useDispatch } from "react-redux";
 import { XYCoord, useDrag, useDrop } from "react-dnd";
-import { DELETE_INGREDIENT } from "../../services/actions/burgerConstructor";
-import { TConstructorIngredient, TDragCollectedProps, TDragObj, TDragObjWithoutCounter, TDropCollectedProps } from "../../types/types";
+import { TConstructorIngredient, TDragCollectedProps, TDragObj, TDragObjWithoutCounter, TDropCollectedProps } from "../../services/types/types";
 import { AnyAction, Dispatch } from "redux";
+import { DELETE_INGREDIENT } from "../../services/constants/constants";
 
 export const ConstructorIngredient: React.FC<TConstructorIngredient> = ({ name, price, image, uniqueId, type, moveCard, index }) => {
   const dispatch: Dispatch<AnyAction> = useDispatch();

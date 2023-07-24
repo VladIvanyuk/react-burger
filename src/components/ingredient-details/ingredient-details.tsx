@@ -1,11 +1,11 @@
 import styles from './ingredient-details.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { DELETE_DETAILS } from '../../services/actions/ingredientDetails';
 import { useParams, useLocation } from 'react-router-dom';
 import { getBurgerIngredients } from '../../services/actions/burgerIngredients';
 import { AnyAction, Dispatch } from 'redux';
-import { TIngredient, TLocation } from '../../types/types';
+import { TIngredient, TLocation } from '../../services/types/types';
+import { DELETE_DETAILS } from '../../services/constants/constants';
 
 export const IngredientDetails: React.FC = () => {
 

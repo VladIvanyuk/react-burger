@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { TIngredient, TLocation, TSmallIngredient } from "../../types/types";
+import { TIngredient, TLocation, TSmallIngredient } from "../../services/types/types";
 
 export const Ingredient: React.FC<TSmallIngredient> = ({ onFindCurrentIngredient, id, image, price, name, type }) => {
   const [ingredientCounter, setIngredientCounter] = useState(0);

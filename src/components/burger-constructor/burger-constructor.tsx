@@ -13,13 +13,13 @@ import { useDrop } from "react-dnd";
 import { ConstructorIngredient } from "../constructor-ingredient/constructor-ingredient";
 import update from "immutability-helper";
 import {
-  SORT_INGREDIENT,
   addBun,
   addIngridient,
 } from "../../services/actions/burgerConstructor";
 import { useNavigate, useLocation, NavigateFunction } from "react-router-dom";
-import { TBorders, TConstructorList, TDragObj, TIngredient, TLocation } from "../../types/types";
+import { TBorders, TConstructorList, TDragObj, TIngredient, TLocation } from "../../services/types/types";
 import { AnyAction, Dispatch } from "redux";
+import { SORT_INGREDIENT } from "../../services/constants/constants";
 
 
 export const BurgerConstructor: React.FC = () => {

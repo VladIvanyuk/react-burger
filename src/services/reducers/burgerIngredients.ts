@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { GET_INGREDIENTS, GET_INGREDIENTS_REQUEST_SUCCESS, GET_INGREDIENTS_REQUEST_FAILED } from '../actions/burgerIngredients';
+import { GET_INGREDIENTS, GET_INGREDIENTS_REQUEST_SUCCESS, GET_INGREDIENTS_REQUEST_FAILED } from '../constants/constants';
 
 const initialState = {
     data: [],

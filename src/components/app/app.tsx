@@ -20,7 +20,7 @@ import { getBurgerIngredients } from "../../services/actions/burgerIngredients";
 import { Page404 } from "../../pages/404/404";
 import { ProfileReset } from "../profile-reset/profile-reset";
 import { OrdersList } from "../orders-list/orders-list";
-import { TLocation } from "../../types/types";
+import { TLocation } from "../../services/types/types";
 import { AnyAction } from "redux";
 
 export const App: React.FC = () => {
