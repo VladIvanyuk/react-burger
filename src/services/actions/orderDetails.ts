@@ -1,7 +1,8 @@
-import { Dispatch } from "redux";
+import { Action, ActionCreator, Dispatch } from "redux";
 import { requestWithRefresh } from "../../utils/burger-api";
-import { TIngredientsIdList } from "../types/types";
+import { RootState, TIngredientsIdList } from "../types/types";
 import { DELETE_ORDER_DETAILS, GET_ORDER_DETAILS, GET_ORDER_DETAILS_FAILED, GET_ORDER_DETAILS_SUCCESS } from "../constants/constants";
+import { ThunkAction } from "redux-thunk";
 
 export type TGetOrderDetailsAction = {
   readonly type: typeof GET_ORDER_DETAILS
@@ -25,8 +26,14 @@ export type TOrderDetailsActions = TGetOrderDetailsAction
 | TGetOrderDetailsSuccessAction 
 | TDeleteOrderDetailsAction
 
-export const getOrderDetails = (idList: TIngredientsIdList): any => {
-  return function (dispatch: Dispatch) {
+export type OrderDetailsThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, RootState, TOrderDetailsActions>
+>;
+
+export type OrderDetailsDispatch = Dispatch<TOrderDetailsActions>; 
+
+export const getOrderDetails: OrderDetailsThunk = (idList: TIngredientsIdList) => {
+  return function (dispatch: OrderDetailsDispatch) {
     dispatch({
         type: GET_ORDER_DETAILS
     })

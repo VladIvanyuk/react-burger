@@ -1,7 +1,8 @@
-import { Dispatch } from "redux";
+import { Action, ActionCreator, Dispatch } from "redux";
 import { request } from "../../utils/burger-api";
 import { GET_INGREDIENTS, GET_INGREDIENTS_REQUEST_FAILED, GET_INGREDIENTS_REQUEST_SUCCESS } from "../constants/constants";
-import { TIngredient } from "../types/types";
+import { RootState, TIngredient } from "../types/types";
+import { ThunkAction } from "redux-thunk";
 
 type TGetIngredientsAction = {
     readonly type: typeof GET_INGREDIENTS
@@ -20,8 +21,14 @@ export type TIngredientListActions = TGetIngredientsAction
 | TGetIngredientsRequestFailedAction
 | TGetIngredientsRequestSuccessAction
 
-export const getBurgerIngredients = (): any => {
-    return function(dispatch: Dispatch) {
+export type BurgerIngredientsThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, RootState, TIngredientListActions>
+>;
+
+export type OrderDetailsDispatch = Dispatch<TIngredientListActions>; 
+
+export const getBurgerIngredients: BurgerIngredientsThunk = () => {
+    return function(dispatch: OrderDetailsDispatch) {
         dispatch({
             type: GET_INGREDIENTS
         })
