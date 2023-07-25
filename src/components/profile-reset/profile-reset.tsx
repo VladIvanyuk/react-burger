@@ -3,7 +3,7 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState, useEffect, SyntheticEvent } from "react";
+import { useState, useEffect, SyntheticEvent, Dispatch } from "react";
 import styles from "./profile-reset.module.css";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../services/actions/user";
@@ -15,7 +15,7 @@ export const ProfileReset: React.FC = () => {
   const [nameValue, setNameValue] = useState(user?.name);
   const [passwordValue, setPasswordValue] = useState("");
   const [isShowButtons, setIsShowButtons] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch();
 
   const resetUserInfo = (e: SyntheticEvent) => {
     e.preventDefault();

@@ -3,9 +3,10 @@ import { AppHeader } from "../../components/app-header/app-header";
 import styles from "./profile-page.module.css";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../services/actions/user";
+import { Dispatch } from "redux";
 
 export const ProfilePage: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch();
   return (
     <>
       <AppHeader />

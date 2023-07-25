@@ -1,7 +1,7 @@
 import styles from './authorization.module.css';
 import { AppHeader } from '../../components/app-header/app-header';
 import { EmailInput, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, SyntheticEvent} from 'react';
+import { useState, SyntheticEvent, Dispatch} from 'react';
 import { Link } from 'react-router-dom';
 import { loginUser } from '../../services/actions/user';
 import { useDispatch } from 'react-redux';
@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 export const Login: React.FC = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch();
   const login = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(loginUser({

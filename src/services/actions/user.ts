@@ -1,4 +1,4 @@
-import { Dispatch } from "redux";
+import { Action, ActionCreator, Dispatch } from "redux";
 import {
   getUser,
   loginRequest,
@@ -6,9 +6,9 @@ import {
   registerRequest,
   updateUserRequest,
 } from "../../utils/burger-api";
-import { TLoginUser, TRegisterUser, TUpdateUser, TUser } from "../types/types";
+import { RootState, TLoginUser, TRegisterUser, TUpdateUser, TUser } from "../types/types";
 import { DELETE_USER, GET_USER, REGISTER_USER, SET_AUTH, SET_USER } from "../constants/constants";
-
+import { ThunkAction } from "redux-thunk";
 
 type TSetUserAction = {
   readonly type: typeof SET_USER,
@@ -50,8 +50,14 @@ export type TUserActions = TSetUserAction
 | TGetUserAction
 | TDeleteUserAction
 
-export const registerUser = (form: TRegisterUser): any => {
-  return function (dispatch: Dispatch) {
+export type UserThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, RootState, TUserActions>
+>;
+
+export type UserDispatch = Dispatch<TUserActions>; 
+
+export const registerUser: UserThunk = (form: TRegisterUser) => {
+  return function (dispatch: UserDispatch) {
     registerRequest(form).then((res) => {
       dispatch({
         type: REGISTER_USER,
@@ -61,8 +67,8 @@ export const registerUser = (form: TRegisterUser): any => {
   };
 };
 
-export const updateUser = (form: TUpdateUser): any => {
-  return function (dispatch: Dispatch) {
+export const updateUser: UserThunk = (form: TUpdateUser) => {
+  return function (dispatch: UserDispatch) {
     updateUserRequest(form).then((res) => {
       dispatch({
         type: GET_USER,
@@ -72,8 +78,8 @@ export const updateUser = (form: TUpdateUser): any => {
   };
 };
 
-export const loginUser = (form: TLoginUser): any => {
-  return function (dispatch: Dispatch) {
+export const loginUser: UserThunk = (form: TLoginUser) => {
+  return function (dispatch: UserDispatch) {
     loginRequest(form).then((res) => {
       if (res.success) {
         dispatch({
@@ -90,8 +96,8 @@ export const loginUser = (form: TLoginUser): any => {
   };
 };
 
-export const logoutUser = (): any => {
-  return function (dispatch: Dispatch) {
+export const logoutUser: UserThunk = () => {
+  return function (dispatch: UserDispatch) {
     logout().then(() => {
       if (
         localStorage.getItem("accessToken") &&
@@ -108,8 +114,8 @@ export const logoutUser = (): any => {
   };
 };
 
-export const initialAuth = (): any => {
-  return function (dispatch: Dispatch) {
+export const initialAuth: UserThunk = () => {
+  return function (dispatch: UserDispatch) {
     if (localStorage.getItem("accessToken")) {
       getUser().then((res) => {
         dispatch({

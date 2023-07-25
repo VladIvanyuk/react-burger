@@ -21,12 +21,11 @@ import { Page404 } from "../../pages/404/404";
 import { ProfileReset } from "../profile-reset/profile-reset";
 import { OrdersList } from "../orders-list/orders-list";
 import { TLocation } from "../../services/types/types";
-import { AnyAction } from "redux";
 
 export const App: React.FC = () => {
   const location: TLocation = useLocation();
   const navigate: NavigateFunction = useNavigate();
-  const dispatch: Dispatch<AnyAction> = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch();
   const background: TLocation | null = location.state && location.state.background;
   const { data } = useSelector((store: any) => store.burgerIngredients);
 

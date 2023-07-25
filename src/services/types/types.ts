@@ -1,4 +1,7 @@
 import { Identifier } from "dnd-core";
+import { store } from "../store";
+
+export type RootState = ReturnType<typeof store.getState>;
 
 export type TModal = {
   onShowModal: (value: boolean) => void;

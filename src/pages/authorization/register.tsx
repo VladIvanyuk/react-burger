@@ -10,12 +10,13 @@ import { useState, SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../services/actions/user";
+import { Dispatch } from "redux";
 
 export const Register: React.FC = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [nameValue, setNameValue] = useState("");
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch();
   
   const register = (e: SyntheticEvent) => {
     e.preventDefault();
