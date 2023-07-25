@@ -3,13 +3,13 @@ import { TypedUseSelectorHook, useSelector as selectorHook, useDispatch } from '
 import { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { getBurgerIngredients } from '../../services/actions/burgerIngredients';
-import { AnyAction, Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import { RootState, TIngredient, TLocation } from '../../services/types/types';
 import { DELETE_DETAILS } from '../../services/constants/constants';
 
 export const IngredientDetails: React.FC = () => {
 
-  const dispatch: Dispatch<AnyAction> = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch();
   const location: TLocation = useLocation();
   const { ingredientId } = useParams();
   const useSelector: TypedUseSelectorHook<RootState> = selectorHook;

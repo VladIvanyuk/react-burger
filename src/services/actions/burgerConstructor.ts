@@ -33,7 +33,7 @@ export type TBurgerConstructorActions = TAddIngredientAction
   | TClearConstructorAction
   
 
-export const addIngridient = (item: TIngredient): TBurgerConstructorActions => {
+export const addIngridientAction = (item: TIngredient): TBurgerConstructorActions => {
     return {
         type: ADD_INGREDIENT,
         payload: {
@@ -42,7 +42,7 @@ export const addIngridient = (item: TIngredient): TBurgerConstructorActions => {
         }
     }
 }
-export const addBun = (bun: TIngredient): TBurgerConstructorActions => {
+export const addBunAction = (bun: TIngredient): TBurgerConstructorActions => {
     return {
         type: ADD_BUN,
         payload: bun,
