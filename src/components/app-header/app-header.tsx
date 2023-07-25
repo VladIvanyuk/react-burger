@@ -6,10 +6,12 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
+import { RootState } from "../../services/types/types";
 
 export const AppHeader: React.FC = () => {
-  const user = useSelector((store: any) => store.user?.user);
+  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+  const user = useSelector((store) => store.user?.user);
   return (
     <header className={`${styles.header} pt-4 pb-4 mb-10`}>
       <nav className={styles.nav}>

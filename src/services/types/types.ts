@@ -20,8 +20,8 @@ export type TResetPasswordRequest = {
 }
 
 export type TUser = {
-  email?: string,
-  name?: string
+  email: string,
+  name: string
 }
 
 export type TUpdateUser = TRegisterUser;

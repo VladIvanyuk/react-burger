@@ -13,9 +13,9 @@ export type TOrderDetailsState = {
 
 const initialState: TOrderDetailsState = {
     details: {
-    order: {
-        number: '',
-    }
+        order: {
+            number: '',
+        }
     },
     isOrderError: false,
     isOrderLoaded: false,

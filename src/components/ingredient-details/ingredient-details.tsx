@@ -1,10 +1,10 @@
 import styles from './ingredient-details.module.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { TypedUseSelectorHook, useSelector as selectorHook, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { getBurgerIngredients } from '../../services/actions/burgerIngredients';
 import { AnyAction, Dispatch } from 'redux';
-import { TIngredient, TLocation } from '../../services/types/types';
+import { RootState, TIngredient, TLocation } from '../../services/types/types';
 import { DELETE_DETAILS } from '../../services/constants/constants';
 
 export const IngredientDetails: React.FC = () => {
@@ -12,7 +12,8 @@ export const IngredientDetails: React.FC = () => {
   const dispatch: Dispatch<AnyAction> = useDispatch();
   const location: TLocation = useLocation();
   const { ingredientId } = useParams();
-  const burgerIngredients = useSelector((store: any) => store.burgerIngredients.data);
+  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+  const burgerIngredients = useSelector((store) => store.burgerIngredients.data);
   const ingredient: TIngredient[] = burgerIngredients.filter((el: TIngredient) => el._id === ingredientId);
   const { name = '', image_large = '', calories = '', fat = '', carbohydrates = '', proteins = '' } = ingredient[0] ? ingredient[0] : {};
   useEffect(() => {

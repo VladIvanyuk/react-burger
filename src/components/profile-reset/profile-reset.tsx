@@ -7,9 +7,11 @@ import { useState, useEffect, SyntheticEvent, Dispatch } from "react";
 import styles from "./profile-reset.module.css";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../services/actions/user";
-import { useSelector } from "react-redux";
+import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
+import { RootState } from "../../services/types/types";
 
 export const ProfileReset: React.FC = () => {
+  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const user = useSelector((store: any) => store.user.user);
   const [emailValue, setEmailValue] = useState(user?.email);
   const [nameValue, setNameValue] = useState(user?.name);

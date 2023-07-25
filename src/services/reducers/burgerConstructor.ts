@@ -3,7 +3,9 @@ import { DELETE_INGREDIENT, ADD_INGREDIENT, SORT_INGREDIENT, ADD_BUN, CLEAR_CONS
 import { TIngredient } from "../types/types";
 
 type TConstructorState = {
-    buns: {} | TIngredient,
+    buns: {
+        _id?: string
+    } | TIngredient,
     ingredients: TIngredient[]
 }
 

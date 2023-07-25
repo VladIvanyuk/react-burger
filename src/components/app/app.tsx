@@ -15,19 +15,20 @@ import { ProfilePage } from "../../pages/profile-page/profile-page";
 import styles from "./app.module.css";
 import { Dispatch, useEffect } from "react";
 import { initialAuth } from "../../services/actions/user";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/burgerIngredients";
 import { Page404 } from "../../pages/404/404";
 import { ProfileReset } from "../profile-reset/profile-reset";
 import { OrdersList } from "../orders-list/orders-list";
-import { TLocation } from "../../services/types/types";
+import { RootState, TLocation } from "../../services/types/types";
 
 export const App: React.FC = () => {
   const location: TLocation = useLocation();
   const navigate: NavigateFunction = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
+  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const background: TLocation | null = location.state && location.state.background;
-  const { data } = useSelector((store: any) => store.burgerIngredients);
+  const { data } = useSelector((store) => store.burgerIngredients);
 
   const handleModalClose = (): void => {
     // Возвращаемся к предыдущему пути при закрытии модалки

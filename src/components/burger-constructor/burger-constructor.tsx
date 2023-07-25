@@ -5,7 +5,7 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
+import { TypedUseSelectorHook, useSelector as selectorHook, useDispatch } from "react-redux";
 import { getOrderDetails } from "../../services/actions/orderDetails";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
@@ -17,7 +17,7 @@ import {
   addIngridient,
 } from "../../services/actions/burgerConstructor";
 import { useNavigate, useLocation, NavigateFunction } from "react-router-dom";
-import { TBorders, TConstructorList, TDragObj, TIngredient, TLocation } from "../../services/types/types";
+import { RootState, TBorders, TConstructorList, TDragObj, TIngredient, TLocation } from "../../services/types/types";
 import { AnyAction, Dispatch } from "redux";
 import { SORT_INGREDIENT } from "../../services/constants/constants";
 
@@ -29,6 +29,8 @@ export const BurgerConstructor: React.FC = () => {
     buns: true,
     mains: true
   });
+
+  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const store = useSelector((store: any ) => store);
   const { user } = store.user;
   const location: TLocation = useLocation();

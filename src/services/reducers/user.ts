@@ -3,8 +3,8 @@ import { TUserActions } from "../actions/user";
 
 type TUserState = {
     user: {
-        email?:string
-        name?: string
+        email:string
+        name: string
     } | null,
     isAuthChecked: boolean
 }
