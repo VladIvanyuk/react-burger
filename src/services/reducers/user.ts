@@ -1,12 +1,20 @@
-import { AnyAction } from "redux";
 import {REGISTER_USER, SET_AUTH, SET_USER, GET_USER, DELETE_USER } from "../constants/constants"
+import { TUserActions } from "../actions/user";
 
-const initialState = {
+type TUserState = {
+    user: {
+        email?:string
+        name?: string
+    } | null,
+    isAuthChecked: boolean
+}
+
+const initialState: TUserState = {
     user: null,
     isAuthChecked: false,
 }
 
-export const user = (state = initialState, action: AnyAction) => {
+export const user = (state = initialState, action: TUserActions) => {
     switch(action.type) {
         case SET_USER:
             localStorage.setItem('accessToken', action.payload.accessToken);

@@ -1,13 +1,20 @@
-import { AnyAction } from 'redux';
+import { TIngredientListActions } from '../actions/burgerIngredients';
 import { GET_INGREDIENTS, GET_INGREDIENTS_REQUEST_SUCCESS, GET_INGREDIENTS_REQUEST_FAILED } from '../constants/constants';
+import { TIngredient } from '../types/types';
 
-const initialState = {
+export type TIngredientsListState = {
+    data: [] | TIngredient[],
+    isLoaded: boolean,
+    isError: boolean
+  }
+  
+const initialState: TIngredientsListState = {
     data: [],
     isLoaded: false,
     isError: false
   }
 
-export const burgerIngredients = (state = initialState, action: AnyAction) => {
+export const burgerIngredients = (state = initialState, action: TIngredientListActions): TIngredientsListState => {
     switch(action.type) {
         case GET_INGREDIENTS:
             return {

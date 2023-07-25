@@ -16,6 +16,11 @@ export type TResetPasswordRequest = {
   token: string
 }
 
+export type TUser = {
+  email?: string,
+  name?: string
+}
+
 export type TUpdateUser = TRegisterUser;
 
 export type TIngredient = {

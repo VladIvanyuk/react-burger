@@ -1,7 +1,29 @@
 import { Dispatch } from "redux";
 import { requestWithRefresh } from "../../utils/burger-api";
 import { TIngredientsIdList } from "../types/types";
-import { GET_ORDER_DETAILS, GET_ORDER_DETAILS_FAILED, GET_ORDER_DETAILS_SUCCESS } from "../constants/constants";
+import { DELETE_ORDER_DETAILS, GET_ORDER_DETAILS, GET_ORDER_DETAILS_FAILED, GET_ORDER_DETAILS_SUCCESS } from "../constants/constants";
+
+export type TGetOrderDetailsAction = {
+  readonly type: typeof GET_ORDER_DETAILS
+}
+
+export type TGetOrderDetailsSuccessAction = {
+  readonly type: typeof GET_ORDER_DETAILS_SUCCESS,
+  details: unknown
+}
+
+export type TGetOrderDetailsFailedAction = {
+  readonly type: typeof GET_ORDER_DETAILS_FAILED,
+}
+
+export type TDeleteOrderDetailsAction = {
+  readonly type: typeof DELETE_ORDER_DETAILS,
+}
+
+export type TOrderDetailsActions = TGetOrderDetailsAction 
+| TGetOrderDetailsFailedAction 
+| TGetOrderDetailsSuccessAction 
+| TDeleteOrderDetailsAction
 
 export const getOrderDetails = (idList: TIngredientsIdList): any => {
   return function (dispatch: Dispatch) {
@@ -19,7 +41,7 @@ export const getOrderDetails = (idList: TIngredientsIdList): any => {
       },
       // Данные
       body: JSON.stringify(idList),
-    }).then((data) =>
+    }).then((data) => 
       dispatch({
         type: GET_ORDER_DETAILS_SUCCESS,
         details: data,
