@@ -3,12 +3,12 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState, useEffect, SyntheticEvent, Dispatch } from "react";
+import { useState, useEffect, SyntheticEvent } from "react";
 import styles from "./profile-reset.module.css";
-import { useDispatch } from "react-redux";
 import { updateUser } from "../../services/actions/user";
 import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
-import { RootState } from "../../services/types/types";
+import { RootState, TDispatchActions } from "../../services/types/types";
+import { useDispatch } from "../../services/hooks/hooks";
 
 export const ProfileReset: React.FC = () => {
   const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
@@ -17,7 +17,7 @@ export const ProfileReset: React.FC = () => {
   const [nameValue, setNameValue] = useState(user?.name);
   const [passwordValue, setPasswordValue] = useState("");
   const [isShowButtons, setIsShowButtons] = useState(false);
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch: TDispatchActions = useDispatch();
 
   const resetUserInfo = (e: SyntheticEvent) => {
     e.preventDefault();

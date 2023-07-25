@@ -1,16 +1,17 @@
 import styles from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import checkBackground from "../../img/check.png";
-import { useDispatch, TypedUseSelectorHook, useSelector as selectorHook, } from "react-redux";
+import { TypedUseSelectorHook, useSelector as selectorHook, } from "react-redux";
 import { useEffect } from 'react';
-import { RootState, TOrderDetails } from "../../services/types/types";
+import { RootState, TDispatchActions, TOrderDetails } from "../../services/types/types";
 import { CLEAR_CONSTRUCTOR, DELETE_ORDER_DETAILS } from "../../services/constants/constants";
+import { useDispatch } from "../../services/hooks/hooks";
 
 export const OrderDetails: React.FC<TOrderDetails> = ({ orderNumber }) => {
   const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const isLoaded: boolean = useSelector((store: any) => store.orderDetails.isOrderLoaded);
   const isError: boolean = useSelector((store: any) => store.orderDetails.isOrderError);
-  const dispatch = useDispatch();
+  const dispatch: TDispatchActions = useDispatch();
 
   useEffect(() => {
     return () => {

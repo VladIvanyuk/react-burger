@@ -1,15 +1,15 @@
 import styles from './ingredient-details.module.css';
-import { TypedUseSelectorHook, useSelector as selectorHook, useDispatch } from 'react-redux';
+import { TypedUseSelectorHook, useSelector as selectorHook } from 'react-redux';
 import { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { getBurgerIngredients } from '../../services/actions/burgerIngredients';
-import { Dispatch } from 'redux';
-import { RootState, TIngredient, TLocation } from '../../services/types/types';
+import { RootState, TDispatchActions, TIngredient, TLocation } from '../../services/types/types';
 import { DELETE_DETAILS } from '../../services/constants/constants';
+import { useDispatch } from '../../services/hooks/hooks';
 
 export const IngredientDetails: React.FC = () => {
 
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch: TDispatchActions = useDispatch();
   const location: TLocation = useLocation();
   const { ingredientId } = useParams();
   const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
