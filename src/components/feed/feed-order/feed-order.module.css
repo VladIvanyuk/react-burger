@@ -1,5 +1,6 @@
 .order {
     width: 584px;
+    min-height: 214px;
     border-radius: 40px;
     background: #1C1C21;
     box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px 0px rgba(0, 0, 0, 0.06), 0px 4px 8px 0px rgba(0, 0, 0, 0.04);
@@ -11,6 +12,8 @@
 }
 
 .orderFooter {
+    height: 64px;
+    position: relative;
     display: flex;
     justify-content: space-between;
 }
@@ -29,10 +32,12 @@
 }
 
 .orderImageWrapper {
+    position: absolute;
     width: 56px;
     height: 56px;
     display: flex;
     overflow: hidden;
     border: 2px solid #9911c2;
     border-radius: 100%;
+    background-color: #1C1C21;
 }

@@ -24,14 +24,19 @@ export const FeedOrder: React.FC = (props) => {
         </h3>
       </div>
       <div className={styles.orderFooter}>
+        <div>
           {imgMockList.map((img, index) => {
 
             return (
-            <div className={styles.orderImageWrapper}>
+            <div className={styles.orderImageWrapper} style={{
+              'left': 35*index + 'px',
+              'zIndex': (imgMockList.length * 10) - (index * 10),
+            }}>
               <img key={index} className={styles.orderImage} src={img} alt="Картинка продукта" />
             </div>
             )
           })}
+        </div>
         <div className={styles.orderPrice}>
           <span className="text text_type_digits-default mr-2">123</span>
           <CurrencyIcon type={"primary"} />
