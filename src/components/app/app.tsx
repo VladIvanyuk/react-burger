@@ -22,6 +22,7 @@ import { ProfileReset } from "../profile-reset/profile-reset";
 import { OrdersList } from "../orders-list/orders-list";
 import { RootState, TDispatchActions, TLocation } from "../../services/types/types";
 import { useDispatch } from "../../services/hooks/hooks";
+import { FeedPage } from "../../pages/feed-page/feed-page";
 
 export const App: React.FC = () => {
   const location: TLocation = useLocation();
@@ -52,6 +53,7 @@ export const App: React.FC = () => {
       <Routes location={background || location}>
         <Route path="*" element={<Page404 />} />
         <Route path="/" element={<MainPage />} />
+        <Route path="feed" element={<FeedPage />} />
         <Route
           path="/profile"
           element={<OnlyAuth component={<ProfilePage />} onlyUnAuth={false} />}
