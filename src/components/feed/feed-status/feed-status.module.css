@@ -1,0 +1,22 @@
+.feedStatusBlock {
+    width: 580px;
+}
+
+.feedStatus {
+    display: flex;
+    justify-content: space-between;
+}
+
+.statuses {
+    width: 100%;
+    max-width: 272px;
+}
+
+.activeOrder {
+    color: var(--interface-success, #0CC);
+}
+
+.allPrice {
+    /* не работает :( */
+    text-shadow: 0px 4px 32px 0px rgba(51, 51, 255, 0.50), 0px 0px 8px 8px rgba(51, 51, 255, 0.25), 0px 0px 16px 8px rgba(51, 51, 255, 0.25);
+}

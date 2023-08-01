@@ -19,6 +19,11 @@ button {
   padding: 0;
 }
 
+ul {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
 .app {
   max-width: 1920px;
   padding: 40px;

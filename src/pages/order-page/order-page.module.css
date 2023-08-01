@@ -1,0 +1,56 @@
+.order {
+    max-width: 640px;
+    width: 100%;
+}
+
+.orderNumber {
+    text-align: center;
+}
+
+.orderStatus {
+    color: var(--interface-success, #0CC);
+}
+
+.orderImgWrapper {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    overflow: hidden;
+    border: 2px solid #9911c2;
+    border-radius: 100%;
+    background-color: #1C1C21;
+}
+
+.orderImg {
+    width: 160%;
+    height: 100%;
+    background-size: 50%;
+    position: relative;
+    left: -15px;
+}
+
+.ingredient {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ingredientsCount {
+    display: flex;
+}
+
+.ingredientInfo {
+    display: flex;
+    align-items: center;
+}
+
+.orderFooterInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.orderPrice {
+    display: flex;
+    align-items: center;
+}
