@@ -1,9 +1,12 @@
-import { Routes, Route, useLocation, useNavigate, NavigateFunction } from "react-router-dom";
-import { MainPage } from "../../pages/main-page/main-page";
 import {
-  OnlyAuth,
-  OnlyUnAuth,
-} from "../protected-route/protected-route";
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  NavigateFunction,
+} from "react-router-dom";
+import { MainPage } from "../../pages/main-page/main-page";
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { Login } from "../../pages/authorization/login";
 import { Register } from "../../pages/authorization/register";
 import { ForgotPassword } from "../../pages/authorization/forgot-password";
@@ -20,17 +23,23 @@ import { getBurgerIngredients } from "../../services/actions/burgerIngredients";
 import { Page404 } from "../../pages/404/404";
 import { ProfileReset } from "../profile-reset/profile-reset";
 import { OrdersList } from "../orders-list/orders-list";
-import { RootState, TDispatchActions, TLocation } from "../../services/types/types";
+import {
+  RootState,
+  TDispatchActions,
+  TLocation,
+} from "../../services/types/types";
 import { useDispatch } from "../../services/hooks/hooks";
 import { FeedPage } from "../../pages/feed-page/feed-page";
 import { OrderPage } from "../../pages/order-page/order-page";
+import { Order } from "../order/order";
 
 export const App: React.FC = () => {
   const location: TLocation = useLocation();
   const navigate: NavigateFunction = useNavigate();
   const dispatch: TDispatchActions = useDispatch();
   const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
-  const background: TLocation | null = location.state && location.state.background;
+  const background: TLocation | null =
+    location.state && location.state.background;
   const { data } = useSelector((store) => store.burgerIngredients);
 
   const handleModalClose = (): void => {
@@ -54,8 +63,9 @@ export const App: React.FC = () => {
       <Routes location={background || location}>
         <Route path="*" element={<Page404 />} />
         <Route path="/" element={<MainPage />} />
-        <Route path="/feed" element={<FeedPage />} />
         <Route path="/feed/:id" element={<OrderPage />} />
+        <Route path="/feed" element={<FeedPage />} />
+        <Route path="/profile/orders/:id" element={<OrderPage />} />
         <Route
           path="/profile"
           element={<OnlyAuth component={<ProfilePage />} onlyUnAuth={false} />}
@@ -63,18 +73,25 @@ export const App: React.FC = () => {
           <Route path="" element={<ProfileReset />} />
           <Route path="orders" element={<OrdersList />} />
         </Route>
-        <Route path="/login" element={<OnlyUnAuth component={<Login />} onlyUnAuth={false} />} />
+        <Route
+          path="/login"
+          element={<OnlyUnAuth component={<Login />} onlyUnAuth={false} />}
+        />
         <Route
           path="/register"
           element={<OnlyUnAuth component={<Register />} onlyUnAuth={false} />}
         />
         <Route
           path="/forgot-password"
-          element={<OnlyUnAuth component={<ForgotPassword />} onlyUnAuth={false} />}
+          element={
+            <OnlyUnAuth component={<ForgotPassword />} onlyUnAuth={false} />
+          }
         />
         <Route
           path="/reset-password"
-          element={<OnlyUnAuth component={<ResetPassword />} onlyUnAuth={false} />}
+          element={
+            <OnlyUnAuth component={<ResetPassword />} onlyUnAuth={false} />
+          }
         />
         <Route path="/ingredients/:ingredientId" element={<IngredientPage />} />
       </Routes>
@@ -86,6 +103,22 @@ export const App: React.FC = () => {
             element={
               <Modal onShowModal={handleModalClose} modalHeaderText={""}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal onShowModal={handleModalClose} modalHeaderText={""}>
+                <Order />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <Modal onShowModal={handleModalClose} modalHeaderText={""}>
+                <Order />
               </Modal>
             }
           />

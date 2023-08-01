@@ -8,5 +8,6 @@ export const Feed: React.FC = (props) => {
       <FeedOrder />
       <FeedStatus />
     </div>
+    
   );
 };

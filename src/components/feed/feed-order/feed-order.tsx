@@ -1,8 +1,9 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed-order.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const FeedOrder: React.FC = (props) => {
+  const location = useLocation();
   const imgMockList = [
     "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
     "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
@@ -21,7 +22,7 @@ export const FeedOrder: React.FC = (props) => {
 
   return (
     <div>
-      <Link to={`/feed/1312`} className={`${styles.order} p-6`} onClick={(e) => console.log(e)}>
+      <Link to={`1312`} state= {{ background: location }} className={`${styles.order} p-6`} onClick={(e) => console.log(e)}>
         <div className={`${styles.orderHeader} mb-6`}>
           <p className="text text_type_digits-default">#034535</p>
           <p className="text text_type_main-default text_color_inactive">
