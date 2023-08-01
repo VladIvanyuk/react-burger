@@ -1,14 +1,14 @@
 import styles from './feed-status.module.css';
 
 export const FeedStatus = () => {
-  const doneOrders = [111111, 222222, 333333, 444444, 555555];
+  const doneOrders = [111111, 222222, 333333, 444444, 555555, 666666, 777777, 888888, 101010, 202020, 303030, 404040, 505050];
   const notDoneOrders = [666666, 777777, 888888];
   return (
     <div className={styles.feedStatusBlock}>
       <div className={`${styles.feedStatus} mb-15`}>
         <div className={styles.statuses}>
           <p className='text text_type_main-medium mb-6'>Готовы:</p>
-          <ul>
+          <ul className={styles.numbersList}>
             {doneOrders.map((el) => (
               <li key={el} className={`${styles.activeOrder} text text_type_digits-default mb-2`}>{el}</li>
             ))}
@@ -16,7 +16,7 @@ export const FeedStatus = () => {
         </div>
         <div className={styles.statuses}>
           <p className='text text_type_main-medium mb-6'>В работе:</p>
-          <ul>
+          <ul className={styles.numbersList}>
             {notDoneOrders.map((el) => (
               <li key={el} className='text text_type_digits-default mb-2'>{el}</li>
             ))}
