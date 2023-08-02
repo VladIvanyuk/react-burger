@@ -5,16 +5,22 @@ import { ThunkAction } from "redux-thunk";
 import { TIngredientListActions } from "../actions/burgerIngredients";
 import { TOrderDetailsActions } from "../actions/orderDetails";
 import { TUserActions } from "../actions/user";
+import { TFeedActions } from "../actions/wsFeed";
 
 export type RootState = ReturnType<typeof store.getState>;
 
 // THUNK
-export type TAppActions = TIngredientListActions | TOrderDetailsActions | TUserActions;
+export type TAppActions = TIngredientListActions | TOrderDetailsActions | TUserActions | TFeedActions;
 export type AppThunkAction<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TAppActions>>;
 export type TDispatchActions = TAppActions | AppThunkAction;
 export type AppDispatch = Dispatch<TAppActions>;
 // THUNK
 
+export enum WebsocketStatus {
+  CONNECTING = 'CONNECTING...',
+  ONLINE = 'ONLINE',
+  OFFLINE = 'OFFLINE'
+}
 
 export type TModal = {
   onShowModal: (value: boolean) => void;

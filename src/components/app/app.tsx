@@ -32,6 +32,7 @@ import { useDispatch } from "../../services/hooks/hooks";
 import { FeedPage } from "../../pages/feed-page/feed-page";
 import { OrderPage } from "../../pages/order-page/order-page";
 import { Order } from "../order/order";
+import { connect } from "../../services/actions/wsFeed";
 
 export const App: React.FC = () => {
   const location: TLocation = useLocation();
@@ -51,6 +52,10 @@ export const App: React.FC = () => {
     // первоначальная проверка авторизации при входе на страницу
     dispatch(initialAuth());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(connect('wss://norma.nomoreparties.space/orders/all'))
+  }, [])
 
   useEffect(() => {
     if (data.length === 0) {
