@@ -1,7 +1,6 @@
-import { Middleware, MiddlewareAPI } from "redux";
-import { AppDispatch, RootState } from "../types/types";
+import { AnyAction, Dispatch, Middleware, MiddlewareAPI } from "redux";
+import { RootState } from "../types/types";
 import { ActionCreatorWithPayload, ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
-import { connect, disconnect, wsClose, wsConnecting, wsError, wsMessage, wsOpen } from "../actions/wsFeed";
 
 export type TwsActionTypes = {
     wsConnect: ActionCreatorWithPayload<string>,
@@ -13,15 +12,15 @@ export type TwsActionTypes = {
     onMessage: ActionCreatorWithPayload<any>,
 }
 
-export const socketMiddleware = (wsActions: any): Middleware => {
-    return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
+export const socketMiddleware = (wsActions: TwsActionTypes): Middleware => {
+    return ((store: MiddlewareAPI<Dispatch<AnyAction>, RootState>) => {
       let socket: WebSocket | null = null;
-      console.log(wsActions)
+      
       return next => (action) => {
         const { dispatch } = store;
-        const { wsConnecting, onOpen, onError, onMessage, onClose } = wsActions;
+        const { wsConnect, wsDisconnect, onOpen, onError, onMessage, wsConnecting, onClose } = wsActions;
         
-        if (connect.match(action)) {
+        if (wsConnect.match(action)) {
           socket = new WebSocket(action.payload);
           dispatch(wsConnecting())
         }
@@ -46,7 +45,7 @@ export const socketMiddleware = (wsActions: any): Middleware => {
             dispatch(onClose());
           };
 
-          if(disconnect.match(action)) {
+          if(wsDisconnect.match(action)) {
             socket.close()
             socket = null;
           }

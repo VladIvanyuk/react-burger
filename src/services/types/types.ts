@@ -12,7 +12,7 @@ export type RootState = ReturnType<typeof store.getState>;
 // THUNK
 export type TAppActions = TIngredientListActions | TOrderDetailsActions | TUserActions | TFeedActions;
 export type AppThunkAction<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TAppActions>>;
-export type TDispatchActions = TAppActions | AppThunkAction;
+export type TDispatchActions = TAppActions | AppThunkAction | TFeedActions;
 export type AppDispatch = Dispatch<TAppActions>;
 // THUNK
 
