@@ -1,24 +1,26 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed-order.module.css";
 import { Link, useLocation } from "react-router-dom";
+import { RootState, TFeedOrderData } from "../../../services/types/types";
+import { useSelector as selectorHook } from "../../../services/hooks/hooks";
+import { TypedUseSelectorHook } from "react-redux";
 
-export const FeedOrder: React.FC = (props) => {
+export const FeedOrder: React.FC<TFeedOrderData> = ({ orderData }) => {
   const location = useLocation();
-  const imgMockList = [
-    "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
-    "https://code.s3.yandex.net/react/code/sauce-01-mobile.png",
-    "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-  ];
+  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+  const store = useSelector((store) => store);
+  const ingredients = store.burgerIngredients.data;
+  const ingredientsId = orderData.ingredients;
+  const allIgredientsImgList: (string | undefined)[] = [];
+  ingredientsId.forEach((el) => {
+    const ingredientImage = ingredients.find(({_id}) => _id === el)?.image_mobile
+    allIgredientsImgList.push(ingredientImage);
+  })
+  console.log(allIgredientsImgList)
   // если ингридиентов больше 6, откусываем от основного массива для вывода
   const imgElemsForRender =
-    imgMockList.length > 6 ? [...imgMockList].splice(0, 6) : imgMockList;
-  const imgListDiff = imgMockList.length - 6;
+    allIgredientsImgList.length > 6 ? [...allIgredientsImgList].splice(0, 6) : allIgredientsImgList;
+  const imgListDiff = allIgredientsImgList.length - 6;
 
   return (
     <div>

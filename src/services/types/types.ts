@@ -101,6 +101,24 @@ export type TSmallIngredient = {
   readonly onFindCurrentIngredient: (id: string) => void;
 };
 
+export type TFeedOrder = {
+  createdAt: string
+  ingredients: Array<string | null>
+  name: string
+  number: number
+  status: string
+  updatedAt: string
+  _id: string
+}
+
+export type TFeedOrderData = {
+  orderData: TFeedOrder
+}
+
+export type TFeedOrdersList = {
+  feed?: TFeedOrder[]
+}
+
 export type TConstructorIngredient = {
   readonly name: string;
   readonly type: string;

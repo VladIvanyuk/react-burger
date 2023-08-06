@@ -55,7 +55,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(connect('wss://norma.nomoreparties.space/orders/all'))
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     if (data.length === 0) {
