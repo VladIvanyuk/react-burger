@@ -1,8 +1,24 @@
+import { RootState, TFeedData, TFeedOrdersList } from '../../../services/types/types';
 import styles from './feed-status.module.css';
+import { useSelector as selectorHook } from '../../../services/hooks/hooks';
+import { TypedUseSelectorHook } from 'react-redux';
 
-export const FeedStatus = () => {
-  const doneOrders = [111111, 222222, 333333, 444444, 555555, 666666, 777777, 888888, 101010, 202020, 303030, 404040, 505050];
-  const notDoneOrders = [666666, 777777, 888888];
+export const FeedStatus: React.FC<TFeedOrdersList> = ({ feed }) => {
+  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+  const store = useSelector((store) => store);
+  const data: TFeedData = store.feedReducer.data;
+  const doneOrders: number[] = [];
+  const pendingOrders: number[] = [];
+  feed?.forEach((el) => {
+    if(el.status === 'done' && doneOrders.length < 20) {
+      doneOrders.push(el.number)
+    }
+
+    if(el.status === 'pending') {
+      pendingOrders.push(el.number)
+    }
+  })
+
   return (
     <div className={styles.feedStatusBlock}>
       <div className={`${styles.feedStatus} mb-15`}>
@@ -17,7 +33,7 @@ export const FeedStatus = () => {
         <div className={styles.statuses}>
           <p className='text text_type_main-medium mb-6'>В работе:</p>
           <ul className={styles.numbersList}>
-            {notDoneOrders.map((el) => (
+            {pendingOrders.map((el) => (
               <li key={el} className='text text_type_digits-default mb-2'>{el}</li>
             ))}
           </ul>
@@ -25,11 +41,11 @@ export const FeedStatus = () => {
       </div>
       <div className='mb-15'>
         <p className='text text_type_main-medium'>Выполнено за все время:</p>
-        <p className={`${styles.allPrice} text text_type_digits-large`}>28 752</p>
+        <p className={`${styles.allPrice} text text_type_digits-large`}>{data?.total}</p>
       </div>
       <div className='mb-15'>
         <p className='text text_type_main-medium'>Выполнено за сегодня:</p>
-        <p className={`${styles.allPrice} text text_type_digits-large`}>138</p>
+        <p className={`${styles.allPrice} text text_type_digits-large`}>{data.totalToday}</p>
       </div>
     </div>
   );

@@ -111,6 +111,13 @@ export type TFeedOrder = {
   _id: string
 }
 
+export type TFeedData = {
+  success: boolean,
+  orders: TFeedOrder[],
+  total: number,
+  totalToday: number
+}
+
 export type TFeedOrderData = {
   orderData: TFeedOrder
 }

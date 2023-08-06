@@ -42,7 +42,9 @@ export const BurgerConstructor: React.FC = () => {
   const constructorList: TConstructorList<TIngredient> = store.burgerConstructor;
   const ingredientsWithoutBuns: TIngredient[] = constructorList.ingredients;
   const bun: TIngredient = constructorList.buns;
+  console.log(constructorList)
   const indgredientsIdList: string[] = constructorList.ingredients.map((el: TIngredient) => el._id);
+  const bunId: string = constructorList.buns._id;
   const isEmptyBuns: boolean = Object.entries(bun).length === 0;
   const isEmptyIngredients: boolean = Object.entries(ingredientsWithoutBuns).length === 0;
   const bordersBun: string | null = isShowBorders.buns ? styles.bordersBun : '';
@@ -110,7 +112,7 @@ export const BurgerConstructor: React.FC = () => {
         state: location
       })
     }
-    dispatch(getOrderDetails({ ingredients: indgredientsIdList }));
+    dispatch(getOrderDetails({ ingredients: [bunId, ...indgredientsIdList, bunId] }));
     setIsModal(true);
   };
   

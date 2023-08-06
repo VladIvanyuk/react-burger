@@ -1,16 +1,21 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { WebsocketStatus } from "../types/types"
+import { TFeedData, WebsocketStatus } from "../types/types"
 import { wsClose, wsConnecting, wsError, wsMessage, wsOpen } from "../actions/wsFeed"
 
 export type TFeedState = {
     status: WebsocketStatus,
     connectingError: string,
-    data: []
+    data: TFeedData
 }
 
 const initialState: TFeedState = {
     status: WebsocketStatus.OFFLINE,
-    data: [],
+    data: {
+        success: false,
+        orders: [],
+        total: 0,
+        totalToday: 0
+    },
     connectingError: ''
 }
 
