@@ -25,7 +25,7 @@ import {
 
 import { socketMiddleware } from "./middleware/socket-middleware";
 
-const wsFeedActions = {
+const wsPublicFeedActions = {
   wsConnect: FeedWsConnect,
   wsDisconnect: FeedWsDisconnect,
   wsConnecting: FeedWsConnecting,
@@ -45,7 +45,7 @@ const wsProfileFeedActions = {
   onMessage: ProfileFeedWsNessage,
 };
 
-const feedMiddleware = socketMiddleware(wsFeedActions);
+const feedMiddleware = socketMiddleware(wsPublicFeedActions);
 const profileFeedMiddleware = socketMiddleware(wsProfileFeedActions);
 
 export const store = configureStore({

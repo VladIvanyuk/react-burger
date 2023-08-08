@@ -17,7 +17,7 @@ export const FeedPage: React.FC = (props) => {
         <h2 className="text text_type_main-large mb-5">Лента заказов</h2>
         <div className={styles.feedContainer}>
           <div className={styles.orderListWrapper}>
-            <OrdersList feed={orders} />
+            <OrdersList />
           </div>
           <FeedStatus feed={orders}/>
         </div>

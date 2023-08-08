@@ -58,7 +58,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(connectPublicFeed('wss://norma.nomoreparties.space/orders/all'))
-    dispatch(connectProfileFeed(`wss://norma.nomoreparties.space/orders/?token=${tokenForWs}`))
+    dispatch(connectProfileFeed(`wss://norma.nomoreparties.space/orders?token=${tokenForWs}`))
   }, [dispatch, tokenForWs])
 
   useEffect(() => {
