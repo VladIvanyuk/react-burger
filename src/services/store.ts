@@ -4,18 +4,28 @@ import {configureStore} from "@reduxjs/toolkit";
 import type {} from 'redux-thunk/extend-redux'
 
 import { 
-  connect as FeedWsConnect, 
-  disconnect as FeedWsDisconnect,
-  wsConnecting as FeedWsConnecting,
-  wsOpen as FeedWsOpen,
-  wsClose as FeedWsClose,
-  wsMessage as FeedWsNessage,
-  wsError as FeedWsError 
-} from "./actions/wsFeed";
+  connectPublicFeed as FeedWsConnect, 
+  disconnectPublicFeed as FeedWsDisconnect,
+  wsConnectingPublicFeed as FeedWsConnecting,
+  wsOpenPublicFeed as FeedWsOpen,
+  wsClosePublicFeed as FeedWsClose,
+  wsMessagePublicFeed as FeedWsNessage,
+  wsErrorPublicFeed as FeedWsError 
+} from "./actions/wsPublicFeed";
+
+import { 
+  connectProfileFeed as ProfileFeedWsConnect, 
+  disconnectProfileFeed as ProfileFeedWsDisconnect,
+  wsConnectingProfileFeed as ProfileFeedWsConnecting,
+  wsOpenProfileFeed as ProfileFeedWsOpen,
+  wsCloseProfileFeed as ProfileFeedWsClose,
+  wsMessageProfileFeed as ProfileFeedWsNessage,
+  wsErrorProfileFeed as ProfileFeedWsError 
+} from "./actions/wsProfileFeed";
 
 import { socketMiddleware } from "./middleware/socket-middleware";
 
-const wsActions = {
+const wsFeedActions = {
   wsConnect: FeedWsConnect,
   wsDisconnect: FeedWsDisconnect,
   wsConnecting: FeedWsConnecting,
@@ -25,10 +35,21 @@ const wsActions = {
   onMessage: FeedWsNessage,
 };
 
-const feedMiddleware = socketMiddleware(wsActions);
+const wsProfileFeedActions = {
+  wsConnect: ProfileFeedWsConnect,
+  wsDisconnect: ProfileFeedWsDisconnect,
+  wsConnecting: ProfileFeedWsConnecting,
+  onOpen: ProfileFeedWsOpen,
+  onClose: ProfileFeedWsClose,
+  onError: ProfileFeedWsError,
+  onMessage: ProfileFeedWsNessage,
+};
+
+const feedMiddleware = socketMiddleware(wsFeedActions);
+const profileFeedMiddleware = socketMiddleware(wsProfileFeedActions);
 
 export const store = configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(feedMiddleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(feedMiddleware, profileFeedMiddleware),
     devTools: true,
   })

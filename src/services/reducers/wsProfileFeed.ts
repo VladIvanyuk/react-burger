@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { TFeedData, WebsocketStatus } from "../types/types"
-import { wsClose, wsConnecting, wsError, wsMessage, wsOpen } from "../actions/wsFeed"
+import { wsCloseProfileFeed, wsConnectingProfileFeed, wsErrorProfileFeed, wsMessageProfileFeed, wsOpenProfileFeed } from "../actions/wsProfileFeed"
 
 export type TFeedState = {
     status: WebsocketStatus,
@@ -19,21 +19,21 @@ const initialState: TFeedState = {
     connectingError: ''
 }
 
-export const feedReducer = createReducer(initialState, builder => {
+export const profileOrdersFeed = createReducer(initialState, builder => {
     builder
-        .addCase(wsConnecting, state => {
+        .addCase(wsConnectingProfileFeed, state => {
             state.status = WebsocketStatus.CONNECTING 
         })
-        .addCase(wsOpen, state => {
+        .addCase(wsOpenProfileFeed, state => {
             state.status = WebsocketStatus.ONLINE
         })
-        .addCase(wsClose, state => {
+        .addCase(wsCloseProfileFeed, state => {
             state.status = WebsocketStatus.OFFLINE
         })
-        .addCase(wsError, (state, action) => {
+        .addCase(wsErrorProfileFeed, (state, action) => {
             state.connectingError = action.payload
         })
-        .addCase(wsMessage, (state, action) => {
+        .addCase(wsMessageProfileFeed, (state, action) => {
             state.data = action.payload
         })
 })

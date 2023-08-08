@@ -5,7 +5,7 @@ import { ThunkAction } from "redux-thunk";
 import { TIngredientListActions } from "../actions/burgerIngredients";
 import { TOrderDetailsActions } from "../actions/orderDetails";
 import { TUserActions } from "../actions/user";
-import { TFeedActions } from "../actions/wsFeed";
+import { TFeedActions } from "../actions/wsPublicFeed";
 
 export type RootState = ReturnType<typeof store.getState>;
 

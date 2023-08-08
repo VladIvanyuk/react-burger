@@ -32,7 +32,8 @@ import { useDispatch } from "../../services/hooks/hooks";
 import { FeedPage } from "../../pages/feed-page/feed-page";
 import { OrderPage } from "../../pages/order-page/order-page";
 import { Order } from "../order/order";
-import { connect } from "../../services/actions/wsFeed";
+import { connectPublicFeed } from "../../services/actions/wsPublicFeed";
+import { connectProfileFeed } from "../../services/actions/wsProfileFeed";
 
 export const App: React.FC = () => {
   const location: TLocation = useLocation();
@@ -42,6 +43,8 @@ export const App: React.FC = () => {
   const background: TLocation | null =
     location.state && location.state.background;
   const { data } = useSelector((store) => store.burgerIngredients);
+  const token = localStorage.getItem('accessToken');
+  const tokenForWs = token?.replace('Bearer ', '');
 
   const handleModalClose = (): void => {
     // Возвращаемся к предыдущему пути при закрытии модалки
@@ -54,8 +57,9 @@ export const App: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(connect('wss://norma.nomoreparties.space/orders/all'))
-  }, [dispatch])
+    dispatch(connectPublicFeed('wss://norma.nomoreparties.space/orders/all'))
+    dispatch(connectProfileFeed(`wss://norma.nomoreparties.space/orders/?token=${tokenForWs}`))
+  }, [dispatch, tokenForWs])
 
   useEffect(() => {
     if (data.length === 0) {

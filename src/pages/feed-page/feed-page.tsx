@@ -9,14 +9,16 @@ import { OrdersList } from "../../components/orders-list/orders-list";
 export const FeedPage: React.FC = (props) => {
   const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const store = useSelector((store: any ) => store);
-  const { orders } = store.feedReducer.data;
+  const { orders } = store.publicOrdersFeed.data;
   return (
     <>
       <AppHeader />
       <main className="container">
         <h2 className="text text_type_main-large mb-5">Лента заказов</h2>
         <div className={styles.feedContainer}>
-          <OrdersList feed={orders} />
+          <div className={styles.orderListWrapper}>
+            <OrdersList feed={orders} />
+          </div>
           <FeedStatus feed={orders}/>
         </div>
       </main>

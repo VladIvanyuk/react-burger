@@ -6,7 +6,7 @@ import { TypedUseSelectorHook } from 'react-redux';
 export const FeedStatus: React.FC<TFeedOrdersList> = ({ feed }) => {
   const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const store = useSelector((store) => store);
-  const data: TFeedData = store.feedReducer.data;
+  const data: TFeedData = store.publicOrdersFeed.data;
   const doneOrders: number[] = [];
   const pendingOrders: number[] = [];
   feed?.forEach((el) => {

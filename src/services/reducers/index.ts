@@ -4,13 +4,15 @@ import { burgerConstructor } from "./burgerConstructor";
 import { ingredientDetails } from "./ingredientDetails";
 import { orderDetails } from "./orderDetails";
 import { user } from "./user";
-import { feedReducer } from "./wsFeed";
+import { publicOrdersFeed } from "./wsPublicFeed";
+import { profileOrdersFeed } from "./wsProfileFeed";
 
 export const rootReducer = combineReducers({
     burgerIngredients,
     burgerConstructor,
     ingredientDetails,
     orderDetails,
-    feedReducer,
+    publicOrdersFeed,
+    profileOrdersFeed,
     user
 })
