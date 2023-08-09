@@ -1,7 +1,39 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order.module.css";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
+import { RootState, TFeedOrder } from "../../services/types/types";
+import { getOrder } from "../../utils/burger-api";
 
 export const Order = () => {
+  const [order, setOrder] = useState({
+    name: '',
+    number: 0,
+    status: 'pending'
+  });
+  const params = useParams();
+  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+  const store = useSelector((store) => store);
+  const publicOrders = store.publicOrdersFeed.data.orders;
+  const profileOrders = store.profileOrdersFeed.data.orders;
+  const allOrders = publicOrders.concat(profileOrders);
+
+  useEffect(() => {
+    // @ts-ignore
+    const orderForModal: TFeedOrder = allOrders.find((el) => el.number === +params.id);
+
+    if(orderForModal) {
+      if(Object.keys(orderForModal).length > 0) {
+      setOrder(orderForModal)
+    } else {
+      // @ts-ignore
+      getOrder(params.id, {}).then((res) => console.log(res))
+    }
+    }
+      
+  }, [allOrders, params])
+  
   const mockOrders = [
     {
       _id: "643d69a5c3f7b9001cfa093c",
@@ -60,18 +92,19 @@ export const Order = () => {
       __v: 0,
     },
   ];
+
   return (
     <div className={`${styles.order} container`}>
       <p
         className={`${styles.orderNumber} text text_type_digits-default mb-10`}
       >
-        #034533
+        {`'#'${order.number}`}
       </p>
       <h4 className="text text_type_main-medium mb-3">
-        Black Hole Singularity острый бургер
+        {order.name}
       </h4>
       <p className={`${styles.orderStatus} text text_type_main-default mb-15`}>
-        Выполнен
+        {order.status === 'done' ? 'Готов' : 'Готовится'}
       </p>
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <ul className="mb-10">

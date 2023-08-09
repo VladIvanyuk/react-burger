@@ -59,6 +59,10 @@ const getUser = () => {
   });
 };
 
+const getOrder = (number: string, options: RequestInit) => {
+  return request(`orders/${number}`, options)
+}
+
 const logout = () => {
   return request("auth/logout", {
     method: "POST",
@@ -145,6 +149,7 @@ export {
   loginRequest,
   registerRequest,
   getUser,
+  getOrder,
   logout,
   updateUserRequest,
   checkEmailForResetPassword,
