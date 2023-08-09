@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
 import { RootState, TFeedOrder } from "../../services/types/types";
 import { getOrder } from "../../utils/burger-api";
+import { dateFormatter } from "../../utils/date-formatter";
 
 export const Order = () => {
   const [order, setOrder] = useState<TFeedOrder>({
@@ -17,7 +18,7 @@ export const Order = () => {
     _id: "",
   });
   const [orderPrice, setOrderPrice] = useState(0);
-  const params = useParams();
+  const params: any = useParams();
   const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const store = useSelector((store) => store);
   const publicOrders = store.publicOrdersFeed.data.orders;
@@ -25,10 +26,11 @@ export const Order = () => {
   const allOrders = publicOrders.concat(profileOrders);
   const ingredients = store.burgerIngredients.data;
   const orderForModal: TFeedOrder | undefined = allOrders.find(
-    // @ts-ignore
     (el) => el.number === +params.id
   );
   let counter = 0;
+  const formattedDateStr = dateFormatter(order.createdAt)
+
   // если нужного заказа нету в редьюсерах, делаем запрос за ним
   useEffect(() => {
     if (orderForModal) {
@@ -36,7 +38,6 @@ export const Order = () => {
         setOrder(orderForModal);
       }
     } else {
-      // @ts-ignore
       getOrder(params.id, {}).then((res) => setOrder(res.orders[0]));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,7 +97,7 @@ export const Order = () => {
       </ul>
       <div className={`${styles.orderFooterInfo} mb-10`}>
         <p className="text text_type_main-default text_color_inactive">
-          Вчера, 13:50
+          {formattedDateStr}
         </p>
         <div className={`${styles.orderPrice}`}>
           <p className="text text_type_digits-default mr-2">{orderPrice}</p>

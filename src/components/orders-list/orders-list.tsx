@@ -16,9 +16,8 @@ export const OrdersList: React.FC<TFeedOrdersList> = () => {
   } else {
     feed = [...store.profileOrdersFeed.data.orders].reverse();
   }
-  console.log(123)
   return (
-    <div>
+    <div className={styles.orderListWrapper}>
       {/* @ts-ignore */}
       {feed && feed?.map((el) => (
         // @ts-ignore

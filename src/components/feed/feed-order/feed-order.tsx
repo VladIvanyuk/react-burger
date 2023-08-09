@@ -5,6 +5,7 @@ import { RootState, TFeedOrderData, TIngredient } from "../../../services/types/
 import { useSelector as selectorHook } from "../../../services/hooks/hooks";
 import { TypedUseSelectorHook } from "react-redux";
 import { useEffect, useState } from "react";
+import { dateFormatter } from "../../../utils/date-formatter";
 
 export const FeedOrder: React.FC<TFeedOrderData> = ({ orderData }) => {
   const location = useLocation();
@@ -26,18 +27,7 @@ export const FeedOrder: React.FC<TFeedOrderData> = ({ orderData }) => {
     allIgredientsImgList.length > 6 ? [...allIgredientsImgList].splice(0, 6) : allIgredientsImgList;
   const imgListDiff = allIgredientsImgList.length - 6;
 
-  // делаем вывод времени создания заказа
-  const orderCreatedDate = new Date(orderData.createdAt);
-  // везде ниже делаем плавающий ноль
-  const todayDate = orderCreatedDate.getDate().toString().padStart(2, "0");
-  const orderCreateDayDate = orderCreatedDate.getDate().toString().padStart(2, "0");
-  const orderCreateDayMonth = orderCreatedDate.getMonth().toString().padStart(2, "0");
-  const orderCreateDayYear = orderCreatedDate.getFullYear();
-  const hours = orderCreatedDate.getHours().toString().padStart(2, "0");
-  const minutes = orderCreatedDate.getMinutes().toString().padStart(2, "0");
-  // Форматируем часы и минуты с ведущим нулем
-  const orderCreatedTime = `${hours}:${minutes}`;
-  const formattedDateStr = todayDate === orderCreateDayDate ? `Сегодня, ${orderCreatedTime}` : `${orderCreateDayDate}.${orderCreateDayMonth}.${orderCreateDayYear}, ${orderCreatedTime}`;
+  const formattedDateStr = dateFormatter(orderData.createdAt);
   // считаем общую стоимость всех ингредиентов заказа
   useEffect(() => {
     const price = allOrderIngredients.reduce((acc: number, cur: TIngredient) => {
