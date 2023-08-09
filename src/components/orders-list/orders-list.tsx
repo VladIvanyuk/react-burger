@@ -1,7 +1,6 @@
 import { FeedOrder } from '../feed/feed-order/feed-order';
 import styles from './orders-list.module.css';
 import { RootState, TFeedOrdersList } from '../../services/types/types';
-import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector as selectorHook } from '../../services/hooks/hooks';
 import { TypedUseSelectorHook } from 'react-redux';

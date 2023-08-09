@@ -54,3 +54,22 @@
     display: flex;
     align-items: center;
 }
+
+.ingredientsList {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.ingredientsList::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+
+}
+
+.ingredientsList::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ingredientsList::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
