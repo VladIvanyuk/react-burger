@@ -10,6 +10,6 @@ export const dateFormatter = (date: string) => {
   const minutes = orderCreatedDate.getMinutes().toString().padStart(2, "0");
   // Форматируем часы и минуты с ведущим нулем
   const orderCreatedTime = `${hours}:${minutes}`;
-  const formattedDateStr = todayDate < orderCreateDayDate ? `Сегодня, ${orderCreatedTime}` : `${orderCreateDayDate}.${orderCreateDayMonth}.${orderCreateDayYear}, ${orderCreatedTime}`;
+  const formattedDateStr = todayDate === orderCreateDayDate ? `Сегодня, ${orderCreatedTime}` : `${orderCreateDayDate}.${orderCreateDayMonth}.${orderCreateDayYear}, ${orderCreatedTime}`;
   return formattedDateStr;
 }
