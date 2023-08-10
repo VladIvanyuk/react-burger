@@ -9,7 +9,6 @@ export const Modal: React.FC<React.PropsWithChildren<TModal>> = ({ onShowModal, 
   useEffect(() => {
     // по нажатию на ESC закрываем модалку
     const closeModalWithESC = (e: KeyboardEvent) => {
-      console.log(e.key)
       if (e.key === 'Escape') {
         onShowModal(false);
       }

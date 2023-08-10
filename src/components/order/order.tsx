@@ -1,7 +1,7 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order.module.css";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
 import { RootState, TFeedOrder } from "../../services/types/types";
 import { getOrder } from "../../utils/burger-api";
@@ -21,16 +21,20 @@ export const Order = () => {
   const params: any = useParams();
   const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const store = useSelector((store) => store);
-  const publicOrders = store.publicOrdersFeed.data.orders;
-  const profileOrders = store.profileOrdersFeed.data.orders;
-  const allOrders = publicOrders.concat(profileOrders);
+  // const publicOrders = store.publicOrdersFeed.data.orders;
+  // const profileOrders = store.profileOrdersFeed.data.orders;
+  // const allOrders = publicOrders.concat(profileOrders);
+  const allOrders = useMemo(() => {
+    const publicData = store.publicOrdersFeed.data.orders;
+    const profileData = store.profileOrdersFeed.data.orders;
+    const allData = publicData.concat(profileData);
+    return allData;
+  }, [store.profileOrdersFeed.data.orders, store.publicOrdersFeed.data.orders])
   const ingredients = store.burgerIngredients.data;
-  const orderForModal: TFeedOrder | undefined = allOrders.find(
-    (el) => el.number === +params.id
-  );
-  let counter = 0;
-  const formattedDateStr = dateFormatter(order.createdAt)
-
+  const orderForModal: TFeedOrder | undefined = useMemo(() => allOrders.find((el) => el.number === +params.id), [allOrders, params.id]);
+  const formattedDateStr = dateFormatter(order.createdAt);
+  const filterredIngredients = Array.from(new Set(order.ingredients));
+  let priceCounter = 0;
   // если нужного заказа нету в редьюсерах, делаем запрос за ним
   useEffect(() => {
     if (orderForModal) {
@@ -40,12 +44,12 @@ export const Order = () => {
     } else {
       getOrder(params.id, {}).then((res) => setOrder(res.orders[0]));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    setOrderPrice(counter);
-  }, [counter, allOrders])
+    setOrderPrice(priceCounter);
+  }, [order, priceCounter]);
 
   return (
     <div className={`${styles.order} container`}>
@@ -60,13 +64,17 @@ export const Order = () => {
       </p>
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <ul className={`${styles.ingredientsList} mb-10`}>
-        {order.ingredients.map((el, index) => {
+        {filterredIngredients.map((el, index) => {
+          const ingredientsCounter = order.ingredients.filter(
+            (id) => el === id
+          ).length;
           const ingredient = ingredients.find(
             (ingredient) => ingredient._id === el
           );
 
           if (ingredient) {
-            counter += ingredient?.price;
+            priceCounter =
+              priceCounter + ingredient.price * ingredientsCounter;
           }
 
           return (
@@ -86,7 +94,7 @@ export const Order = () => {
                 </div>
                 <div className={`${styles.ingredientsCount}`}>
                   <p className="text text_type_digits-default mr-2">
-                    1 x {ingredient.price}
+                    {ingredientsCounter} x {ingredient.price}
                   </p>
                   <CurrencyIcon type={"primary"} />
                 </div>
