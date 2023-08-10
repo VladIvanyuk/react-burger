@@ -42,7 +42,6 @@ export const BurgerConstructor: React.FC = () => {
   const constructorList: TConstructorList<TIngredient> = store.burgerConstructor;
   const ingredientsWithoutBuns: TIngredient[] = constructorList.ingredients;
   const bun: TIngredient = constructorList.buns;
-  console.log(constructorList)
   const indgredientsIdList: string[] = constructorList.ingredients.map((el: TIngredient) => el._id);
   const bunId: string = constructorList.buns._id;
   const isEmptyBuns: boolean = Object.entries(bun).length === 0;
