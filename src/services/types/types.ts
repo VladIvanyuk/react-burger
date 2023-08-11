@@ -24,7 +24,7 @@ export enum WebsocketStatus {
 
 export type TModal = {
   onShowModal: (value: boolean) => void;
-  modalHeaderText: string;
+  modalHeaderText?: string;
 };
 
 export type TRegisterUser = {
@@ -146,7 +146,7 @@ export type TDragObj = {
 
 export type TProtectedRouteElement = {
   component: JSX.Element;
-  onlyUnAuth: boolean;
+  onlyUnAuth?: boolean;
 };
 
 export type TDragObjWithoutCounter = Omit<TDragObj, "setIngredientCounter">;

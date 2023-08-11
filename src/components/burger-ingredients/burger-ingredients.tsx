@@ -2,11 +2,10 @@ import styles from "./burger-ingredients.module.css";
 import React, { useMemo } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientList } from "../ingredients-list/ingredients-list";
-import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
 import { RootState, TIngredient, TTabs } from "../../services/types/types";
+import { useSelector } from "../../services/hooks/hooks";
 
 export const BurgerIngredients: React.FC = () => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const { data } = useSelector((store) => store.burgerIngredients);
   const [currentTab, setCurrentTab] = React.useState("bun");
   const [bunFilter, sauceFilter, mainFilter] = useMemo(() => {

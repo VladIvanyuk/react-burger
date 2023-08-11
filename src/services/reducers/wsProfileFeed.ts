@@ -1,6 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { TFeedData, WebsocketStatus } from "../types/types"
 import { wsCloseProfileFeed, wsConnectingProfileFeed, wsErrorProfileFeed, wsMessageProfileFeed, wsOpenProfileFeed } from "../actions/wsProfileFeed"
+import { disconnectPublicFeed } from "../actions/wsPublicFeed"
 
 export type TFeedState = {
     status: WebsocketStatus,
@@ -35,5 +36,8 @@ export const profileOrdersFeed = createReducer(initialState, builder => {
         })
         .addCase(wsMessageProfileFeed, (state, action) => {
             state.data = action.payload
+        })
+        .addCase(disconnectPublicFeed, state => {
+            state.status = WebsocketStatus.OFFLINE
         })
 })

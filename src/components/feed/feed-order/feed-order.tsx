@@ -2,17 +2,14 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed-order.module.css";
 import { Link, useLocation } from "react-router-dom";
-import { RootState, TFeedOrderData, TIngredient } from "../../../services/types/types";
-import { useSelector as selectorHook } from "../../../services/hooks/hooks";
-import { TypedUseSelectorHook } from "react-redux";
+import { TFeedOrderData, TIngredient } from "../../../services/types/types";
+import { useSelector } from "../../../services/hooks/hooks";
 import { useEffect, useState } from "react";
 import { dateFormatter } from "../../../utils/date-formatter";
 
 export const FeedOrder: React.FC<TFeedOrderData> = ({ orderData }) => {
   const location = useLocation();
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
-  const store = useSelector((store) => store);
-  const ingredients = store.burgerIngredients.data;
+  const ingredients = useSelector((store) => store.burgerIngredients.data);
   const ingredientsId = orderData.ingredients;
   let [orderPrice, setOrderPrice] = useState(0);
   const allIgredientsImgList: (string | undefined)[] = [];

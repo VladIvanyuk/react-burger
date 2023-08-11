@@ -2,13 +2,12 @@ import { AppHeader } from "../../components/app-header/app-header";
 import { BurgerConstructor } from "../../components/burger-constructor/burger-constructor";
 import { BurgerIngredients } from "../../components/burger-ingredients/burger-ingredients";
 import styles from './main-page.module.css';
-import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { RootState } from "../../services/types/types";
+import { useSelector } from "../../services/hooks/hooks";
 
 export const MainPage: React.FC = () => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const { isLoaded, isError } = useSelector((store: any) => store.burgerIngredients);
 
   return (

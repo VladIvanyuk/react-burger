@@ -2,10 +2,10 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import styles from "./order.module.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
-import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
-import { RootState, TFeedOrder } from "../../services/types/types";
+import { TFeedOrder } from "../../services/types/types";
 import { getOrder } from "../../utils/burger-api";
 import { dateFormatter } from "../../utils/date-formatter";
+import { useSelector } from "../../services/hooks/hooks";
 
 export const Order = () => {
   const [order, setOrder] = useState<TFeedOrder>({
@@ -19,11 +19,7 @@ export const Order = () => {
   });
   const [orderPrice, setOrderPrice] = useState(0);
   const params: any = useParams();
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const store = useSelector((store) => store);
-  // const publicOrders = store.publicOrdersFeed.data.orders;
-  // const profileOrders = store.profileOrdersFeed.data.orders;
-  // const allOrders = publicOrders.concat(profileOrders);
   const allOrders = useMemo(() => {
     const publicData = store.publicOrdersFeed.data.orders;
     const profileData = store.profileOrdersFeed.data.orders;

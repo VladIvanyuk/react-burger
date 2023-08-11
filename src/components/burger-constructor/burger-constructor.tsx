@@ -5,7 +5,6 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
 import { getOrderDetails } from "../../services/actions/orderDetails";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
@@ -17,10 +16,10 @@ import {
   addIngridientAction,
 } from "../../services/actions/burgerConstructor";
 import { useNavigate, useLocation, NavigateFunction } from "react-router-dom";
-import { RootState, TBorders, TConstructorList, TDragObj, TIngredient, TLocation } from "../../services/types/types";
+import { TBorders, TConstructorList, TDragObj, TIngredient, TLocation } from "../../services/types/types";
 import { Dispatch } from "redux";
 import { SORT_INGREDIENT } from "../../services/constants/constants";
-import { useDispatch } from "../../services/hooks/hooks";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 
 export const BurgerConstructor: React.FC = () => {
@@ -31,7 +30,6 @@ export const BurgerConstructor: React.FC = () => {
     mains: true
   });
 
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const store = useSelector((store: any ) => store);
   const { user } = store.user;
   const location: TLocation = useLocation();

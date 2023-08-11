@@ -18,33 +18,27 @@ import { ProfilePage } from "../../pages/profile-page/profile-page";
 import styles from "./app.module.css";
 import { useEffect } from "react";
 import { initialAuth } from "../../services/actions/user";
-import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/burgerIngredients";
 import { Page404 } from "../../pages/404/404";
 import { ProfileReset } from "../profile-reset/profile-reset";
 import { OrdersList } from "../orders-list/orders-list";
 import {
-  RootState,
   TDispatchActions,
   TLocation,
 } from "../../services/types/types";
-import { useDispatch } from "../../services/hooks/hooks";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 import { FeedPage } from "../../pages/feed-page/feed-page";
 import { OrderPage } from "../../pages/order-page/order-page";
 import { Order } from "../order/order";
-import { connectPublicFeed } from "../../services/actions/wsPublicFeed";
-import { connectProfileFeed } from "../../services/actions/wsProfileFeed";
 
 export const App: React.FC = () => {
   const location: TLocation = useLocation();
   const navigate: NavigateFunction = useNavigate();
   const dispatch: TDispatchActions = useDispatch();
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const background: TLocation | null =
     location.state && location.state.background;
-  const { data } = useSelector((store) => store.burgerIngredients);
-  const token = localStorage.getItem('accessToken');
-  const tokenForWs = token?.replace('Bearer ', '');
+  const data = useSelector((store) => store.burgerIngredients.data);
+  
 
   const handleModalClose = (): void => {
     // Возвращаемся к предыдущему пути при закрытии модалки
@@ -55,11 +49,6 @@ export const App: React.FC = () => {
     // первоначальная проверка авторизации при входе на страницу
     dispatch(initialAuth());
   }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(connectPublicFeed('wss://norma.nomoreparties.space/orders/all'))
-    dispatch(connectProfileFeed(`wss://norma.nomoreparties.space/orders?token=${tokenForWs}`))
-  }, [dispatch, tokenForWs])
 
   useEffect(() => {
     if (data.length === 0) {
@@ -77,29 +66,29 @@ export const App: React.FC = () => {
         <Route path="/profile/orders/:id" element={<OrderPage />} />
         <Route
           path="/profile"
-          element={<OnlyAuth component={<ProfilePage />} onlyUnAuth={false} />}
+          element={<OnlyAuth component={<ProfilePage />} />}
         >
           <Route path="" element={<ProfileReset />} />
           <Route path="orders" element={<OrdersList />} />
         </Route>
         <Route
           path="/login"
-          element={<OnlyUnAuth component={<Login />} onlyUnAuth={false} />}
+          element={<OnlyUnAuth component={<Login />} />}
         />
         <Route
           path="/register"
-          element={<OnlyUnAuth component={<Register />} onlyUnAuth={false} />}
+          element={<OnlyUnAuth component={<Register />} />}
         />
         <Route
           path="/forgot-password"
           element={
-            <OnlyUnAuth component={<ForgotPassword />} onlyUnAuth={false} />
+            <OnlyUnAuth component={<ForgotPassword />} />
           }
         />
         <Route
           path="/reset-password"
           element={
-            <OnlyUnAuth component={<ResetPassword />} onlyUnAuth={false} />
+            <OnlyUnAuth component={<ResetPassword />} />
           }
         />
         <Route path="/ingredients/:ingredientId" element={<IngredientPage />} />
@@ -110,7 +99,7 @@ export const App: React.FC = () => {
           <Route
             path="/ingredients/:ingredientId"
             element={
-              <Modal onShowModal={handleModalClose} modalHeaderText={""}>
+              <Modal onShowModal={handleModalClose}>
                 <IngredientDetails />
               </Modal>
             }
@@ -118,7 +107,7 @@ export const App: React.FC = () => {
           <Route
             path="/feed/:id"
             element={
-              <Modal onShowModal={handleModalClose} modalHeaderText={""}>
+              <Modal onShowModal={handleModalClose}>
                 <Order />
               </Modal>
             }
@@ -126,7 +115,7 @@ export const App: React.FC = () => {
           <Route
             path="/profile/orders/:id"
             element={
-              <Modal onShowModal={handleModalClose} modalHeaderText={""}>
+              <Modal onShowModal={handleModalClose}>
                 <Order />
               </Modal>
             }

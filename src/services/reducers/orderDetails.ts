@@ -11,7 +11,7 @@ export type TOrderDetailsState = {
     isOrderLoaded: boolean
 }
 
-const initialState: TOrderDetailsState = {
+const initialState = {
     details: {
         order: {
             number: '',
@@ -21,7 +21,7 @@ const initialState: TOrderDetailsState = {
     isOrderLoaded: false,
 }
 
-export const orderDetails = (state = initialState, action: TOrderDetailsActions) => {
+export const orderDetails = (state: TOrderDetailsState = initialState, action: TOrderDetailsActions) => {
     switch(action.type) {
         case GET_ORDER_DETAILS:
             return {

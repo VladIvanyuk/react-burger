@@ -6,12 +6,10 @@ import {
 import { useState, useEffect, SyntheticEvent } from "react";
 import styles from "./profile-reset.module.css";
 import { updateUser } from "../../services/actions/user";
-import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
-import { RootState, TDispatchActions } from "../../services/types/types";
-import { useDispatch } from "../../services/hooks/hooks";
+import { TDispatchActions } from "../../services/types/types";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 export const ProfileReset: React.FC = () => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const user = useSelector((store: any) => store.user.user);
   const [emailValue, setEmailValue] = useState(user?.email);
   const [nameValue, setNameValue] = useState(user?.name);
@@ -53,6 +51,7 @@ export const ProfileReset: React.FC = () => {
         name={"name"}
         extraClass="mb-6"
         onChange={(e) => setNameValue(e.target.value)}
+        autoComplete="on"
       />
       <Input
         value={emailValue}
@@ -61,12 +60,14 @@ export const ProfileReset: React.FC = () => {
         name={"email"}
         extraClass="mb-6"
         onChange={(e) => setEmailValue(e.target.value)}
+        autoComplete="on"
       />
       <PasswordInput
         value={passwordValue}
         icon="EditIcon"
         name={"password"}
         extraClass="mb-6"
+        autoComplete="on"
         onChange={(e) => setPasswordValue(e.target.value)}
       />
       {isShowButtons && (

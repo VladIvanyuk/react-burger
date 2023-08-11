@@ -1,12 +1,9 @@
-import { RootState, TFeedData, TFeedOrdersList } from '../../../services/types/types';
+import { TFeedOrdersList } from '../../../services/types/types';
 import styles from './feed-status.module.css';
-import { useSelector as selectorHook } from '../../../services/hooks/hooks';
-import { TypedUseSelectorHook } from 'react-redux';
+import { useSelector } from '../../../services/hooks/hooks';
 
 export const FeedStatus: React.FC<TFeedOrdersList> = ({ feed }) => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
-  const store = useSelector((store) => store);
-  const data: TFeedData = store.publicOrdersFeed.data;
+  const data = useSelector((store) => store.publicOrdersFeed.data);
   const doneOrders: number[] = [];
   const pendingOrders: number[] = [];
   feed?.forEach((el) => {
