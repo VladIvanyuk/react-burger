@@ -4,12 +4,13 @@ import { EmailInput, Button, PasswordInput } from '@ya.praktikum/react-developer
 import { useState, SyntheticEvent} from 'react';
 import { Link } from 'react-router-dom';
 import { loginUser } from '../../services/actions/user';
-import { useDispatch } from 'react-redux';
+import { TDispatchActions } from '../../services/types/types';
+import { useDispatch } from '../../services/hooks/hooks';
 
 export const Login: React.FC = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
-  const dispatch = useDispatch();
+  const dispatch: TDispatchActions = useDispatch();
   const login = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(loginUser({

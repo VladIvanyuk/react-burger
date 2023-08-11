@@ -1,17 +1,27 @@
-import { AnyAction } from 'redux';
-import { GET_ORDER_DETAILS, GET_ORDER_DETAILS_FAILED, GET_ORDER_DETAILS_SUCCESS, DELETE_ORDER_DETAILS } from '../actions/orderDetails';
+import { TOrderDetailsActions } from '../actions/orderDetails';
+import { GET_ORDER_DETAILS, GET_ORDER_DETAILS_FAILED, GET_ORDER_DETAILS_SUCCESS, DELETE_ORDER_DETAILS } from '../constants/constants';
+
+export type TOrderDetailsState = {
+    details: {
+    order: {
+        number: string
+    }
+    },
+    isOrderError: boolean,
+    isOrderLoaded: boolean
+}
 
 const initialState = {
     details: {
-      order: {
-        number: '',
-      }
+        order: {
+            number: '',
+        }
     },
     isOrderError: false,
     isOrderLoaded: false,
-  }
+}
 
-export const orderDetails = (state = initialState, action: AnyAction) => {
+export const orderDetails = (state: TOrderDetailsState = initialState, action: TOrderDetailsActions) => {
     switch(action.type) {
         case GET_ORDER_DETAILS:
             return {

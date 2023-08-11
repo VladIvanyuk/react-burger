@@ -1,8 +1,30 @@
 import { Identifier } from "dnd-core";
+import { store } from "../store";
+import { Action, ActionCreator, Dispatch } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { TIngredientListActions } from "../actions/burgerIngredients";
+import { TOrderDetailsActions } from "../actions/orderDetails";
+import { TUserActions } from "../actions/user";
+import { TFeedActions } from "../actions/wsPublicFeed";
+
+export type RootState = ReturnType<typeof store.getState>;
+
+// THUNK
+export type TAppActions = TIngredientListActions | TOrderDetailsActions | TUserActions | TFeedActions;
+export type AppThunkAction<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TAppActions>>;
+export type TDispatchActions = TAppActions | AppThunkAction | TFeedActions;
+export type AppDispatch = Dispatch<TAppActions>;
+// THUNK
+
+export enum WebsocketStatus {
+  CONNECTING = 'CONNECTING...',
+  ONLINE = 'ONLINE',
+  OFFLINE = 'OFFLINE'
+}
 
 export type TModal = {
   onShowModal: (value: boolean) => void;
-  modalHeaderText: string;
+  modalHeaderText?: string;
 };
 
 export type TRegisterUser = {
@@ -14,6 +36,11 @@ export type TRegisterUser = {
 export type TResetPasswordRequest = {
   password: string,
   token: string
+}
+
+export type TUser = {
+  email: string,
+  name: string
 }
 
 export type TUpdateUser = TRegisterUser;
@@ -74,6 +101,31 @@ export type TSmallIngredient = {
   readonly onFindCurrentIngredient: (id: string) => void;
 };
 
+export type TFeedOrder = {
+  createdAt: string
+  ingredients: Array<string | null>
+  name: string
+  number: number
+  status: string
+  updatedAt: string
+  _id: string
+}
+
+export type TFeedData = {
+  success: boolean,
+  orders: TFeedOrder[],
+  total: number,
+  totalToday: number
+}
+
+export type TFeedOrderData = {
+  orderData: TFeedOrder
+}
+
+export type TFeedOrdersList = {
+  feed?: TFeedOrder[]
+}
+
 export type TConstructorIngredient = {
   readonly name: string;
   readonly type: string;
@@ -94,7 +146,7 @@ export type TDragObj = {
 
 export type TProtectedRouteElement = {
   component: JSX.Element;
-  onlyUnAuth: boolean;
+  onlyUnAuth?: boolean;
 };
 
 export type TDragObjWithoutCounter = Omit<TDragObj, "setIngredientCounter">;

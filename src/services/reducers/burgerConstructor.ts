@@ -1,13 +1,20 @@
-import { AnyAction } from "redux";
-import { DELETE_INGREDIENT, ADD_INGREDIENT, SORT_INGREDIENT, ADD_BUN, CLEAR_CONSTRUCTOR } from "../actions/burgerConstructor";
-import { TIngredient } from "../../types/types";
+import { TBurgerConstructorActions } from "../actions/burgerConstructor";
+import { DELETE_INGREDIENT, ADD_INGREDIENT, SORT_INGREDIENT, ADD_BUN, CLEAR_CONSTRUCTOR } from "../constants/constants";
+import { TIngredient } from "../types/types";
 
-const initialState = {
+type TConstructorState = {
+    buns: {
+        _id?: string
+    } | TIngredient,
+    ingredients: TIngredient[]
+}
+
+const initialState: TConstructorState = {
     buns: {},
     ingredients: [],
 };
 
-export const burgerConstructor = (state = initialState, action: AnyAction) => {
+export const burgerConstructor = (state = initialState, action: TBurgerConstructorActions): TConstructorState => {
     switch (action.type) {
         case ADD_INGREDIENT:
             return {

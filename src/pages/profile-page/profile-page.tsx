@@ -1,11 +1,12 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { AppHeader } from "../../components/app-header/app-header";
 import styles from "./profile-page.module.css";
-import { useDispatch } from "react-redux";
 import { logoutUser } from "../../services/actions/user";
+import { TDispatchActions } from "../../services/types/types";
+import { useDispatch } from "../../services/hooks/hooks";
 
 export const ProfilePage: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch: TDispatchActions = useDispatch();
   return (
     <>
       <AppHeader />

@@ -3,13 +3,12 @@ import { ModalOverlay } from "./modal-overlay/modal-overlay";
 import { createPortal } from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useEffect } from "react";
-import { TModal } from "../../types/types";
+import { TModal } from "../../services/types/types";
 
-export const Modal: React.FC<React.PropsWithChildren<TModal>> = ({ onShowModal, modalHeaderText, ...props }) => {
+export const Modal: React.FC<React.PropsWithChildren<TModal>> = ({ onShowModal, modalHeaderText = '', ...props }) => {
   useEffect(() => {
     // по нажатию на ESC закрываем модалку
     const closeModalWithESC = (e: KeyboardEvent) => {
-      console.log(e.key)
       if (e.key === 'Escape') {
         onShowModal(false);
       }

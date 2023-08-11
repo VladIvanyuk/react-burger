@@ -8,14 +8,15 @@ import { AppHeader } from "../../components/app-header/app-header";
 import styles from "./authorization.module.css";
 import { useState, SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { registerUser } from "../../services/actions/user";
+import { TDispatchActions } from "../../services/types/types";
+import { useDispatch } from "../../services/hooks/hooks";
 
 export const Register: React.FC = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [nameValue, setNameValue] = useState("");
-  const dispatch = useDispatch();
+  const dispatch: TDispatchActions = useDispatch();
   
   const register = (e: SyntheticEvent) => {
     e.preventDefault();

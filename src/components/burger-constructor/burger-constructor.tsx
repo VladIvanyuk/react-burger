@@ -5,7 +5,6 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
 import { getOrderDetails } from "../../services/actions/orderDetails";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
@@ -13,13 +12,14 @@ import { useDrop } from "react-dnd";
 import { ConstructorIngredient } from "../constructor-ingredient/constructor-ingredient";
 import update from "immutability-helper";
 import {
-  SORT_INGREDIENT,
-  addBun,
-  addIngridient,
+  addBunAction,
+  addIngridientAction,
 } from "../../services/actions/burgerConstructor";
 import { useNavigate, useLocation, NavigateFunction } from "react-router-dom";
-import { TBorders, TConstructorList, TDragObj, TIngredient, TLocation } from "../../types/types";
-import { AnyAction, Dispatch } from "redux";
+import { TBorders, TConstructorList, TDragObj, TIngredient, TLocation } from "../../services/types/types";
+import { Dispatch } from "redux";
+import { SORT_INGREDIENT } from "../../services/constants/constants";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 
 export const BurgerConstructor: React.FC = () => {
@@ -29,10 +29,11 @@ export const BurgerConstructor: React.FC = () => {
     buns: true,
     mains: true
   });
+
   const store = useSelector((store: any ) => store);
   const { user } = store.user;
   const location: TLocation = useLocation();
-  const dispatch: Dispatch<AnyAction> = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch();
   const navigate: NavigateFunction = useNavigate();
   const burgerIngredients = store.burgerIngredients;
   const orderNumber: string = store.orderDetails.details.order.number.toString();
@@ -40,6 +41,7 @@ export const BurgerConstructor: React.FC = () => {
   const ingredientsWithoutBuns: TIngredient[] = constructorList.ingredients;
   const bun: TIngredient = constructorList.buns;
   const indgredientsIdList: string[] = constructorList.ingredients.map((el: TIngredient) => el._id);
+  const bunId: string = constructorList.buns._id;
   const isEmptyBuns: boolean = Object.entries(bun).length === 0;
   const isEmptyIngredients: boolean = Object.entries(ingredientsWithoutBuns).length === 0;
   const bordersBun: string | null = isShowBorders.buns ? styles.bordersBun : '';
@@ -56,7 +58,7 @@ export const BurgerConstructor: React.FC = () => {
           const ingredient: TIngredient = burgerIngredients.data.find(
             (el: TIngredient) => el._id === item.id
           );
-          dispatch(addIngridient(ingredient));
+          dispatch(addIngridientAction(ingredient));
           setIsShowBorders(() => {
             return {
               ...isShowBorders,
@@ -66,7 +68,7 @@ export const BurgerConstructor: React.FC = () => {
         } else {
           item.setIngredientCounter((prev: number) => prev + 1);
           const bun = burgerIngredients.data.find((el: TIngredient) => el._id === item.id);
-          dispatch(addBun(bun));
+          dispatch(addBunAction(bun));
           setIsShowBorders(() => {
             return {
               ...isShowBorders,
@@ -107,7 +109,7 @@ export const BurgerConstructor: React.FC = () => {
         state: location
       })
     }
-    dispatch(getOrderDetails({ ingredients: indgredientsIdList }));
+    dispatch(getOrderDetails({ ingredients: [bunId, ...indgredientsIdList, bunId] }));
     setIsModal(true);
   };
   

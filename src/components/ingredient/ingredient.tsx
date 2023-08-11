@@ -5,13 +5,13 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useEffect } from "react";
 import { useDrag } from "react-dnd";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { TIngredient, TLocation, TSmallIngredient } from "../../types/types";
+import { TIngredient, TLocation, TSmallIngredient } from "../../services/types/types";
+import { useSelector } from "../../services/hooks/hooks";
 
 export const Ingredient: React.FC<TSmallIngredient> = ({ onFindCurrentIngredient, id, image, price, name, type }) => {
   const [ingredientCounter, setIngredientCounter] = useState(0);
-  const burgerConstructor = useSelector((store: any) => store.burgerConstructor);
+  const burgerConstructor = useSelector((store) => store.burgerConstructor);
   const location: TLocation = useLocation();
   let count: number = 0;
   // считаем количество ингридиентов в конструкторе

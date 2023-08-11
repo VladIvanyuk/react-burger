@@ -4,7 +4,7 @@ import {
   TRegisterUser,
   TResetPasswordRequest,
   TUpdateUser,
-} from "../types/types";
+} from "../services/types/types";
 
 const DATA_URL: string = "https://norma.nomoreparties.space/api";
 
@@ -58,6 +58,10 @@ const getUser = () => {
     },
   });
 };
+
+const getOrder = (number: string, options: RequestInit) => {
+  return request(`orders/${number}`, options)
+}
 
 const logout = () => {
   return request("auth/logout", {
@@ -145,6 +149,7 @@ export {
   loginRequest,
   registerRequest,
   getUser,
+  getOrder,
   logout,
   updateUserRequest,
   checkEmailForResetPassword,

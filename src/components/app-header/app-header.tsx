@@ -6,10 +6,10 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks/hooks";
 
 export const AppHeader: React.FC = () => {
-  const user = useSelector((store: any) => store.user?.user);
+  const user = useSelector((store) => store.user?.user);
   return (
     <header className={`${styles.header} pt-4 pb-4 mb-10`}>
       <nav className={styles.nav}>
@@ -23,7 +23,7 @@ export const AppHeader: React.FC = () => {
             </>
           )}
         </NavLink>
-        <NavLink to='somewhere' type="button" className={`${styles.navItem} p-5 mr-30`}>
+        <NavLink to='/feed' type="button" className={`${styles.navItem} p-5 mr-30`}>
           <ListIcon type="secondary" />
           <p className="text text_type_main-default text_color_inactive pl-2">
             Лента заказов
