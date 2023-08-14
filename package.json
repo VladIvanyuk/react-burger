@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@types/uuid": "^9.0.2",
+    "cypress": "^12.17.3",
     "hygen": "^6.2.11",
     "jest": "^27.5.1"
   }
