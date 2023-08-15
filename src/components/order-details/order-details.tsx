@@ -3,8 +3,9 @@ import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-component
 import checkBackground from "../../img/check.png";
 import { useEffect } from 'react';
 import { TDispatchActions, TOrderDetails } from "../../services/types/types";
-import { CLEAR_CONSTRUCTOR, DELETE_ORDER_DETAILS } from "../../services/constants/constants";
+import { DELETE_ORDER_DETAILS } from "../../services/constants/constants";
 import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { clearConstructorAction } from "../../services/actions/burgerConstructor";
 
 export const OrderDetails: React.FC<TOrderDetails> = ({ orderNumber }) => {
   const isLoaded: boolean = useSelector((store: any) => store.orderDetails.isOrderLoaded);
@@ -17,9 +18,7 @@ export const OrderDetails: React.FC<TOrderDetails> = ({ orderNumber }) => {
         type: DELETE_ORDER_DETAILS
       })
 
-      dispatch({
-        type: CLEAR_CONSTRUCTOR
-      })
+      dispatch(clearConstructorAction())
     }
   }, [dispatch])
 

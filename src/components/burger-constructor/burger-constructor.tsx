@@ -14,11 +14,11 @@ import update from "immutability-helper";
 import {
   addBunAction,
   addIngridientAction,
+  sortIngredientsAction,
 } from "../../services/actions/burgerConstructor";
 import { useNavigate, useLocation, NavigateFunction } from "react-router-dom";
 import { TBorders, TConstructorList, TDragObj, TIngredient, TLocation } from "../../services/types/types";
 import { Dispatch } from "redux";
-import { SORT_INGREDIENT } from "../../services/constants/constants";
 import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 
@@ -88,17 +88,16 @@ export const BurgerConstructor: React.FC = () => {
 
   const moveCard = useCallback(
     (dragIndex: number, hoverIndex: number) => {
-      const sorted = update(constructorList.ingredients, {
+      const sortedArray = update(constructorList.ingredients, {
         $splice: [
           [dragIndex, 1],
           [hoverIndex, 0, constructorList.ingredients[dragIndex]],
         ],
       });
 
-      dispatch({
-        type: SORT_INGREDIENT,
-        payload: sorted,
-      });
+      console.log(dragIndex, hoverIndex)
+
+      dispatch(sortIngredientsAction(sortedArray));
     },
     [constructorList, dispatch]
   );

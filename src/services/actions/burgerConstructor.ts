@@ -48,3 +48,23 @@ export const addBunAction = (bun: TIngredient): TBurgerConstructorActions => {
         payload: bun,
     }
 }
+
+export const deleteIngredientAction = (uniqueId: string) => {
+    return {
+        type: DELETE_INGREDIENT,
+        payload: uniqueId
+    }
+}
+
+export const sortIngredientsAction = (sortedArray: TIngredient[]) => {
+    return {
+        type: SORT_INGREDIENT,
+        payload: sortedArray
+    }
+}
+
+export const clearConstructorAction = () => {
+    return {
+        type: CLEAR_CONSTRUCTOR
+    }
+}

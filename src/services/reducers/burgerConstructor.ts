@@ -9,12 +9,12 @@ type TConstructorState = {
     ingredients: TIngredient[]
 }
 
-const initialState: TConstructorState = {
+export const burgerConstructorIState: TConstructorState = {
     buns: {},
     ingredients: [],
 };
 
-export const burgerConstructor = (state = initialState, action: TBurgerConstructorActions): TConstructorState => {
+export const burgerConstructor = (state = burgerConstructorIState, action: TBurgerConstructorActions): TConstructorState => {
     switch (action.type) {
         case ADD_INGREDIENT:
             return {
