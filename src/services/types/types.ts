@@ -43,6 +43,11 @@ export type TUser = {
   name: string
 }
 
+export type TIngredientsResponse = {
+  data: TIngredient[],
+  success: boolean
+}
+
 export type TUpdateUser = TRegisterUser;
 
 export type TIngredient = {
