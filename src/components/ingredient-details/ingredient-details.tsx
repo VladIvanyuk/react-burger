@@ -2,9 +2,9 @@ import styles from './ingredient-details.module.css';
 import { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { getBurgerIngredients } from '../../services/actions/burgerIngredients';
-import { RootState, TDispatchActions, TIngredient, TLocation } from '../../services/types/types';
-import { DELETE_DETAILS } from '../../services/constants/constants';
+import { TDispatchActions, TIngredient, TLocation } from '../../services/types/types';
 import { useDispatch, useSelector } from '../../services/hooks/hooks';
+import { deleteIngredientDetailsAction } from '../../services/actions/ingredientsDetails';
 
 export const IngredientDetails: React.FC = () => {
 
@@ -19,9 +19,7 @@ export const IngredientDetails: React.FC = () => {
       dispatch(getBurgerIngredients());
     }
     return () => {
-      dispatch({
-        type: DELETE_DETAILS
-      })
+      dispatch(deleteIngredientDetailsAction())
     }
   }, [dispatch, location.state])
 
