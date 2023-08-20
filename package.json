@@ -7,7 +7,6 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.18.25",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
@@ -22,6 +21,7 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
+    "save-dev": "^0.0.1-security",
     "typescript": "^4.9.5",
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
@@ -31,7 +31,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "component": "hygen new component"
+    "component": "hygen new component",
+    "cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +53,8 @@
     ]
   },
   "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "@types/mocha": "^10.0.1",
     "@types/uuid": "^9.0.2",
     "cypress": "^12.17.3",
     "hygen": "^6.2.11",
