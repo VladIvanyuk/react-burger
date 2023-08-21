@@ -8,13 +8,13 @@ export type TIngredientsListState = {
     isError: boolean
   }
   
-const initialState: TIngredientsListState = {
+export const burgerIngredientsIState: TIngredientsListState = {
     data: [],
     isLoaded: false,
     isError: false
   }
 
-export const burgerIngredients = (state = initialState, action: TIngredientListActions): TIngredientsListState => {
+export const burgerIngredients = (state = burgerIngredientsIState, action: TIngredientListActions): TIngredientsListState => {
     switch(action.type) {
         case GET_INGREDIENTS:
             return {

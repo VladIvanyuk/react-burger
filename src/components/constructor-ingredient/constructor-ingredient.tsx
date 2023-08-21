@@ -6,10 +6,10 @@ import styles from "./constructor-ingredient.module.css";
 import { useRef } from 'react';
 import { XYCoord, useDrag, useDrop } from "react-dnd";
 import { TDispatchActions, TConstructorIngredient, TDragCollectedProps, TDragObj, TDragObjWithoutCounter, TDropCollectedProps } from "../../services/types/types";
-import { DELETE_INGREDIENT } from "../../services/constants/constants";
 import { useDispatch } from "../../services/hooks/hooks";
+import { deleteIngredientAction } from "../../services/actions/burgerConstructor";
 
-export const ConstructorIngredient: React.FC<TConstructorIngredient> = ({ name, price, image, uniqueId, type, moveCard, index }) => {
+export const ConstructorIngredient: React.FC<TConstructorIngredient> = ({ name, price, image, uniqueId = '', type, moveCard, index }) => {
   const dispatch: TDispatchActions = useDispatch();
   const dragRef = useRef<HTMLDivElement | null>(null)
   const [{ handlerId }, drop] = useDrop<TDragObj, unknown, TDropCollectedProps>({
@@ -67,11 +67,8 @@ export const ConstructorIngredient: React.FC<TConstructorIngredient> = ({ name, 
 
   drag(drop(dragRef))
 
-  const deleteIngredient = (uniqueId: string | undefined): void => {
-    dispatch({
-      type: DELETE_INGREDIENT,
-      payload: uniqueId,
-    });
+  const deleteIngredient = (uniqueId: string): void => {
+    dispatch(deleteIngredientAction(uniqueId));
   };
 
   return (

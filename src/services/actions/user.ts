@@ -48,14 +48,44 @@ export type TUserActions = TSetUserAction
 | TGetUserAction
 | TDeleteUserAction
 
+export const registerUserAction = (res: any) => {
+  return {
+    type: REGISTER_USER,
+    payload: res,
+  }
+}
+
+export const setUserAction = (res: any) => {
+  return {
+    type: SET_USER,
+    payload: res,
+  }
+}
+
+export const getUserAction = (res: any) => {
+  return {
+    type: GET_USER,
+    payload: res,
+  }
+}
+
+export const setAuthAction = () => {
+  return {
+    type: SET_AUTH,
+    payload: true,
+  }
+}
+
+export const deleteUserAction = () => {
+  return {
+    type: DELETE_USER,
+  }
+}
 
 export const registerUser: AppThunkAction = (form: TRegisterUser) => {
   return function (dispatch: AppDispatch) {
     registerRequest(form).then((res) => {
-      dispatch({
-        type: REGISTER_USER,
-        payload: res,
-      });
+      dispatch(registerUserAction(res));
     });
   };
 };
@@ -63,10 +93,7 @@ export const registerUser: AppThunkAction = (form: TRegisterUser) => {
 export const updateUser: AppThunkAction = (form: TUpdateUser) => {
   return function (dispatch: AppDispatch) {
     updateUserRequest(form).then((res) => {
-      dispatch({
-        type: GET_USER,
-        payload: res,
-      });
+      dispatch(getUserAction(res));
     });
   };
 };
@@ -75,15 +102,9 @@ export const loginUser: AppThunkAction = (form: TLoginUser) => {
   return function (dispatch: AppDispatch) {
     loginRequest(form).then((res) => {
       if (res.success) {
-        dispatch({
-          type: SET_USER,
-          payload: res,
-        });
+        dispatch(setUserAction(res));
 
-        dispatch({
-          type: SET_AUTH,
-          payload: true,
-        });
+        dispatch(setAuthAction());
       }
     });
   };
@@ -100,9 +121,7 @@ export const logoutUser: AppThunkAction = () => {
         localStorage.removeItem("refreshToken");
       }
 
-      dispatch({
-        type: DELETE_USER,
-      });
+      dispatch(deleteUserAction());
     });
   };
 };
@@ -111,20 +130,11 @@ export const initialAuth: AppThunkAction = () => {
   return function (dispatch: AppDispatch) {
     if (localStorage.getItem("accessToken")) {
       getUser().then((res) => {
-        dispatch({
-          type: GET_USER,
-          payload: res,
-        });
-        dispatch({
-          type: SET_AUTH,
-          payload: true,
-        });
+        dispatch(getUserAction(res));
+        dispatch(setAuthAction());
       });
     } else {
-      dispatch({
-        type: SET_AUTH,
-        payload: true,
-      });
+      dispatch(setAuthAction());
     }
   };
 };

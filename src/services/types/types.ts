@@ -43,6 +43,18 @@ export type TUser = {
   name: string
 }
 
+export type TIngredientsResponse = {
+  data: TIngredient[],
+  success: boolean
+}
+
+export type TOrderOwner = {
+  name : string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  }
+
 export type TUpdateUser = TRegisterUser;
 
 export type TIngredient = {

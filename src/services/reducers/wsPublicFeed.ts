@@ -8,7 +8,7 @@ export type TFeedState = {
     data: TFeedData
 }
 
-const initialState: TFeedState = {
+export const wsPublicFeedIState: TFeedState = {
     status: WebsocketStatus.OFFLINE,
     data: {
         success: false,
@@ -19,7 +19,7 @@ const initialState: TFeedState = {
     connectingError: ''
 }
 
-export const publicOrdersFeed = createReducer(initialState, builder => {
+export const publicOrdersFeed = createReducer(wsPublicFeedIState, builder => {
     builder
         .addCase(wsConnectingPublicFeed, state => {
             state.status = WebsocketStatus.CONNECTING 

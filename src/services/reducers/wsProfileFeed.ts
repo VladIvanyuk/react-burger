@@ -9,7 +9,7 @@ export type TFeedState = {
     data: TFeedData
 }
 
-const initialState: TFeedState = {
+export const wsProfileFeedIState: TFeedState = {
     status: WebsocketStatus.OFFLINE,
     data: {
         success: false,
@@ -20,7 +20,7 @@ const initialState: TFeedState = {
     connectingError: ''
 }
 
-export const profileOrdersFeed = createReducer(initialState, builder => {
+export const profileOrdersFeed = createReducer(wsProfileFeedIState, builder => {
     builder
         .addCase(wsConnectingProfileFeed, state => {
             state.status = WebsocketStatus.CONNECTING 

@@ -9,12 +9,12 @@ type TUserState = {
     isAuthChecked: boolean
 }
 
-const initialState: TUserState = {
+export const userReducerIState: TUserState = {
     user: null,
     isAuthChecked: false,
 }
 
-export const user = (state = initialState, action: TUserActions) => {
+export const user = (state = userReducerIState, action: TUserActions) => {
     switch(action.type) {
         case SET_USER:
             localStorage.setItem('accessToken', action.payload.accessToken);

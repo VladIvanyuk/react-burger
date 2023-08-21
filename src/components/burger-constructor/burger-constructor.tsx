@@ -14,11 +14,11 @@ import update from "immutability-helper";
 import {
   addBunAction,
   addIngridientAction,
+  sortIngredientsAction,
 } from "../../services/actions/burgerConstructor";
 import { useNavigate, useLocation, NavigateFunction } from "react-router-dom";
 import { TBorders, TConstructorList, TDragObj, TIngredient, TLocation } from "../../services/types/types";
 import { Dispatch } from "redux";
-import { SORT_INGREDIENT } from "../../services/constants/constants";
 import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 
@@ -88,17 +88,16 @@ export const BurgerConstructor: React.FC = () => {
 
   const moveCard = useCallback(
     (dragIndex: number, hoverIndex: number) => {
-      const sorted = update(constructorList.ingredients, {
+      const sortedArray = update(constructorList.ingredients, {
         $splice: [
           [dragIndex, 1],
           [hoverIndex, 0, constructorList.ingredients[dragIndex]],
         ],
       });
 
-      dispatch({
-        type: SORT_INGREDIENT,
-        payload: sorted,
-      });
+      console.log(dragIndex, hoverIndex)
+
+      dispatch(sortIngredientsAction(sortedArray));
     },
     [constructorList, dispatch]
   );
@@ -147,6 +146,7 @@ export const BurgerConstructor: React.FC = () => {
 
   return (
     <section
+      data-test='BurgerConstructor'
       ref={dropTarget}
       className={`${styles.constructorBlock} pr-1 pl-2`}
     >
@@ -165,10 +165,11 @@ export const BurgerConstructor: React.FC = () => {
               text={`${bun.name} (верх)`}
               price={bun.price}
               thumbnail={bun.image}
+              data-test='TopBun'
             />
           )}
           {isEmptyBuns && (
-            <p className={`${styles.emptyBuns} text text_type_digits-default`}>Добавьте булочку</p>
+            <p className={`${styles.emptyBuns} text text_type_digits-default`}>Перенесите булочку</p>
           )}
         </div>
         <div className={`${styles.scrollBlock} ${bordersMain} mb-4 pt-4 pr-2`}>
@@ -177,7 +178,7 @@ export const BurgerConstructor: React.FC = () => {
           ) : (
             <div className={`${styles.constructorPlaceholder}`}>
                 <p className="text text_type_digits-medium">
-                Добавьте игредиенты
+                Перенесите игредиенты
               </p>
             </div>
           )}
@@ -188,13 +189,14 @@ export const BurgerConstructor: React.FC = () => {
               extraClass="mb-4"
               type="bottom"
               isLocked={true}
-              text={`${bun.name} (верх)`}
+              text={`${bun.name} (низ)`}
               price={bun.price}
               thumbnail={bun.image}
+              data-test='BottomBun'
             />
           )}
           {isEmptyBuns && (
-            <p className={`${styles.emptyBuns} text text_type_digits-default`}>Добавьте булочку</p>
+            <p className={`${styles.emptyBuns} text text_type_digits-default`}>Перенесите булочку</p>
           )}
         </div>
       </div>
@@ -209,6 +211,7 @@ export const BurgerConstructor: React.FC = () => {
           type="primary"
           size="large"
           onClick={sendData}
+          data-test="SendOrder"
         >
           Нажми на меня
         </Button>

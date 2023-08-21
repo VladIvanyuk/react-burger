@@ -2,8 +2,8 @@ import styles from "./ingredients-list.module.css";
 import { useCallback } from "react";
 import { Ingredient } from "../ingredient/ingredient";
 import { TDispatchActions, TIngredient, TIngredientsList } from "../../services/types/types";
-import { ON_CLICK_INGREDIENT } from "../../services/constants/constants";
 import { useDispatch } from "../../services/hooks/hooks";
+import { onClickIngredientDetailsAction } from "../../services/actions/ingredientsDetails";
 
 
 export const IngredientList: React.FC<TIngredientsList<TIngredient>> = ({ name, id, ingredientsInfo }) => {
@@ -13,10 +13,7 @@ export const IngredientList: React.FC<TIngredientsList<TIngredient>> = ({ name, 
   const findCurrentIngredient = useCallback(
     (id: string): void => {
       const clickedIngredient = ingredientsInfo.find((el) => el._id === id);
-      dispatch({
-        type: ON_CLICK_INGREDIENT,
-        ingredient: clickedIngredient,
-      });
+      if(clickedIngredient) dispatch(onClickIngredientDetailsAction(clickedIngredient));
     },
     [dispatch, ingredientsInfo]
   );
