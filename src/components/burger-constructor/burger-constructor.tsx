@@ -169,7 +169,7 @@ export const BurgerConstructor: React.FC = () => {
             />
           )}
           {isEmptyBuns && (
-            <p className={`${styles.emptyBuns} text text_type_digits-default`}>Добавьте булочку</p>
+            <p className={`${styles.emptyBuns} text text_type_digits-default`}>Перенесите булочку</p>
           )}
         </div>
         <div className={`${styles.scrollBlock} ${bordersMain} mb-4 pt-4 pr-2`}>
@@ -178,7 +178,7 @@ export const BurgerConstructor: React.FC = () => {
           ) : (
             <div className={`${styles.constructorPlaceholder}`}>
                 <p className="text text_type_digits-medium">
-                Добавьте игредиенты
+                Перенесите игредиенты
               </p>
             </div>
           )}
@@ -196,7 +196,7 @@ export const BurgerConstructor: React.FC = () => {
             />
           )}
           {isEmptyBuns && (
-            <p className={`${styles.emptyBuns} text text_type_digits-default`}>Добавьте булочку</p>
+            <p className={`${styles.emptyBuns} text text_type_digits-default`}>Перенесите булочку</p>
           )}
         </div>
       </div>

@@ -1,6 +1,7 @@
 {
   "name": "react-burger",
   "version": "0.1.0",
+  "homepage": "https://vladivanyuk.github.io/react-burger/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -32,7 +33,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "component": "hygen new component",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -57,6 +60,7 @@
     "@types/mocha": "^10.0.1",
     "@types/uuid": "^9.0.2",
     "cypress": "^12.17.3",
+    "gh-pages": "^6.0.0",
     "hygen": "^6.2.11",
     "jest": "^27.5.1"
   }
