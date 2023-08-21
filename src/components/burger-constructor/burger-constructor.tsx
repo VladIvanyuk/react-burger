@@ -211,6 +211,7 @@ export const BurgerConstructor: React.FC = () => {
           type="primary"
           size="large"
           onClick={sendData}
+          data-test="SendOrder"
         >
           Нажми на меня
         </Button>
