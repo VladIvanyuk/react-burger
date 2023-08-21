@@ -146,6 +146,7 @@ export const BurgerConstructor: React.FC = () => {
 
   return (
     <section
+      data-test='BurgerConstructor'
       ref={dropTarget}
       className={`${styles.constructorBlock} pr-1 pl-2`}
     >
@@ -164,6 +165,7 @@ export const BurgerConstructor: React.FC = () => {
               text={`${bun.name} (верх)`}
               price={bun.price}
               thumbnail={bun.image}
+              data-test='TopBun'
             />
           )}
           {isEmptyBuns && (
@@ -187,9 +189,10 @@ export const BurgerConstructor: React.FC = () => {
               extraClass="mb-4"
               type="bottom"
               isLocked={true}
-              text={`${bun.name} (верх)`}
+              text={`${bun.name} (низ)`}
               price={bun.price}
               thumbnail={bun.image}
+              data-test='BottomBun'
             />
           )}
           {isEmptyBuns && (

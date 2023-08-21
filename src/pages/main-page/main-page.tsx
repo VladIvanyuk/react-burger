@@ -4,7 +4,6 @@ import { BurgerIngredients } from "../../components/burger-ingredients/burger-in
 import styles from './main-page.module.css';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { RootState } from "../../services/types/types";
 import { useSelector } from "../../services/hooks/hooks";
 
 export const MainPage: React.FC = () => {

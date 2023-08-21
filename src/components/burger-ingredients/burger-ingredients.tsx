@@ -2,7 +2,7 @@ import styles from "./burger-ingredients.module.css";
 import React, { useMemo } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientList } from "../ingredients-list/ingredients-list";
-import { RootState, TIngredient, TTabs } from "../../services/types/types";
+import { TIngredient, TTabs } from "../../services/types/types";
 import { useSelector } from "../../services/hooks/hooks";
 
 export const BurgerIngredients: React.FC = () => {

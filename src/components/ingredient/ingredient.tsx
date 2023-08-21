@@ -57,6 +57,7 @@ export const Ingredient: React.FC<TSmallIngredient> = ({ onFindCurrentIngredient
         key={id}
         className={styles.item}
         style={{opacity}}
+        data-test={name}
       >
         {ingredientCounter > 0 && 
         <Counter count={ingredientCounter} size="default" extraClass="m-1" />}
