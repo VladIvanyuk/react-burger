@@ -24,7 +24,7 @@ ______
 * :heavy_check_mark: TypeScript
 * :heavy_check_mark: React.js
 * :heavy_check_mark: React Router
-* :heavy_check_mark: Redux Toolkit
+* :heavy_check_mark: Redux/Redux Toolkit
 * :heavy_check_mark: React DND
 * :heavy_check_mark: REST API
 * :heavy_check_mark: Websocket
