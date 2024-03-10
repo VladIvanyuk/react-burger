@@ -16,7 +16,7 @@ export const MainPage: React.FC = () => {
             <AppHeader />
             <main className={`${styles.main} pl-5 pr-5`}>
               <h2 className="text text_type_main-large mb-5">
-                Соберите бургер
+                Соберите бургер!
               </h2>
               <section className={styles.burgerBlock}>
                 <DndProvider backend={HTML5Backend}>
